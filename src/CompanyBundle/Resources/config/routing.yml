@@ -1,0 +1,26 @@
+no_company_homepage:
+    path:     /company 
+    defaults: { _controller: CompanyBundle:Default:index }
+
+no_create_company:
+    path:     /create/company
+    defaults: { _controller: CompanyBundle:Default:createCompany }
+
+no_add_company_moderator:
+    path:     /create/moderator
+    defaults: { _controller:CompanyBundle:Default:addModerator }
+
+no_disable_company_moderator:
+    path:    /company/d/mod/{id}
+    defaults: { _controller:CompanyBundle:Default:disableModerator  }
+    requirements:
+        id: '\d+'
+
+
+no_change_password_company_moderator:
+    path:    /company/c/pass/mod/{id}
+    defaults: { _controller:CompanyBundle:Default:changeModeratorPassword  }
+    requirements:
+        id: '\d+'
+
+

@@ -1,0 +1,28 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+
+{% block fos_user_content %}
+
+
+
+<main>
+      
+<div class="container">
+    <h3> Se connecter</h3>
+    <div class="container login">
+        <div class="row">
+            <form action="{{ path("fos_user_security_check") }}" method="post">
+                <input class="form-control width" type="text" id="email" name="_username" placeholder="Adresse mail" required />
+                <br>
+                <input class="form-control width" type="password" id="password" name="_password" placeholder="Mot de passe" required />
+                <br/>
+                 <button class="btn btn-default" type="submit" id="_submit" name="_submit" >Envoyez</button>
+            </form>
+               
+        </div>
+    </div>
+    </div>
+        
+</main>
+
+{% endblock fos_user_content %}

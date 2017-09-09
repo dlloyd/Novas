@@ -1,0 +1,66 @@
+<?php
+
+namespace NOUserBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use FOS\UserBundle\Model\User as BaseUser;
+
+/**
+ * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="NOUserBundle\Repository\UserRepository")
+ */
+class User extends BaseUser 
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    protected $id;
+
+    /**
+    * @ORM\ManyToMany(targetEntity="NODiagBundle\Entity\Answer", inversedBy="users")
+    */
+    private $answers;
+
+
+    
+
+    /**
+     * Add answer
+     *
+     * @param \NODiagBundle\Entity\Answer $answer
+     *
+     * @return User
+     */
+    public function addAnswer(\NODiagBundle\Entity\Answer $answer)
+    {
+        $this->answers[] = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Remove answer
+     *
+     * @param \NODiagBundle\Entity\Answer $answer
+     */
+    public function removeAnswer(\NODiagBundle\Entity\Answer $answer)
+    {
+        $this->answers->removeElement($answer);
+    }
+
+    /**
+     * Get answers
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+}

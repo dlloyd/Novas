@@ -1,0 +1,3 @@
+no_diag_homepage:
+    path:     /
+    defaults: { _controller: NODiagBundle:Default:index }

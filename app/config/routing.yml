@@ -1,0 +1,15 @@
+company:
+    resource: "@CompanyBundle/Resources/config/routing.yml"
+    prefix:   /
+
+no_diag:
+    resource: "@NODiagBundle/Resources/config/routing.yml"
+    prefix:   /
+
+no_user:
+    resource: "@NOUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation

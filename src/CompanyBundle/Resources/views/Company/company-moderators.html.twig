@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h2> {{ company.denomination }}  </h2>
+
+<ul>
+{% for mod in company.moderators %}
+
+<li> {{ mod.username }} <a href="{{ path('no_delete_moderator', {'moderatorId': mod.id }) }}"> supprimer </a> </li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

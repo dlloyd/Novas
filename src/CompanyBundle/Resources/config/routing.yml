@@ -2,17 +2,47 @@ no_company_homepage:
     path:     /company 
     defaults: { _controller: CompanyBundle:Default:index }
 
+no_all_companies:
+    path:    /admin/companies
+    defaults: { _controller: CompanyBundle:Default:getCompanies  }
+
 no_create_company:
-    path:     /create/company
+    path:     /admin/create/company
     defaults: { _controller: CompanyBundle:Default:createCompany }
 
+no_show_company_accounts:
+    path:     /admin/show/company/{companyId}
+    defaults: { _controller: CompanyBundle:Default:getCompanyModerators }
+
 no_add_company_moderator:
-    path:     /create/moderator
-    defaults: { _controller:CompanyBundle:Default:addModerator }
+    path:     /admin/create/moderator/{companyId}
+    defaults: { _controller: CompanyBundle:Default:addModerator }
+
+no_disable_company:
+    path:     /admin/dis/{companyId}
+    defaults: { _controller: CompanyBundle:Default:disableCompanyAndAccounts }
+
+no_enable_company:
+    path:     /admin/ena/{companyId}
+    defaults: { _controller: CompanyBundle:Default:enableCompanyAndAccounts }
+
+no_delete_moderator:
+    path:     /admin/delete/mod/{moderatorId}
+    defaults: { _controller:CompanyBundle:Default:deleteModerator }
+
+no_company_show_moderators:
+   path:      /company/moderators
+   defaults:  { _controller: CompanyBundle:Default:getModerators }
 
 no_disable_company_moderator:
     path:    /company/d/mod/{id}
     defaults: { _controller:CompanyBundle:Default:disableModerator  }
+    requirements:
+        id: '\d+'
+
+no_disable_company_moderator:
+    path:    /company/e/mod/{id}
+    defaults: { _controller:CompanyBundle:Default:EnableModerator  }
     requirements:
         id: '\d+'
 

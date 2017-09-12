@@ -23,18 +23,19 @@ class User extends BaseUser
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company", inversedBy="moderators", nullable=false)
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company", inversedBy="moderators")
     */
     private $company;
 
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="status", type="string", length=10, unique=false)
-     * @Assert\Length(min=3)
-     */
-    private $status;  //admin or employee
+    * @var string
+    *
+    * @ORM\Column(name="company_function", type="string", length=100)
+    */
+    private $companyFunction;
+
+
 
     /**
     * @ORM\ManyToMany(targetEntity="NODiagBundle\Entity\QuestionSubFamily", cascade={"persist"})
@@ -48,4 +49,52 @@ class User extends BaseUser
     
 
    
+
+    /**
+     * Set companyFunction
+     *
+     * @param string $companyFunction
+     *
+     * @return User
+     */
+    public function setCompanyFunction($companyFunction)
+    {
+        $this->companyFunction = $companyFunction;
+
+        return $this;
+    }
+
+    /**
+     * Get companyFunction
+     *
+     * @return string
+     */
+    public function getCompanyFunction()
+    {
+        return $this->companyFunction;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \CompanyBundle\Entity\Company $company
+     *
+     * @return User
+     */
+    public function setCompany(\CompanyBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \CompanyBundle\Entity\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
 }

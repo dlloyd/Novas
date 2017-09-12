@@ -23,44 +23,27 @@ class User extends BaseUser
     protected $id;
 
     /**
-    * @ORM\ManyToMany(targetEntity="NODiagBundle\Entity\Answer", inversedBy="users")
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company", inversedBy="moderators")
     */
-    private $answers;
+    private $company;
+
+
+    /**
+    * @var string
+    *
+    * @ORM\Column(name="company_function", type="string", length=100)
+    */
+    private $companyFunction;
+
 
 
     
 
-    /**
-     * Add answer
-     *
-     * @param \NODiagBundle\Entity\Answer $answer
-     *
-     * @return User
-     */
-    public function addAnswer(\NODiagBundle\Entity\Answer $answer)
-    {
-        $this->answers[] = $answer;
 
-        return $this;
-    }
 
-    /**
-     * Remove answer
-     *
-     * @param \NODiagBundle\Entity\Answer $answer
-     */
-    public function removeAnswer(\NODiagBundle\Entity\Answer $answer)
-    {
-        $this->answers->removeElement($answer);
-    }
 
-    /**
-     * Get answers
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getAnswers()
-    {
-        return $this->answers;
-    }
+
+    
+
+   
 }

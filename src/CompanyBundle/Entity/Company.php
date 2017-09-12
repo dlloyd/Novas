@@ -49,9 +49,9 @@ class Company
     private $employeesNumber;
 
     /**
-     * @var \DateTime
+     * @var \Date
      *
-     * @ORM\Column(name="date", type="datetime")
+     * @ORM\Column(name="date_begin", type="date")
      */
     private $activityBeginDate;
 
@@ -69,7 +69,7 @@ class Company
     /**
     * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ResponseQuestionCompany", inversedBy="company")
     */
-    private $responseQuestionsCompany;
+    //private $responseQuestionsCompany;
 
 
     /**
@@ -87,5 +87,144 @@ class Company
     {
         return $this->id;
     }
-}
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->moderators = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
+    /**
+     * Set innerId
+     *
+     * @param string $innerId
+     *
+     * @return Company
+     */
+    public function setInnerId($innerId)
+    {
+        $this->innerId = $innerId;
+
+        return $this;
+    }
+
+    /**
+     * Get innerId
+     *
+     * @return string
+     */
+    public function getInnerId()
+    {
+        return $this->innerId;
+    }
+
+    /**
+     * Set denomination
+     *
+     * @param string $denomination
+     *
+     * @return Company
+     */
+    public function setDenomination($denomination)
+    {
+        $this->denomination = $denomination;
+
+        return $this;
+    }
+
+    /**
+     * Get denomination
+     *
+     * @return string
+     */
+    public function getDenomination()
+    {
+        return $this->denomination;
+    }
+
+    /**
+     * Set employeesNumber
+     *
+     * @param integer $employeesNumber
+     *
+     * @return Company
+     */
+    public function setEmployeesNumber($employeesNumber)
+    {
+        $this->employeesNumber = $employeesNumber;
+
+        return $this;
+    }
+
+    /**
+     * Get employeesNumber
+     *
+     * @return integer
+     */
+    public function getEmployeesNumber()
+    {
+        return $this->employeesNumber;
+    }
+
+    /**
+     * Set activityBeginDate
+     *
+     * @param \DateTime $activityBeginDate
+     *
+     * @return Company
+     */
+    public function setActivityBeginDate($activityBeginDate)
+    {
+        $this->activityBeginDate = $activityBeginDate;
+
+        return $this;
+    }
+
+    /**
+     * Get activityBeginDate
+     *
+     * @return string
+     */
+    public function getActivityBeginDate()
+    {
+        if($this->activityBeginDate !=null)
+            return $this->activityBeginDate->format('d/m/Y');
+        else
+            return $this->activityBeginDate;
+    }
+
+    /**
+     * Add moderator
+     *
+     * @param \NOUserBundle\Entity\User $moderator
+     *
+     * @return Company
+     */
+    public function addModerator(\NOUserBundle\Entity\User $moderator)
+    {
+        $this->moderators[] = $moderator;
+
+        return $this;
+    }
+
+    /**
+     * Remove moderator
+     *
+     * @param \NOUserBundle\Entity\User $moderator
+     */
+    public function removeModerator(\NOUserBundle\Entity\User $moderator)
+    {
+        $this->moderators->removeElement($moderator);
+    }
+
+    /**
+     * Get moderators
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModerators()
+    {
+        return $this->moderators;
+    }
+}

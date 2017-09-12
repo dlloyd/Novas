@@ -23,7 +23,7 @@ class QuestionSubFamily
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NODIagBundle\Entity\QuestionFamily")
+    * @ORM\OneToOne(targetEntity="NODiagBundle\Entity\QuestionFamily")
     * @ORM\JoinColumn(nullable=false)
     */
     private $family;

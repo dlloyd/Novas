@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<ul>
+{% for moderator in moderators %}
+
+<li> {{ moderator.username }} 
+{% if not moderator.role("ROLE_COMPANY_OWNER") %}
+ {% if moderator.enabled %}
+  <a href="#" >désactiver </a>
+ {% else %}
+  <a href="#"> activer </a>
+ {% endif %}
+
+{% endif %}
+
+ <a href="#"> changer le mot de passe </a> </li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

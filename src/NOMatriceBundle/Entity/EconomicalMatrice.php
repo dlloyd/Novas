@@ -1,16 +1,16 @@
 <?php
 
-namespace CompanyBundle\Entity;
+namespace NOMatriceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * LegalStatus
+ * EconomicalMatrice
  *
- * @ORM\Table(name="legal_status")
- * @ORM\Entity(repositoryClass="CompanyBundle\Repository\LegalStatusRepository")
+ * @ORM\Table(name="economical_matrice")
+ * @ORM\Entity(repositoryClass="NOMatriceBundle\Repository\EconomicalMatriceRepository")
  */
-class LegalStatus
+class EconomicalMatrice
 {
     /**
      * @var int
@@ -22,11 +22,9 @@ class LegalStatus
     private $id;
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length="60")
-     */
-    private $name; 
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\MatriceBilan")
+    */
+    private $matriceBilan;
 
 
     /**

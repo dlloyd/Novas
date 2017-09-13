@@ -1,16 +1,16 @@
 <?php
 
-namespace CompanyBundle\Entity;
+namespace NOMatriceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * CategMatrice
+ * PoliticalMatrice
  *
- * @ORM\Table(name="categ_matrice")
- * @ORM\Entity(repositoryClass="CompanyBundle\Repository\CategMatriceRepository")
+ * @ORM\Table(name="political_matrice")
+ * @ORM\Entity(repositoryClass="NOMatriceBundle\Repository\PoliticalMatriceRepository")
  */
-class CategMatrice
+class PoliticalMatrice
 {
     /**
      * @var int
@@ -20,6 +20,9 @@ class CategMatrice
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
+
+
+    private $matriceBilan;
 
 
     /**

@@ -1,3 +1,7 @@
+no_matrice:
+    resource: "@NOMatriceBundle/Resources/config/routing.yml"
+    prefix:   /
+
 company:
     resource: "@CompanyBundle/Resources/config/routing.yml"
     prefix:   /

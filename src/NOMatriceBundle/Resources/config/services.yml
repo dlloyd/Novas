@@ -1,0 +1,4 @@
+services:
+#    no_matrice.example:
+#        class: NOMatriceBundle\Example
+#        arguments: ["@service_id", "plain_value", "%parameter%"]

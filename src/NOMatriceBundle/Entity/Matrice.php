@@ -1,6 +1,6 @@
 <?php
 
-namespace CompanyBundle\Entity;
+namespace NOMatriceBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Matrice
  *
  * @ORM\Table(name="matrice")
- * @ORM\Entity(repositoryClass="CompanyBundle\Repository\MatriceRepository")
+ * @ORM\Entity(repositoryClass="NOMatriceBundle\Repository\MatriceRepository")
  */
 class Matrice
 {
@@ -21,9 +21,17 @@ class Matrice
      */
     private $id;
 
-    //private $politicalMatrice;
-    //private $economicalMatrice;
-     
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\PoliticalMatrice")
+    */
+    private $politicalMatrice;
+
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EconomicalMatrice")
+    */
+    private $economicalMatrice;
 
 
     /**

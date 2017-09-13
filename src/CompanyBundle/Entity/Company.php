@@ -39,7 +39,14 @@ class Company
      */
     private $denomination;
 
-    //private $legalStatus;
+    
+
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\LegalStatus")
+    */
+    private $legalStatus;
 
     /**
      * @var int
@@ -55,15 +62,44 @@ class Company
      */
     private $activityBeginDate;
 
-    //private $socialCapital;
 
-    //private $activityBranch;
 
-    //private $address;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="social_capital", type="string", length=20, unique=false)
+     */
+    private $socialCapital;
 
-    //private $codeNAF;
 
-    //private $matrice;
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\ActivityBranch")
+    */
+    private $activityBranch;
+
+
+    /**
+     * @ORM\OneToOne(targetEntity="CompanyBundle\Entity\Address")
+    */
+    private $address;
+
+    
+
+    /**
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\CodeNAF")
+    */
+    private $codeNAF;
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\Matrice")
+    */
+    private $matrice;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="NOUserBundle\Entity\User", mappedBy="company", cascade={"persist"})
+    */
+    private $moderators;
 
 
     /**
@@ -72,10 +108,7 @@ class Company
     //private $responseQuestionsCompany;
 
 
-    /**
-     * @ORM\OneToMany(targetEntity="NOUserBundle\Entity\User", mappedBy="company", cascade={"persist"})
-    */
-    private $moderators;
+    
 
 
     /**

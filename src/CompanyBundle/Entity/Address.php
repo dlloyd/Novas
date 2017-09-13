@@ -21,11 +21,29 @@ class Address
      */
     private $id;
 
-    //private $address;
-    //private $postalCode;
-    //private $phoneNumber;
-    //private $city;
-    //private $mail;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length="100")
+     */
+    private $address;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="code_postal", type="string", length="20")
+     */
+    private $postalCode;
+
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length="50")
+     */
+    private $city;
 
 
     /**

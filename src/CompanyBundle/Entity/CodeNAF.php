@@ -21,7 +21,13 @@ class CodeNAF
      */
     private $id;
 
-    //private $name;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="name", type="string", length="60")
+     */
+    private $name;
 
 
     /**

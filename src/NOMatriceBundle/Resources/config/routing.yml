@@ -1,0 +1,3 @@
+no_matrice_homepage:
+    path:     /
+    defaults: { _controller: NOMatriceBundle:Default:index }

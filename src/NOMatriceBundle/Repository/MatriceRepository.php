@@ -1,6 +1,6 @@
 <?php
 
-namespace CompanyBundle\Repository;
+namespace NOMatriceBundle\Repository;
 
 /**
  * MatriceRepository

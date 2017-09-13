@@ -24,9 +24,9 @@ class QuestionFamily
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=false)
      */
-    private $question;
+    private $name;
 
 
     /**
@@ -39,27 +39,29 @@ class QuestionFamily
         return $this->id;
     }
 
+   
+
     /**
-     * Set question
+     * Set name
      *
-     * @param string $question
+     * @param string $name
      *
      * @return QuestionFamily
      */
-    public function setQuestion($question)
+    public function setName($name)
     {
-        $this->question = $question;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get question
+     * Get name
      *
      * @return string
      */
-    public function getQuestion()
+    public function getName()
     {
-        return $this->question;
+        return $this->name;
     }
 }

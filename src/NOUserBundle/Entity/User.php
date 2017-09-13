@@ -31,7 +31,8 @@ class User extends BaseUser
     /**
     * @var string
     *
-    * @ORM\Column(name="company_function", type="string", length=100)
+    * @ORM\Column(name="company_function", type="string", length=100, nullable=true)
+    * 
     */
     private $companyFunction;
 

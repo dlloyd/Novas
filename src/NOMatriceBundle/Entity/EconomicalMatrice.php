@@ -36,5 +36,28 @@ class EconomicalMatrice
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set matriceBilan
+     *
+     * @param \NOMatriceBundle\Entity\MatriceBilan $matriceBilan
+     *
+     * @return EconomicalMatrice
+     */
+    public function setMatriceBilan(\NOMatriceBundle\Entity\MatriceBilan $matriceBilan = null)
+    {
+        $this->matriceBilan = $matriceBilan;
+
+        return $this;
+    }
+
+    /**
+     * Get matriceBilan
+     *
+     * @return \NOMatriceBundle\Entity\MatriceBilan
+     */
+    public function getMatriceBilan()
+    {
+        return $this->matriceBilan;
+    }
+}

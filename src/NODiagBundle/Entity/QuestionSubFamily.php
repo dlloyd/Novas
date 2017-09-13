@@ -23,7 +23,7 @@ class QuestionSubFamily
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NODiagBundle\Entity\QuestionFamily")
+    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionFamily")
     * @ORM\JoinColumn(nullable=false)
     */
     private $family;
@@ -32,9 +32,9 @@ class QuestionSubFamily
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="string", length=255, unique=false)
+     * @ORM\Column(name="name", type="string", length=255, unique=false)
      */
-    private $question;
+    private $name;
 
 
     /**
@@ -47,38 +47,40 @@ class QuestionSubFamily
         return $this->id;
     }
 
+    
+
     /**
-     * Set question
+     * Set name
      *
-     * @param string $question
+     * @param string $name
      *
      * @return QuestionSubFamily
      */
-    public function setQuestion($question)
+    public function setName($name)
     {
-        $this->question = $question;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get question
+     * Get name
      *
      * @return string
      */
-    public function getQuestion()
+    public function getName()
     {
-        return $this->question;
+        return $this->name;
     }
 
     /**
      * Set family
      *
-     * @param \NODIagBundle\Entity\QuestionFamily $family
+     * @param \NODiagBundle\Entity\QuestionFamily $family
      *
      * @return QuestionSubFamily
      */
-    public function setFamily(\NODIagBundle\Entity\QuestionFamily $family)
+    public function setFamily(\NODiagBundle\Entity\QuestionFamily $family)
     {
         $this->family = $family;
 
@@ -88,7 +90,7 @@ class QuestionSubFamily
     /**
      * Get family
      *
-     * @return \NODIagBundle\Entity\QuestionFamily
+     * @return \NODiagBundle\Entity\QuestionFamily
      */
     public function getFamily()
     {

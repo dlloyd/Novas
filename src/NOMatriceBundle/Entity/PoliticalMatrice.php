@@ -35,4 +35,3 @@ class PoliticalMatrice
         return $this->id;
     }
 }
-

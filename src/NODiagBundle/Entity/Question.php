@@ -23,7 +23,7 @@ class Question
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NODIagBundle\Entity\QuestionSubFamily")
+    * @ORM\ManyToOne(targetEntity="NODIagBundle\Entity\QuestionSubFamily")
     * @ORM\JoinColumn(nullable=false)
     */
     private $subFamily;
@@ -43,6 +43,12 @@ class Question
     private $answers;
 
 
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ResponseQuestionCompany", mappedBy="question")
+    */
+    private $responseQuestionsCompany;
+
+
     
 
 
@@ -54,6 +60,18 @@ class Question
     public function getId()
     {
         return $this->id;
+    }
+
+    
+
+   
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->responseQuestionsCompany = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -103,13 +121,6 @@ class Question
     {
         return $this->subFamily;
     }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
-    }
 
     /**
      * Add answer
@@ -145,5 +156,37 @@ class Question
         return $this->answers;
     }
 
-   
+    /**
+     * Add responseQuestionsCompany
+     *
+     * @param \NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany
+     *
+     * @return Question
+     */
+    public function addResponseQuestionsCompany(\NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany)
+    {
+        $this->responseQuestionsCompany[] = $responseQuestionsCompany;
+
+        return $this;
+    }
+
+    /**
+     * Remove responseQuestionsCompany
+     *
+     * @param \NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany
+     */
+    public function removeResponseQuestionsCompany(\NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany)
+    {
+        $this->responseQuestionsCompany->removeElement($responseQuestionsCompany);
+    }
+
+    /**
+     * Get responseQuestionsCompany
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponseQuestionsCompany()
+    {
+        return $this->responseQuestionsCompany;
+    }
 }

@@ -43,5 +43,52 @@ class Matrice
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set politicalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\PoliticalMatrice $politicalMatrice
+     *
+     * @return Matrice
+     */
+    public function setPoliticalMatrice(\NOMatriceBundle\Entity\PoliticalMatrice $politicalMatrice = null)
+    {
+        $this->politicalMatrice = $politicalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get politicalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\PoliticalMatrice
+     */
+    public function getPoliticalMatrice()
+    {
+        return $this->politicalMatrice;
+    }
+
+    /**
+     * Set economicalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\EconomicalMatrice $economicalMatrice
+     *
+     * @return Matrice
+     */
+    public function setEconomicalMatrice(\NOMatriceBundle\Entity\EconomicalMatrice $economicalMatrice = null)
+    {
+        $this->economicalMatrice = $economicalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get economicalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\EconomicalMatrice
+     */
+    public function getEconomicalMatrice()
+    {
+        return $this->economicalMatrice;
+    }
+}

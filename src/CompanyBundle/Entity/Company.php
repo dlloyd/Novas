@@ -103,9 +103,9 @@ class Company
 
 
     /**
-    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ResponseQuestionCompany", inversedBy="company")
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ResponseQuestionCompany", mappedBy="company")
     */
-    //private $responseQuestionsCompany;
+    private $responseQuestionsCompany;
 
 
     
@@ -259,5 +259,183 @@ class Company
     public function getModerators()
     {
         return $this->moderators;
+    }
+
+    /**
+     * Set socialCapital
+     *
+     * @param string $socialCapital
+     *
+     * @return Company
+     */
+    public function setSocialCapital($socialCapital)
+    {
+        $this->socialCapital = $socialCapital;
+
+        return $this;
+    }
+
+    /**
+     * Get socialCapital
+     *
+     * @return string
+     */
+    public function getSocialCapital()
+    {
+        return $this->socialCapital;
+    }
+
+    /**
+     * Set legalStatus
+     *
+     * @param \CompanyBundle\Entity\LegalStatus $legalStatus
+     *
+     * @return Company
+     */
+    public function setLegalStatus(\CompanyBundle\Entity\LegalStatus $legalStatus = null)
+    {
+        $this->legalStatus = $legalStatus;
+
+        return $this;
+    }
+
+    /**
+     * Get legalStatus
+     *
+     * @return \CompanyBundle\Entity\LegalStatus
+     */
+    public function getLegalStatus()
+    {
+        return $this->legalStatus;
+    }
+
+    /**
+     * Set activityBranch
+     *
+     * @param \CompanyBundle\Entity\ActivityBranch $activityBranch
+     *
+     * @return Company
+     */
+    public function setActivityBranch(\CompanyBundle\Entity\ActivityBranch $activityBranch = null)
+    {
+        $this->activityBranch = $activityBranch;
+
+        return $this;
+    }
+
+    /**
+     * Get activityBranch
+     *
+     * @return \CompanyBundle\Entity\ActivityBranch
+     */
+    public function getActivityBranch()
+    {
+        return $this->activityBranch;
+    }
+
+    /**
+     * Set address
+     *
+     * @param \CompanyBundle\Entity\Address $address
+     *
+     * @return Company
+     */
+    public function setAddress(\CompanyBundle\Entity\Address $address = null)
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    /**
+     * Get address
+     *
+     * @return \CompanyBundle\Entity\Address
+     */
+    public function getAddress()
+    {
+        return $this->address;
+    }
+
+    /**
+     * Set codeNAF
+     *
+     * @param \CompanyBundle\Entity\CodeNAF $codeNAF
+     *
+     * @return Company
+     */
+    public function setCodeNAF(\CompanyBundle\Entity\CodeNAF $codeNAF = null)
+    {
+        $this->codeNAF = $codeNAF;
+
+        return $this;
+    }
+
+    /**
+     * Get codeNAF
+     *
+     * @return \CompanyBundle\Entity\CodeNAF
+     */
+    public function getCodeNAF()
+    {
+        return $this->codeNAF;
+    }
+
+    /**
+     * Set matrice
+     *
+     * @param \NOMatriceBundle\Entity\Matrice $matrice
+     *
+     * @return Company
+     */
+    public function setMatrice(\NOMatriceBundle\Entity\Matrice $matrice = null)
+    {
+        $this->matrice = $matrice;
+
+        return $this;
+    }
+
+    /**
+     * Get matrice
+     *
+     * @return \NOMatriceBundle\Entity\Matrice
+     */
+    public function getMatrice()
+    {
+        return $this->matrice;
+    }
+
+    /**
+     * Add responseQuestionsCompany
+     *
+     * @param \NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany
+     *
+     * @return Company
+     */
+    public function addResponseQuestionsCompany(\NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany)
+    {
+        $this->responseQuestionsCompany[] = $responseQuestionsCompany;
+
+        return $this;
+    }
+
+    /**
+     * Remove responseQuestionsCompany
+     *
+     * @param \NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany
+     */
+    public function removeResponseQuestionsCompany(\NODiagBundle\Entity\ResponseQuestionCompany $responseQuestionsCompany)
+    {
+        $this->responseQuestionsCompany->removeElement($responseQuestionsCompany);
+    }
+
+    /**
+     * Get responseQuestionsCompany
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getResponseQuestionsCompany()
+    {
+        return $this->responseQuestionsCompany;
     }
 }

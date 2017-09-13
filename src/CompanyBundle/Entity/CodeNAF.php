@@ -25,7 +25,7 @@ class CodeNAF
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length="60")
+     * @ORM\Column(name="name", type="string", length=60)
      */
     private $name;
 
@@ -39,5 +39,28 @@ class CodeNAF
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return CodeNAF
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+}

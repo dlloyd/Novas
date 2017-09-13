@@ -24,7 +24,7 @@ class LegalStatus
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length="60")
+     * @ORM\Column(name="name", type="string", length=60)
      */
     private $name; 
 
@@ -38,5 +38,28 @@ class LegalStatus
     {
         return $this->id;
     }
-}
 
+    /**
+     * Set name
+     *
+     * @param string $name
+     *
+     * @return LegalStatus
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+}

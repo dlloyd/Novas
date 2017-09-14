@@ -13,7 +13,11 @@ class QuestionSubFamilyType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('question')->add('family');
+        $builder->add('name','text')
+                ->add('family','entity',array(
+                    'class'    => 'NODiagBundle:QuestionFamily',
+                    'property' => 'name',
+                    'multiple' => false ,));
     }
     
     /**

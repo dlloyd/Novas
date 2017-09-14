@@ -1,3 +1,18 @@
-no_diag_homepage:
-    path:     /diag
-    defaults: { _controller: NODiagBundle:Default:index }
+no_create_question_family:
+    path:     /admin/c/famquest/
+    defaults: { _controller: NODiagBundle:QuestionFamily:createQuestionFamily }
+
+
+no_create_question_sub_family:
+    path:     /admin/c/famsubquest/
+    defaults: { _controller: NODiagBundle:QuestionSubFamily:createQuestionSubFamily }
+
+
+no_update_questionfamily:
+    path:     /admin/u/famquest/{id}
+    defaults: { _controller: NODiagBundle:QuestionFamily:updateQuestionFamily }
+
+
+no_update_question_sub_family:
+    path:     /admin/u/famsubquest/{id}
+    defaults: { _controller: NODiagBundle:QuestionSubFamily:updateQuestionSubFamily }

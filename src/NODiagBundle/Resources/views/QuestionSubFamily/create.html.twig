@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Créer une sous-famille de question </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_create_question_sub_family') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+<br><br/><br/>
+<h3> Liste de sous-familles </h3>
+
+<ul>
+{% for subFam in subFams %}
+<li> {{ subFam.name }}   : {{ subFam.family.name }}  </li>
+
+{% endfor %}
+</ul>
+
+{% endblock %}

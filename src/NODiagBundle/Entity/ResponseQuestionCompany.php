@@ -39,5 +39,52 @@ class ResponseQuestionCompany
    private $answerId;
 
    private $comment;
-}
 
+    /**
+     * Set company
+     *
+     * @param \CompanyBundle\Entity\Company $company
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setCompany(\CompanyBundle\Entity\Company $company)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \CompanyBundle\Entity\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \NODiagBundle\Entity\Question $question
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setQuestion(\NODiagBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \NODiagBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
+}

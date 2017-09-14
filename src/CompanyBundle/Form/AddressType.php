@@ -1,19 +1,19 @@
 <?php
 
-namespace NODiagBundle\Form;
+namespace CompanyBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class QuestionFamilyType extends AbstractType
+class AddressType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name','text');
+        $builder->add('address')->add('postalCode')->add('city');
     }
     
     /**
@@ -22,7 +22,7 @@ class QuestionFamilyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NODiagBundle\Entity\QuestionFamily'
+            'data_class' => 'CompanyBundle\Entity\Address'
         ));
     }
 
@@ -31,7 +31,7 @@ class QuestionFamilyType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'nodiagbundle_questionfamily';
+        return 'companybundle_address';
     }
 
 

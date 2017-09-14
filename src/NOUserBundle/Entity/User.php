@@ -44,6 +44,12 @@ class User extends BaseUser
     private $questionSubFamilies;
 
 
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ModeratorAccessRight", mappedBy="moderator")
+    */
+    private $moderatorAccessRight;
+
+
 
 
 
@@ -97,5 +103,73 @@ class User extends BaseUser
     public function getCompany()
     {
         return $this->company;
+    }
+
+    /**
+     * Add questionSubFamily
+     *
+     * @param \NODiagBundle\Entity\QuestionSubFamily $questionSubFamily
+     *
+     * @return User
+     */
+    public function addQuestionSubFamily(\NODiagBundle\Entity\QuestionSubFamily $questionSubFamily)
+    {
+        $this->questionSubFamilies[] = $questionSubFamily;
+
+        return $this;
+    }
+
+    /**
+     * Remove questionSubFamily
+     *
+     * @param \NODiagBundle\Entity\QuestionSubFamily $questionSubFamily
+     */
+    public function removeQuestionSubFamily(\NODiagBundle\Entity\QuestionSubFamily $questionSubFamily)
+    {
+        $this->questionSubFamilies->removeElement($questionSubFamily);
+    }
+
+    /**
+     * Get questionSubFamilies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestionSubFamilies()
+    {
+        return $this->questionSubFamilies;
+    }
+
+    /**
+     * Add moderatorAccessRight
+     *
+     * @param \NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight
+     *
+     * @return User
+     */
+    public function addModeratorAccessRight(\NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight)
+    {
+        $this->moderatorAccessRight[] = $moderatorAccessRight;
+
+        return $this;
+    }
+
+    /**
+     * Remove moderatorAccessRight
+     *
+     * @param \NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight
+     */
+    public function removeModeratorAccessRight(\NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight)
+    {
+        $this->moderatorAccessRight->removeElement($moderatorAccessRight);
+    }
+
+    /**
+     * Get moderatorAccessRight
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModeratorAccessRight()
+    {
+        return $this->moderatorAccessRight;
     }
 }

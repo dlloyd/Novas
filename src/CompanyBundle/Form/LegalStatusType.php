@@ -1,12 +1,12 @@
 <?php
 
-namespace NODiagBundle\Form;
+namespace CompanyBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class QuestionFamilyType extends AbstractType
+class LegalStatusType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -22,7 +22,7 @@ class QuestionFamilyType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NODiagBundle\Entity\QuestionFamily'
+            'data_class' => 'CompanyBundle\Entity\LegalStatus'
         ));
     }
 
@@ -31,7 +31,7 @@ class QuestionFamilyType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'nodiagbundle_questionfamily';
+        return 'companybundle_legalstatus';
     }
 
 

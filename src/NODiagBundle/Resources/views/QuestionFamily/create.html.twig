@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Créer une famille de questions </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_create_question_family') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+<br><br/><br/>
+<h3> Liste de familles </h3>
+
+<ul>
+{% for fam in fams %}
+<li> {{ fam.name }}   </li>
+
+{% endfor %}
+</ul>
+
+
+{% endblock %}

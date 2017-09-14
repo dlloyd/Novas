@@ -38,6 +38,12 @@ class QuestionSubFamily
 
 
     /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ModeratorAccessRight", mappedBy="questionSubFamily")
+    */
+    private $moderatorAccessRight;
+
+
+    /**
      * Get id
      *
      * @return int
@@ -95,5 +101,46 @@ class QuestionSubFamily
     public function getFamily()
     {
         return $this->family;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->moderatorAccessRight = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add moderatorAccessRight
+     *
+     * @param \NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight
+     *
+     * @return QuestionSubFamily
+     */
+    public function addModeratorAccessRight(\NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight)
+    {
+        $this->moderatorAccessRight[] = $moderatorAccessRight;
+
+        return $this;
+    }
+
+    /**
+     * Remove moderatorAccessRight
+     *
+     * @param \NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight
+     */
+    public function removeModeratorAccessRight(\NODiagBundle\Entity\ModeratorAccessRight $moderatorAccessRight)
+    {
+        $this->moderatorAccessRight->removeElement($moderatorAccessRight);
+    }
+
+    /**
+     * Get moderatorAccessRight
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getModeratorAccessRight()
+    {
+        return $this->moderatorAccessRight;
     }
 }

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Mettre à jour la branche d'activité </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_update_activity_branch',{'id':id}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

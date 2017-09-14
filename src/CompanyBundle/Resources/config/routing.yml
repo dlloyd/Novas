@@ -1,56 +1,118 @@
 no_company_homepage:
     path:     /company 
-    defaults: { _controller: CompanyBundle:Default:index }
+    defaults: { _controller: CompanyBundle:Company:index }
 
 no_all_companies:
     path:    /admin/companies
-    defaults: { _controller: CompanyBundle:Default:getCompanies  }
+    defaults: { _controller: CompanyBundle:Company:getCompanies  }
 
 no_create_company:
     path:     /admin/create/company
-    defaults: { _controller: CompanyBundle:Default:createCompany }
+    defaults: { _controller: CompanyBundle:Company:createCompany }
 
 no_show_company_accounts:
     path:     /admin/show/company/{companyId}
-    defaults: { _controller: CompanyBundle:Default:getCompanyModerators }
+    defaults: { _controller: CompanyBundle:Company:getCompanyModerators }
 
 no_add_company_moderator:
     path:     /admin/create/moderator/{companyId}
-    defaults: { _controller: CompanyBundle:Default:addModerator }
+    defaults: { _controller: CompanyBundle:Company:addModerator }
+
+no_add_moderator_access_right:
+    path:     /admin/a/mod/ar/{moderatorId}
+    defaults: { _controller: CompanyBundle:Company:setModeratorAccessRight }
 
 no_disable_company:
     path:     /admin/dis/{companyId}
-    defaults: { _controller: CompanyBundle:Default:disableCompanyAndAccounts }
+    defaults: { _controller: CompanyBundle:Company:disableCompanyAndAccounts }
 
 no_enable_company:
     path:     /admin/ena/{companyId}
-    defaults: { _controller: CompanyBundle:Default:enableCompanyAndAccounts }
+    defaults: { _controller: CompanyBundle:Company:enableCompanyAndAccounts }
 
 no_delete_moderator:
     path:     /admin/delete/mod/{moderatorId}
-    defaults: { _controller:CompanyBundle:Default:deleteModerator }
+    defaults: { _controller:CompanyBundle:Company:deleteModerator }
 
 no_company_show_moderators:
    path:      /company/moderators
-   defaults:  { _controller: CompanyBundle:Default:getModerators }
+   defaults:  { _controller: CompanyBundle:Company:getModerators }
 
 no_disable_company_moderator:
     path:    /company/d/mod/{id}
-    defaults: { _controller:CompanyBundle:Default:disableModerator  }
+    defaults: { _controller:CompanyBundle:Company:disableModerator  }
     requirements:
         id: '\d+'
 
 no_disable_company_moderator:
     path:    /company/e/mod/{id}
-    defaults: { _controller:CompanyBundle:Default:EnableModerator  }
+    defaults: { _controller:CompanyBundle:Company:EnableModerator  }
     requirements:
         id: '\d+'
 
 
 no_change_password_company_moderator:
     path:    /company/c/pass/mod/{id}
-    defaults: { _controller:CompanyBundle:Default:changeModeratorPassword  }
+    defaults: { _controller:CompanyBundle:Company:changeModeratorPassword  }
     requirements:
         id: '\d+'
+
+
+
+no_create_code_naf:
+    path:    /admin/c/naf 
+    defaults: { _controller:CompanyBundle:Default:createCodeNAF  }
+
+no_update_code_naf:
+    path:    /admin/u/naf/{id}
+    defaults: { _controller:CompanyBundle:Default:updateCodeNAF  }
+
+no_delete_code_naf:
+    path:    /admin/d/naf/{id}
+    defaults: { _controller:CompanyBundle:Default:deleteCodeNAF  }
+
+
+
+no_create_legal_status:
+    path:    /admin/c/legstat/
+    defaults: { _controller:CompanyBundle:Default:createLegalStatus  }
+
+no_update_legal_status:
+    path:    /admin/u/legstat/{id}
+    defaults: { _controller:CompanyBundle:Default:updateLegalStatus  }
+
+no_delete_legal_status:
+    path:    /admin/d/legstat/{id}
+    defaults: { _controller:CompanyBundle:Default:deleteLegalStatus  }
+
+
+
+no_create_activity_branch:
+    path:    /admin/c/actbranch/
+    defaults: { _controller:CompanyBundle:Default:createActivityBranch  }
+
+no_update_activity_branch:
+    path:    /admin/u/actbranch/{id}
+    defaults: { _controller:CompanyBundle:Default:updateActivityBranch  }
+
+no_delete_activity_branch:
+    path:    /admin/d/actbranch/{id}
+    defaults: { _controller:CompanyBundle:Default:deleteActivityBranch  }
+
+
+no_show_all_activities_branch:
+    path:    /admin/actbranch/all/
+    defaults: { _controller:CompanyBundle:Default:getActivitiesBranchs  }
+
+
+no_show_all_legal_status:
+    path:    /admin/legstat/all
+    defaults: { _controller:CompanyBundle:Default:getAllLegalStatus  }
+
+
+no_show_all_code_naf:
+    path:    /admin/naf/all  
+    defaults: { _controller:CompanyBundle:Default:getAllCodeNAF  }
+
 
 

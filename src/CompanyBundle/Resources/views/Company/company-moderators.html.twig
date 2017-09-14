@@ -6,7 +6,20 @@
 <ul>
 {% for mod in company.moderators %}
 
-<li> {{ mod.username }} <a href="{{ path('no_delete_moderator', {'moderatorId': mod.id }) }}"> supprimer </a> </li>
+<li> {{ mod.username }} <a href="{{ path('no_delete_moderator', {'moderatorId': mod.id }) }}"> supprimer </a>   &nbsp &nbsp 
+<a href="#" >  changer de mot de passe </a>
+ &nbsp &nbsp 
+<a href="{{ path('no_add_moderator_access_right', {'moderatorId': mod.id }) }}" >  Ajouter des droits d'accès </a>  &nbsp &nbsp
+(
+{% for access in mod.moderatorAccessRight %}
+
+ {{  access.questionSubFamily.name }} ,
+
+{% endfor %}
+)
+
+
+</li>
 
 {% endfor %}
 </ul>

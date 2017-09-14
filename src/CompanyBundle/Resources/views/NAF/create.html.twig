@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Créer code NAF </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_create_code_naf') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

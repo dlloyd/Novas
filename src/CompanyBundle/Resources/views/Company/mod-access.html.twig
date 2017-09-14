@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ form_start(form, {'method': 'post', 'action': path('no_add_moderator_access_right',{'moderatorId':moderatorId}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

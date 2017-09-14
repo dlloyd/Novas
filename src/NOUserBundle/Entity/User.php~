@@ -31,13 +31,23 @@ class User extends BaseUser
     /**
     * @var string
     *
-    * @ORM\Column(name="company_function", type="string", length=100)
+    * @ORM\Column(name="company_function", type="string", length=100, nullable=true)
+    * 
     */
     private $companyFunction;
 
 
 
-    
+    /**
+    * @ORM\ManyToMany(targetEntity="NODiagBundle\Entity\QuestionSubFamily", cascade={"persist"})
+    */
+    private $questionSubFamilies;
+
+
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ModeratorAccessRight", mappedBy="moderator")
+    */
+    private $moderatorAccessRight;
 
 
 
@@ -46,4 +56,52 @@ class User extends BaseUser
     
 
    
+
+    /**
+     * Set companyFunction
+     *
+     * @param string $companyFunction
+     *
+     * @return User
+     */
+    public function setCompanyFunction($companyFunction)
+    {
+        $this->companyFunction = $companyFunction;
+
+        return $this;
+    }
+
+    /**
+     * Get companyFunction
+     *
+     * @return string
+     */
+    public function getCompanyFunction()
+    {
+        return $this->companyFunction;
+    }
+
+    /**
+     * Set company
+     *
+     * @param \CompanyBundle\Entity\Company $company
+     *
+     * @return User
+     */
+    public function setCompany(\CompanyBundle\Entity\Company $company = null)
+    {
+        $this->company = $company;
+
+        return $this;
+    }
+
+    /**
+     * Get company
+     *
+     * @return \CompanyBundle\Entity\Company
+     */
+    public function getCompany()
+    {
+        return $this->company;
+    }
 }

@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Familles de questions </h2>
+
+{% for fam in families  %}
+
+ {{ fam.name }}
+
+{% endfor %}
+
+
+{% endblock %}

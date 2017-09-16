@@ -41,7 +41,7 @@ class QuestionSubFamilyController extends Controller
             $em->merge($subFam);
             $em->flush();
 
-            return $this->redirectToRoute('no_show_all_question_sub_family');
+            return $this->redirectToRoute('no_create_question_sub_family');
         }
 
         return $this->render('NODiagBundle:QuestionSubFamily:update.html.twig', array('form' => $form->createView(),'id'=>$id,));

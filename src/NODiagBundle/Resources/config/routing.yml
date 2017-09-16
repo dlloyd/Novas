@@ -8,7 +8,7 @@ no_create_question_sub_family:
     defaults: { _controller: NODiagBundle:QuestionSubFamily:createQuestionSubFamily }
 
 
-no_update_questionfamily:
+no_update_question_family:
     path:     /admin/u/famquest/{id}
     defaults: { _controller: NODiagBundle:QuestionFamily:updateQuestionFamily }
 

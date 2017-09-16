@@ -21,7 +21,9 @@ class PoliticalMatrice
      */
     private $id;
 
-
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\MatriceBilan")
+    */
     private $matriceBilan;
 
 
@@ -35,4 +37,3 @@ class PoliticalMatrice
         return $this->id;
     }
 }
-

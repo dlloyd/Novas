@@ -5,6 +5,8 @@ namespace CompanyBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use NOMatriceBundle\Form\MatriceType;
+use CompanyBundle\Form\AddressType;
 
 class CompanyType extends AbstractType
 {
@@ -16,7 +18,22 @@ class CompanyType extends AbstractType
         $builder->add('innerId','text')
         ->add('denomination', 'text')
         ->add('employeesNumber','number')
-        ->add('activityBeginDate','date');
+        ->add('activityBeginDate','date')
+        ->add('socialCapital','text')
+        ->add('activityBranch','entity',array(
+                    'class'    => 'CompanyBundle:activityBranch',
+                    'property' => 'name',
+                    'multiple' => false ,))
+        ->add('address', new AddressType())
+        ->add('legalStatus','entity',array(
+                    'class'    => 'CompanyBundle:LegalStatus',
+                    'property' => 'name',
+                    'multiple' => false ,))
+        ->add('codeNAF','entity',array(
+                    'class'    => 'CompanyBundle:CodeNAF',
+                    'property' => 'name',
+                    'multiple' => false ,))
+        ->add('matrice', new MatriceType());
     }
     
     /**

@@ -1,0 +1,31 @@
+no_create_threat_family:
+    path: /admin/c/t/fam
+    defaults: { _controller: NOThreatBundle:Default:createThreatFamily }
+
+no_create_threat_sub_family:
+    path: /admin/c/t/sub/fam
+    defaults: { _controller: NOThreatBundle:Default:createThreatSubFamily }
+
+no_create_event_threat:
+    path: /admin/c/t/event
+    defaults: { _controller: NOThreatBundle:Default:createEventThreat }
+
+no_update_threat_family:
+    path: /admin/u/t/fam/{famId}
+    defaults: { _controller: NOThreatBundle:Default:updateThreatFamily }
+
+no_update_threat_sub_family:
+    path: /admin/u/t/sub/fam/{subFamId}
+    defaults: { _controller: NOThreatBundle:Default:updateThreatSubFamily }
+
+no_update_event_threat:
+    path: /admin/u/t/event/{eventId}
+    defaults: { _controller: NOThreatBundle:Default:updateEventThreat }
+
+no_delete_threat_family:
+    path: /admin/d/t/fam/{famId}
+    defaults: { _controller: NOThreatBundle:Default:deleteThreatFamily }
+
+no_delete_threat_sub_family:
+    path: /admin/d/t/sub/fam/{subFamId}
+    defaults: { _controller: NOThreatBundle:Default:deleteThreatSubFamily }

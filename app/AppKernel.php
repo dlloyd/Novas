@@ -23,6 +23,7 @@ class AppKernel extends Kernel
             new NODiagBundle\NODiagBundle(),
             new CompanyBundle\CompanyBundle(),
             new NOMatriceBundle\NOMatriceBundle(),
+            new NOThreatBundle\NOThreatBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'), true)) {

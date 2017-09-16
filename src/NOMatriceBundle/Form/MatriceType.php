@@ -1,19 +1,23 @@
 <?php
 
-namespace NODiagBundle\Form;
+namespace NOMatriceBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class ActionType extends AbstractType
+use NOMatriceBundle\Form\PoliticalMatriceType;
+use NOMatriceBundle\Form\EconomicalMatriceType;
+
+class MatriceType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('action')->add('question');
+        $builder->add('politicalMatrice', new PoliticalMatriceType())
+        ->add('economicalMatrice', new EconomicalMatriceType());
     }
     
     /**
@@ -22,7 +26,7 @@ class ActionType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'NODiagBundle\Entity\Action'
+            'data_class' => 'NOMatriceBundle\Entity\Matrice'
         ));
     }
 
@@ -31,7 +35,7 @@ class ActionType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'nodiagbundle_action';
+        return 'nomatricebundle_matrice';
     }
 
 

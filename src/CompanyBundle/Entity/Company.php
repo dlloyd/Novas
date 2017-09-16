@@ -67,7 +67,7 @@ class Company
     /**
      * @var string
      *
-     * @ORM\Column(name="social_capital", type="string", length=20, unique=false)
+     * @ORM\Column(name="social_capital", type="string", length=20, unique=false,nullable=true)
      */
     private $socialCapital;
 

@@ -3,9 +3,9 @@
 {% block body %}
 
 
-<h2>  Créer une sous-famille de question </h2>
+<h2>  Créer une sous-famille de risques </h2>
 
-{{ form_start(form, {'method': 'post', 'action': path('no_create_question_sub_family') }) }}
+{{ form_start(form, {'method': 'post', 'action': path('no_create_threat_sub_family') }) }}
                 
             {{ form_rest(form) }}
             <button class="btn btn-default" type="submit" >Enregistrer</button>
@@ -17,9 +17,10 @@
 
 <ul>
 {% for subFam in subFams %}
-<li> {{ subFam.name }}   : {{ subFam.family.name }}   <a href="{{ path('no_update_question_sub_family',{ 'id':subFam.id }) }}"> mettre à jour</a> </li>
+<li> {{ subFam.name }}  <a href="{{ path('no_update_threat_sub_family',{ 'subFamId':subFam.id }) }}"> mettre à jour</a>  </li>
 
 {% endfor %}
 </ul>
+
 
 {% endblock %}

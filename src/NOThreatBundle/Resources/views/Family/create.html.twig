@@ -3,9 +3,9 @@
 {% block body %}
 
 
-<h2>  Créer une famille de questions </h2>
+<h2>  Créer une famille de risques </h2>
 
-{{ form_start(form, {'method': 'post', 'action': path('no_create_question_family') }) }}
+{{ form_start(form, {'method': 'post', 'action': path('no_create_threat_family') }) }}
                 
             {{ form_rest(form) }}
             <button class="btn btn-default" type="submit" >Enregistrer</button>
@@ -17,7 +17,7 @@
 
 <ul>
 {% for fam in fams %}
-<li> {{ fam.name }}  <a href="{{ path('no_update_question_family',{ 'id':fam.id }) }}"> mettre à jour</a>  </li>
+<li> {{ fam.name }}  <a href="{{ path('no_update_threat_family',{ 'famId':fam.id }) }}"> mettre à jour</a>  </li>
 
 {% endfor %}
 </ul>

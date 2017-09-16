@@ -86,7 +86,7 @@ class CompanyController extends Controller
      public function deleteModeratorAction($moderatorId){
     	// just for company's admin user
     	$em = $this->getDoctrine()->getManager();
-    	$mod = $this->getRepository('NOUserBundle:User')->find($moderatorId); 
+    	$mod = $em->getRepository('NOUserBundle:User')->find($moderatorId); 
 
     	if($mod){
     		$em->remove($mod);
@@ -162,10 +162,10 @@ class CompanyController extends Controller
     }
 
 
-    public function disableModeratorAction($moderatorId){
+    public function disableModeratorAction($id){
     	$em = $this->getDoctrine()->getManager();
-    	$admin = $this->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
-    	$mod = $this->getRepository('NOUserBundle:User')->find($moderatorId); 
+    	$admin = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+    	$mod =   $em->getRepository('NOUserBundle:User')->find($id); 
 
     	if($mod->getCompany()== $admin->getCompany()){
     		$mod->setEnabled(false);
@@ -175,6 +175,51 @@ class CompanyController extends Controller
     	}
 
     	return $this->redirectToRoute('no_company_show_moderators');
+    }
+
+
+    public function enableModeratorAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $admin = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+        $mod = $em->getRepository('NOUserBundle:User')->find($id); 
+
+        if($mod->getCompany()== $admin->getCompany()){
+            $mod->setEnabled(true);
+            $em->merge($mod);
+            $em->flush();
+
+        }
+
+        return $this->redirectToRoute('no_company_show_moderators');
+    }
+
+    public function adminDisableModeratorAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $mod = $em->getRepository('NOUserBundle:User')->find($id); 
+
+        if($mod){
+            $mod->setEnabled(false);
+            $em->merge($mod);
+            $em->flush();
+
+        }
+
+        return $this->redirectToRoute('no_show_company_accounts',array('companyId'=> $mod->getCompany()->getId(),));
+    }
+
+
+    public function adminEnableModeratorAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $mod = $em->getRepository('NOUserBundle:User')->find($id); 
+
+        if($mod){
+            $mod->setEnabled(true);
+            $em->merge($mod);
+            $em->flush();
+
+        }
+
+        return $this->redirectToRoute('no_show_company_accounts',array('companyId'=> $mod->getCompany()->getId(),));
     }
 
 

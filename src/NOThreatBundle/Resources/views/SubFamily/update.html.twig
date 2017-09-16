@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Mettre à jour sous-famille de risques </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_update_threat_sub_family',{'subFamId':subFamId}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+{% endblock %}

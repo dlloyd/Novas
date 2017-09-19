@@ -16,3 +16,16 @@ no_update_question_family:
 no_update_question_sub_family:
     path:     /admin/u/famsubquest/{id}
     defaults: { _controller: NODiagBundle:QuestionSubFamily:updateQuestionSubFamily }
+
+
+no_create_question:
+    path:     /admin/c/quest
+    defaults: { _controller: NODiagBundle:Question:createQuestion }
+
+no_update_question:
+    path:     /admin/u/quest/{id}
+    defaults: { _controller: NODiagBundle:Question:updateQuestion }
+
+no_delete_question:
+    path:    /admin/d/quest/{id}
+    defaults: { _controller: NODiagBundle:Question:deleteQuestion }

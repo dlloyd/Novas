@@ -1,0 +1,101 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+<h2>  Créer une question </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_create_question') }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#nodiagbundle_question_answers');
+
+    // On ajoute un lien pour ajouter une nouvelle réponse
+    var $addLink =  $('<a href="#" id="add_answer" class="btn btn-default"> réponse fermée ( oui, non ) </a>');
+    var $addLink3 = $('<a href="#" id="add_answer" class="btn btn-default"> réponse multiple 3 </a>');
+    var $addLink4 = $('<a href="#" id="add_answer" class="btn btn-default"> réponse multiple 4 </a>');
+    var $addLink5 = $('<a href="#" id="add_answer" class="btn btn-default"> réponse multiple 5 </a>');
+    var $addLink6 = $('<a href="#" id="add_answer" class="btn btn-default"> réponse multiple 6 </a>');
+    $container.append($addLink);
+
+    
+    $addLink.click(function(e) {
+   	  addAnswer($container,2);
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    
+
+    // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+    var index = $container.find(':input').length;
+
+   
+
+    // La fonction qui ajoute un formulaire réponse
+    function addAnswer($container, number) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      if(number==2){
+      	for (var i=0; i < number; i++){
+	      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Answer n°' + (i+1))
+	          .replace(/__name__/g, i));
+	      
+	      // On ajoute le prototype modifié à la fin de la balise <div>
+	      $container.append($prototype);
+	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
+	      var answer = '#nodiagbundle_question_answers_'+i+'_answer' ;
+	      if(i == 0){
+	  	  $(scoring).val('100');
+	  	  $(answer).val('OUI').prop('readonly',true);
+	  	  }
+	  	  else{ 
+	  	  	$(scoring).val('0');
+	  	  	$(answer).val('NON').prop('readonly',true); 
+	  	   }
+	  	  }
+      }
+      else{
+      	  var scor = parseInt(100 / number);
+      	  var scorLast = scor+(100 % number);
+	      for (var i=0; i < number; i++){
+	      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Answer n°' + (i+1))
+	          .replace(/__name__/g, i));
+	      
+	      // On ajoute le prototype modifié à la fin de la balise <div>
+	      $container.append($prototype);
+	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
+	      
+	      if(i==number-1){
+	  	  $(scoring).val(scorLast);
+	  	  }
+	  	  else{
+	  	  	$(scoring).val(scor);
+	  	  }
+
+	  	  }
+
+      }
+    }
+
+    
+  });
+</script>
+
+
+{% endblock %}
+

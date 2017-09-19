@@ -3,6 +3,10 @@
 namespace NODiagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
+
 
 /**
  * Question
@@ -31,7 +35,7 @@ class Question
     /**
      * @var string
      *
-     * @ORM\Column(name="question", type="string", length=255, unique=false)
+     * @ORM\Column(name="question", type="text")
      */
     private $question;
 
@@ -188,5 +192,22 @@ class Question
     public function getResponseQuestionsCompany()
     {
         return $this->responseQuestionsCompany;
+    }
+
+
+    /**
+    * @Assert\Callback
+    */
+    public function validate(ExecutionContextInterface $context){
+        $scoring = 0;
+        foreach ($this->answers as $answer) {
+            $scoring += $answer->getScoring(); 
+        }
+
+        if( $scoring > 100 ){
+            $context->buildViolation('scoring total supérieur à 100')
+                ->atPath('answers')
+                ->addViolation();
+        }
     }
 }

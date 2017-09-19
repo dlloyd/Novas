@@ -4,6 +4,7 @@ namespace NODiagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
+
 /**
  * Answer
  *
@@ -60,4 +61,76 @@ class Answer
     }
 
    
+
+    /**
+     * Set answer
+     *
+     * @param string $answer
+     *
+     * @return Answer
+     */
+    public function setAnswer($answer)
+    {
+        $this->answer = $answer;
+
+        return $this;
+    }
+
+    /**
+     * Get answer
+     *
+     * @return string
+     */
+    public function getAnswer()
+    {
+        return $this->answer;
+    }
+
+    /**
+     * Set scoring
+     *
+     * @param float $scoring
+     *
+     * @return Answer
+     */
+    public function setScoring($scoring)
+    {
+        $this->scoring = $scoring;
+
+        return $this;
+    }
+
+    /**
+     * Get scoring
+     *
+     * @return float
+     */
+    public function getScoring()
+    {
+        return $this->scoring;
+    }
+
+    /**
+     * Set question
+     *
+     * @param \NODIagBundle\Entity\Question $question
+     *
+     * @return Answer
+     */
+    public function setQuestion(\NODIagBundle\Entity\Question $question)
+    {
+        $this->question = $question;
+
+        return $this;
+    }
+
+    /**
+     * Get question
+     *
+     * @return \NODIagBundle\Entity\Question
+     */
+    public function getQuestion()
+    {
+        return $this->question;
+    }
 }

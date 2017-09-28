@@ -1,0 +1,131 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+{{ form_errors(form) }}
+<h2>  Ajouter réponse à la question {{ id }} </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_add_question_answers',{'id':id}) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#nodiagbundle_question_answers');
+
+    // On ajoute un lien pour ajouter une nouvelle réponse
+    var $addLink =  $('<a href="#" class="add_answer" class="btn btn-default"> réponse fermée ( oui, non ) </a> <br/>');
+    var $addLink2 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 3 </a> <br/>');
+    var $addLink3 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 4 </a>  <br/>');
+    var $addLink4 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 5 </a> <br/>');
+    var $addLink5 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 6 </a> <br/>');
+    $container.append($addLink);
+    $container.append($addLink2);
+    $container.append($addLink3);
+    $container.append($addLink4);
+    $container.append($addLink5);
+
+    
+    $addLink.click(function(e) {
+   	  addAnswer($container,2);
+   	  $('.add_answer').hide();
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    $addLink2.click(function(e) {
+   	  addAnswer($container,3);
+   	  $('.add_answer').hide();
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    $addLink3.click(function(e) {
+   	  addAnswer($container,4);
+   	  $('.add_answer').hide();
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    $addLink4.click(function(e) {
+   	  addAnswer($container,5);
+   	  $('.add_answer').hide();
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    $addLink5.click(function(e) {
+   	  addAnswer($container,6);
+   	  $('.add_answer').hide();
+	
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    
+   
+
+    // La fonction qui ajoute un formulaire réponse
+    function addAnswer($container, number) {
+      // Dans le contenu de l'attribut « data-prototype », on remplace :
+      // - le texte "__name__label__" qu'il contient par le label du champ
+      // - le texte "__name__" qu'il contient par le numéro du champ
+      if(number==2){
+      	for (var i=0; i < number; i++){
+	      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Answer n°' + (i+1))
+	          .replace(/__name__/g, i));
+	      
+	      // On ajoute le prototype modifié à la fin de la balise <div>
+	      $container.append($prototype);
+	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
+	      var answer = '#nodiagbundle_question_answers_'+i+'_answer' ;
+	      if(i == 0){
+	  	  $(scoring).val('100');
+	  	  $(answer).val('OUI').prop('readonly',true);
+	  	  }
+	  	  else{ 
+	  	  	$(scoring).val('0');
+	  	  	$(answer).val('NON').prop('readonly',true); 
+	  	   }
+	  	  }
+      }
+      else{
+      	  var scor = parseInt(100 / number);
+      	  var scorLast = scor+(100 % number);
+	      for (var i=0; i < number; i++){
+	      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Answer n°' + (i+1))
+	          .replace(/__name__/g, i));
+	      
+	      // On ajoute le prototype modifié à la fin de la balise <div>
+	      $container.append($prototype);
+	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
+	      
+	      if(i==number-1){
+	  	  $(scoring).val(scorLast);
+	  	  }
+	  	  else{
+	  	  	$(scoring).val(scor);
+	  	  }
+
+	  	  }
+
+      }
+    }
+
+    
+  });
+</script>
+{% endblock %}

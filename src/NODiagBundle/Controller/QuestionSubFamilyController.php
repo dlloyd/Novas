@@ -48,9 +48,5 @@ class QuestionSubFamilyController extends Controller
 
     }
 
-
-    
-
-
     
 }

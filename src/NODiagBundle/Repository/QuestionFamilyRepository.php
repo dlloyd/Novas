@@ -10,4 +10,5 @@ namespace NODiagBundle\Repository;
  */
 class QuestionFamilyRepository extends \Doctrine\ORM\EntityRepository
 {
+	
 }

@@ -10,4 +10,68 @@ namespace NODiagBundle\Repository;
  */
 class QuestionSubFamilyRepository extends \Doctrine\ORM\EntityRepository
 {
+
+	public function findOthersAccessCompany($compId){
+		$qb  = $this->_em->createQueryBuilder();
+		$datas = array();
+
+		$cas = $qb->select('(ca.questionSubFamily)')
+          ->from('NODiagBundle:CompanyQuestionSubFamilyAccess', 'ca')
+          ->where($qb->expr()->eq('ca.company',$compId))
+          ->getQuery()
+          ->getResult();
+        
+        foreach ($cas as $ca) {
+        	array_push($datas, $ca[1]);
+         }
+
+         if(empty($datas)){
+         	$qb = $this->createQueryBuilder('s');
+			$qb->select('s');
+
+			return $qb->getQuery()->getResult();
+         }
+         $linked = $qb->select('s1')
+             ->from('NODiagBundle:QuestionSubFamily', 's1')
+             ->where($qb->expr()->notIn('s1.id',  $datas))
+             ->getQuery()
+             ->getResult();
+        return $linked;
+
+	}
+
+	public function findOthersAccessModerator($modId,$compId){
+		$qb  = $this->_em->createQueryBuilder();
+		$datas = array();
+
+		$modas = $qb->select('(moa.questionSubFamily)')
+          ->from('NODiagBundle:ModeratorAccessRight', 'moa')
+          ->where($qb->expr()->eq('moa.moderator',$modId))
+          ->getQuery()
+          ->getResult();
+        
+        foreach ($modas as $moda) {
+        	array_push($datas, $moda[1]);
+         }
+
+         if(empty($datas)){
+         	$qb = $this->createQueryBuilder('s');
+			$qb->select('s');
+            $qb->innerJoin('s.companyQuestionSubFamAccess','c');
+            $qb->where('c.company = :comp');
+            $qb->setParameter('comp',$compId);
+            return $qb->getQuery()->getResult();
+        
+         }
+         $linked = $qb->select('s1')
+             ->from('NODiagBundle:QuestionSubFamily', 's1')
+             ->innerJoin('s1.companyQuestionSubFamAccess','c')
+             ->where('c.company = :comp')
+             ->andWhere($qb->expr()->notIn('s1.id',  $datas))
+             ->setParameter('comp',$compId)
+             ->getQuery()
+             ->getResult();
+        return $linked;
+        
+	}
 }

@@ -24,8 +24,9 @@ class DefaultController extends Controller
      */
     public function homeAction(Request $request)
     {
-        
-        return $this->render('default/home.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $fams = $em->getRepository('NODiagBundle:QuestionFamily')->findAll();
+        return $this->render('default/home.html.twig',array('fams'=> $fams,));
     }
     
 }

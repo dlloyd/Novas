@@ -2,18 +2,11 @@
 
 {% block body %}
 
-
-<h2>  Créer une question </h2>
-
-{{ form_start(form, {'method': 'post', 'action': path('no_create_question') }) }}
+{{ form_start(form, {'method': 'post', 'action': path('no_add_company_access_right',{'companyId':companyId}) }) }}
                 
             {{ form_rest(form) }}
             <button class="btn btn-default" type="submit" >Enregistrer</button>
 {{ form_end(form) }}
 
 
-
-
-
 {% endblock %}
-

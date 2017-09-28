@@ -48,6 +48,8 @@ class QuestionFamilyController extends Controller
 
     }
 
+    
+
 
     public function deleteQuestionFamilyAction($id){
     	

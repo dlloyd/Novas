@@ -10,4 +10,18 @@ namespace NODiagBundle\Repository;
  */
 class ResponseQuestionCompanyRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findCSFResponses($companyId,$subFamId){
+		$qb  = $this->_em->createQueryBuilder();
+		$res = $qb->select('r')
+             ->from('NODiagBundle:ResponseQuestionCompany', 'r')
+             ->innerJoin('r.question','q')
+             ->innerJoin('q.subFamily','s')
+             ->where('r.company = :comp')
+             ->andWhere('s.id = :sub')
+             ->setParameter('comp',$companyId)
+             ->setParameter('sub',$subFamId)
+             ->getQuery()
+             ->getResult();
+        return $res;
+	}
 }

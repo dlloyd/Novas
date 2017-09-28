@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+ <h1> Questions </h1>
+
+ {% for resp in responses %}
+  {{ resp.question.question }} 
+  {% if resp.isAnswered == true  %} répondu {% else %} à répondre  {% endif %}  <br/>
+
+   Réponses:
+  {% for answer in resp.question.answers %}
+   
+  	{{ answer.answer }}, &nbsp  
+  {% endfor %}
+  <br/><br/>
+ {% endfor %}
+
+{% endblock %}

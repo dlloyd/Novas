@@ -10,4 +10,12 @@ namespace CompanyBundle\Repository;
  */
 class CompanyRepository extends \Doctrine\ORM\EntityRepository
 {
+	public function findCompaniesRight($subFamId){
+		$qb = $this->createQueryBuilder('c');
+			$qb->select('c');
+            $qb->innerJoin('c.companyQuestionSubFamAccess','a');
+            $qb->where('a.questionSubFamily = :sub');
+            $qb->setParameter('sub',$subFamId);
+            return $qb->getQuery()->getResult();
+	}
 }

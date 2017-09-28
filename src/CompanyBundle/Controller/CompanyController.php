@@ -13,13 +13,15 @@ use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use CompanyBundle\Entity\Company;
 use CompanyBundle\Form\CompanyType;
 use NODiagBundle\Entity\ModeratorAccessRight;
+use NODiagBundle\Entity\CompanyQuestionSubFamilyAccess;
+use NODiagBundle\Entity\ResponseQuestionCompany;
 
 class CompanyController extends Controller
 {
 	public function indexAction()
     {
     	$em = $this->getDoctrine()->getManager();
-    	$user = $this->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+    	$user = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
     	$company = $user->getCompany();
         return $this->render('CompanyBundle:Default:index.html.twig',array('company'=> $company,));
     }
@@ -225,12 +227,18 @@ class CompanyController extends Controller
 
     public function setModeratorAccessRightAction($moderatorId,Request $request){
     	$em = $this->getDoctrine()->getManager() ;
-    	$data = array();
-    	$subFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findAll();
-    	$form = $this->createFormBuilder($data)
+        $user = $em->getRepository('NOUserBundle:User')->find($moderatorId);
+        $companyId = $user->getCompany()->getId(); 
+        $data = array();
+    	$otherSubFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findOthersAccessModerator($moderatorId,$companyId);
+    	
+        $form = $this->createFormBuilder($data)
     			->add('subFams','entity',array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
+                    'choices'  =>  $otherSubFams,
                     'property' => 'name',
+                    'required' => false, 
+                    'expanded' => true,
                     'multiple' => true ,))
     			->getForm();
 
@@ -239,7 +247,6 @@ class CompanyController extends Controller
     	if($form->isSubmitted() && $form->isValid()){
     		
     		$data= $form->getData();
-            $user = $em->getRepository('NOUserBundle:User')->find($moderatorId);
             
             foreach ($data['subFams'] as $subId) {
             	
@@ -266,6 +273,63 @@ class CompanyController extends Controller
 
 
 
+    public function addCompanyAccessRightAction($companyId,Request $request){
+        $em = $this->getDoctrine()->getManager() ;
+        $data = array();
+        $otherSubFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findOthersAccessCompany($companyId);
+
+        $form = $this->createFormBuilder($data)
+                ->add('subFams','entity',array(
+                    'class'    => 'NODiagBundle:QuestionSubFamily',
+                    'choices'  =>  $otherSubFams,
+                    'property' => 'name',
+                    'required' => false, 
+                    'expanded' => true,
+                    'multiple' => true ,))
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            
+            $data= $form->getData();
+            $company = $em->getRepository('CompanyBundle:Company')->find($companyId);
+            
+            
+            foreach ($data['subFams'] as $subId) {
+                
+                $compAccess = $em->getRepository('NODiagBundle:CompanyQuestionSubFamilyAccess')->findCAR($companyId,$subId);
+                if(!$compAccess){
+                $sub = $em->getRepository('NODiagBundle:QuestionSubFamily')->find($subId);
+                $compAccess = new CompanyQuestionSubFamilyAccess();
+                $compAccess->setCompany($company);
+                $compAccess->setQuestionSubFamily($sub);
+                $company->addCompanyQuestionSubFamAccess($compAccess);
+
+                foreach ($sub->getQuestions() as $quest) {
+                    $questComp = new ResponseQuestionCompany();
+                    $questComp->setCompany($company);
+                    $questComp->setQuestion($quest);
+                    $questComp->setIsAnswered(false);
+                    $em->persist($questComp);
+
+                }
+
+                $em->persist($compAccess);
+                $em->merge($company);
+                $em->flush();
+             }
+            }
+
+            return $this->redirectToRoute('no_all_companies');
+        }
+
+        return $this->render('CompanyBundle:Company:comp-access.html.twig',array('form' => $form->createView(),
+                'companyId'=>$companyId,));
+    }
+
+
+
     public function changeModeratorPasswordAction($moderatorId){
 
     }
@@ -273,4 +337,5 @@ class CompanyController extends Controller
     public function updateCompanyInfosAction(){
 
     }
+
 }

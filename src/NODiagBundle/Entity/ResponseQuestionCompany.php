@@ -13,31 +13,59 @@ use Doctrine\ORM\Mapping as ORM;
 class ResponseQuestionCompany
 {
 
-    /** 
+   /** 
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company", inversedBy="companyQuestion") 
+     * @ORM\ManyToOne(targetEntity="CompanyBundle\Entity\Company", inversedBy="responseQuestionsCompany") 
      * @ORM\JoinColumn(name="company_id", referencedColumnName="id", nullable=false) 
      */
    private $company;
 
    
 
-    /** 
+   /** 
      * @ORM\Id()
-     * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\Question", inversedBy="companyQuestion") 
+     * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\Question", inversedBy="responseQuestionsCompany") 
      * @ORM\JoinColumn(name="question_id", referencedColumnName="id", nullable=false) 
      */
    private $question;
 
 
+   /**
+     * @var boolean
+     *
+     * @ORM\Column(name="is_answered", type="boolean")
+     */
+   private $isAnswered;
 
 
+   /**
+     * @var \Date
+     *
+     * @ORM\Column(name="last_modification", type="date",nullable=true)
+     */
    private $LastModification;
 
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string",nullable=true)
+     */
    private $username;
 
+   /**
+     * @var int
+     *
+     * @ORM\Column(name="answer_id", type="integer",nullable=true)
+     */
    private $answerId;
 
+
+
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="comment", type="text",nullable=true)
+     */
    private $comment;
 
     /**
@@ -86,5 +114,125 @@ class ResponseQuestionCompany
     public function getQuestion()
     {
         return $this->question;
+    }
+
+    /**
+     * Set isAnswered
+     *
+     * @param boolean $isAnswered
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setIsAnswered($isAnswered)
+    {
+        $this->isAnswered = $isAnswered;
+
+        return $this;
+    }
+
+    /**
+     * Get isAnswered
+     *
+     * @return boolean
+     */
+    public function getIsAnswered()
+    {
+        return $this->isAnswered;
+    }
+
+    /**
+     * Set lastModification
+     *
+     * @param \DateTime $lastModification
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setLastModification($lastModification)
+    {
+        $this->LastModification = $lastModification;
+
+        return $this;
+    }
+
+    /**
+     * Get lastModification
+     *
+     * @return \DateTime
+     */
+    public function getLastModification()
+    {
+        return $this->LastModification;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set answerId
+     *
+     * @param integer $answerId
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setAnswerId($answerId)
+    {
+        $this->answerId = $answerId;
+
+        return $this;
+    }
+
+    /**
+     * Get answerId
+     *
+     * @return integer
+     */
+    public function getAnswerId()
+    {
+        return $this->answerId;
+    }
+
+    /**
+     * Set comment
+     *
+     * @param string $comment
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setComment($comment)
+    {
+        $this->comment = $comment;
+
+        return $this;
+    }
+
+    /**
+     * Get comment
+     *
+     * @return string
+     */
+    public function getComment()
+    {
+        return $this->comment;
     }
 }

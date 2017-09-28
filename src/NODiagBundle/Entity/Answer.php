@@ -41,7 +41,7 @@ class Answer
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="NODIagBundle\Entity\Question")
+    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\Question", inversedBy="answers")
     * @ORM\JoinColumn(nullable=false)
     */
     private $question;

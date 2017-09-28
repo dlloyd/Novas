@@ -21,4 +21,6 @@ class ModeratorAccessRightRepository extends \Doctrine\ORM\EntityRepository
 		return $qb->getQuery()->getOneOrNullResult();
 
 	}
+
+	
 }

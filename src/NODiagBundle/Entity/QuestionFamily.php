@@ -28,6 +28,11 @@ class QuestionFamily
      */
     private $name;
 
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\QuestionSubFamily",mappedBy="family")
+    */
+    private $subFamilies;
+
 
     /**
      * Get id
@@ -63,5 +68,46 @@ class QuestionFamily
     public function getName()
     {
         return $this->name;
+    }
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->subFamilies = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Add subFamily
+     *
+     * @param \NODiagBundle\Entity\QuestionSubFamily $subFamily
+     *
+     * @return QuestionFamily
+     */
+    public function addSubFamily(\NODiagBundle\Entity\QuestionSubFamily $subFamily)
+    {
+        $this->subFamilies[] = $subFamily;
+
+        return $this;
+    }
+
+    /**
+     * Remove subFamily
+     *
+     * @param \NODiagBundle\Entity\QuestionSubFamily $subFamily
+     */
+    public function removeSubFamily(\NODiagBundle\Entity\QuestionSubFamily $subFamily)
+    {
+        $this->subFamilies->removeElement($subFamily);
+    }
+
+    /**
+     * Get subFamilies
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getSubFamilies()
+    {
+        return $this->subFamilies;
     }
 }

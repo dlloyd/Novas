@@ -23,10 +23,15 @@ class QuestionSubFamily
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionFamily")
+    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionFamily",inversedBy="subFamilies")
     * @ORM\JoinColumn(nullable=false)
     */
     private $family;
+
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\Question",mappedBy="subFamily")
+    */
+    private $questions;
 
 
     /**
@@ -41,6 +46,11 @@ class QuestionSubFamily
     * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ModeratorAccessRight", mappedBy="questionSubFamily")
     */
     private $moderatorAccessRight;
+
+    /**
+    * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\CompanyQuestionSubFamilyAccess", mappedBy="questionSubFamily")
+    */
+    private $companyQuestionSubFamAccess;
 
 
     /**
@@ -142,5 +152,73 @@ class QuestionSubFamily
     public function getModeratorAccessRight()
     {
         return $this->moderatorAccessRight;
+    }
+
+    /**
+     * Add companyQuestionSubFamAccess
+     *
+     * @param \NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess
+     *
+     * @return QuestionSubFamily
+     */
+    public function addCompanyQuestionSubFamAccess(\NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess)
+    {
+        $this->companyQuestionSubFamAccess[] = $companyQuestionSubFamAccess;
+
+        return $this;
+    }
+
+    /**
+     * Remove companyQuestionSubFamAccess
+     *
+     * @param \NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess
+     */
+    public function removeCompanyQuestionSubFamAccess(\NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess)
+    {
+        $this->companyQuestionSubFamAccess->removeElement($companyQuestionSubFamAccess);
+    }
+
+    /**
+     * Get companyQuestionSubFamAccess
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanyQuestionSubFamAccess()
+    {
+        return $this->companyQuestionSubFamAccess;
+    }
+
+    /**
+     * Add question
+     *
+     * @param \NODiagBundle\Entity\Question $question
+     *
+     * @return QuestionSubFamily
+     */
+    public function addQuestion(\NODiagBundle\Entity\Question $question)
+    {
+        $this->questions[] = $question;
+
+        return $this;
+    }
+
+    /**
+     * Remove question
+     *
+     * @param \NODiagBundle\Entity\Question $question
+     */
+    public function removeQuestion(\NODiagBundle\Entity\Question $question)
+    {
+        $this->questions->removeElement($question);
+    }
+
+    /**
+     * Get questions
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getQuestions()
+    {
+        return $this->questions;
     }
 }

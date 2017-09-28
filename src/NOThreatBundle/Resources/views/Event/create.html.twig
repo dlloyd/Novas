@@ -17,7 +17,7 @@
 
 <ul>
 {% for event in events %}
-<li> {{ event.definition }}  <a href="{{ path('no_update_event_threat',{ 'id':event.id }) }}"> mettre à jour</a>  </li>
+<li> {{ event.definition }}  <a href="{{ path('no_update_event_threat',{ 'eventId':event.id }) }}"> mettre à jour</a>  </li>
 
 {% endfor %}
 </ul>

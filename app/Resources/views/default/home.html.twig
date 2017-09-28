@@ -1,6 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+	
+	{% for fam in fams %}
+		{{ fam.name }} <br/> <br/>
+		{% for sub in fam.subFamilies %}
+			<a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}} </a> <br/>
+		{% endfor %}
+		<br/>
+	{% endfor %}
 
 {% endblock %}

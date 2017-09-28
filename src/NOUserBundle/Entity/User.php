@@ -39,12 +39,6 @@ class User extends BaseUser
 
 
     /**
-    * @ORM\ManyToMany(targetEntity="NODiagBundle\Entity\QuestionSubFamily", cascade={"persist"})
-    */
-    private $questionSubFamilies;
-
-
-    /**
     * @ORM\OneToMany(targetEntity="NODiagBundle\Entity\ModeratorAccessRight", mappedBy="moderator")
     */
     private $moderatorAccessRight;
@@ -105,39 +99,7 @@ class User extends BaseUser
         return $this->company;
     }
 
-    /**
-     * Add questionSubFamily
-     *
-     * @param \NODiagBundle\Entity\QuestionSubFamily $questionSubFamily
-     *
-     * @return User
-     */
-    public function addQuestionSubFamily(\NODiagBundle\Entity\QuestionSubFamily $questionSubFamily)
-    {
-        $this->questionSubFamilies[] = $questionSubFamily;
-
-        return $this;
-    }
-
-    /**
-     * Remove questionSubFamily
-     *
-     * @param \NODiagBundle\Entity\QuestionSubFamily $questionSubFamily
-     */
-    public function removeQuestionSubFamily(\NODiagBundle\Entity\QuestionSubFamily $questionSubFamily)
-    {
-        $this->questionSubFamilies->removeElement($questionSubFamily);
-    }
-
-    /**
-     * Get questionSubFamilies
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getQuestionSubFamilies()
-    {
-        return $this->questionSubFamilies;
-    }
+   
 
     /**
      * Add moderatorAccessRight

@@ -27,7 +27,7 @@ class Question
 
 
     /**
-    * @ORM\ManyToOne(targetEntity="NODIagBundle\Entity\QuestionSubFamily")
+    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionSubFamily",inversedBy="questions")
     * @ORM\JoinColumn(nullable=false)
     */
     private $subFamily;

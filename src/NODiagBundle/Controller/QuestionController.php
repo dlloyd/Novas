@@ -96,5 +96,65 @@ class QuestionController extends Controller
     }
 
 
+    public function respondeToQuestionAction($questionId, Request $request){
+        $data= array();
+        $em = $this->getDoctrine()->getManager();
+        $user = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+        $question = $em->getRepository('NODiagBundle:Question')->find($questionId);
+        if(!$question){
+            throw $this->createAccessDeniedException("Cette question n'existe pas!");
+        }
+        $access = $em->getRepository('NODiagBundle:ModeratorAccessRight')->findMAR($user->getId(),$question->getSubFamily());
+
+        if($access){
+            $response = $em->getRepository('NODiagBundle:ResponseQuestionCompany')->findResponse($user->getCompany()->getId(),$questionId);
+            $form = $this->createFormBuilder($data)
+            ->add('answers','entity',array(
+                    'class'    => 'NODiagBundle:Answer',
+                    'choices'  =>  $question->getAnswers(),
+                    'property' => 'answer',
+                    'required' => true, 
+                    'expanded' => true,
+                    'multiple' => $question->getAnswerTypeIsMultiple() ,))
+                ->getForm();
+
+        $form->handleRequest($request);
+
+        if($form->isSubmitted() && $form->isValid()){
+            $answers = array();
+            $data= $form->getData();
+
+            if($question->getAnswerTypeIsMultiple()){
+                foreach ($data['answers'] as $answ) {
+                    array_push($answers, $answ);
+                }
+            }
+            else{
+                array_push($answers, $data['answers']);
+            }
+            
+            
+            $response->setAnswersId($answers);
+            $response->setIsAnswered(true);
+            $response->setLastModification( new\DateTime());
+            $response->setUsername($user->getUsername());
+            
+            $em->merge($response);
+            $em->flush();
+                         
+            return $this->redirectToRoute('no_question_sub_family_questions',array('subFamId'=>$question->getSubFamily()->getId(),));
+        }
+
+         return $this->render('NODiagBundle:Question:comp-answer.html.twig',array('form'=>$form->createView(),'response'=>$response));
+
+        }
+        else{
+            throw $this->createAccessDeniedException('Vous ne pouvez pas accéder à cette question!');
+        }
+
+        
+    }
+
+
 
 }

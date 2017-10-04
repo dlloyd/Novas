@@ -68,14 +68,6 @@ class ResponseQuestionCompany
      */
    private $comment;
 
-
-   /**
-     * @var string
-     *
-     * @ORM\Column(name="report_comment", type="text",nullable=true)
-     */
-   private $reportComment;
-
     /**
      * Set company
      *
@@ -220,29 +212,5 @@ class ResponseQuestionCompany
     public function getComment()
     {
         return $this->comment;
-    }
-
-    /**
-     * Set answersId
-     *
-     * @param array $answersId
-     *
-     * @return ResponseQuestionCompany
-     */
-    public function setAnswersId($answersId)
-    {
-        $this->answersId = $answersId;
-
-        return $this;
-    }
-
-    /**
-     * Get answersId
-     *
-     * @return array
-     */
-    public function getAnswersId()
-    {
-        return $this->answersId;
     }
 }

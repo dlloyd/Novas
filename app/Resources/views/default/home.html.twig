@@ -1,13 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+	<br/><br/><br/>
+	{% if is_granted('ROLE_ADMIN') or is_granted('SUPER_ADMIN') %}
 	
+
+	{% else %}
+
 	{% for fam in fams %}
-		{{ fam.name }} <br/> <br/>
+		<strong>{{ fam.name }}</strong><hr/> <br/> <br/>
 		{% for sub in fam.subFamilies %}
-			<a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}} </a> <br/>
+			<a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}} </a> &nbsp
+			( {% if responsesSubFam[sub.id] is defined  and totalSubFamQuestions[sub.id] is defined %}
+			{{ responsesSubFam[sub.id] }} / {{ totalSubFamQuestions[sub.id] }}
+			{% else %} 0 /0  {% endif %} )
+			 <br/>
 		{% endfor %}
 		<br/>
 	{% endfor %}
+	{% endif %}
+
 
 {% endblock %}

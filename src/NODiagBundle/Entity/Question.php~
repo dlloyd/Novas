@@ -214,28 +214,4 @@ class Question
                 ->addViolation();
         }
     }
-
-    /**
-     * Set answerTypeIsMultiple
-     *
-     * @param boolean $answerTypeIsMultiple
-     *
-     * @return Question
-     */
-    public function setAnswerTypeIsMultiple($answerTypeIsMultiple)
-    {
-        $this->answerTypeIsMultiple = $answerTypeIsMultiple;
-
-        return $this;
-    }
-
-    /**
-     * Get answerTypeIsMultiple
-     *
-     * @return boolean
-     */
-    public function getAnswerTypeIsMultiple()
-    {
-        return $this->answerTypeIsMultiple;
-    }
 }

@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use NODiagBundle\Form\AnswerType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class QuestionType extends AbstractType
 {
@@ -22,7 +23,11 @@ class QuestionType extends AbstractType
                 ->add('answers', 'collection' ,array(
                     'type' => new AnswerType(),
                     'allow_add' => true,
-                    'allow_delete' => true,));
+                    'allow_delete' => true,))
+                ->add('answerTypeIsMultiple',CheckboxType::class, array(
+                        'label'    => 'Question à choix multiple?',
+                        'required' => false,
+                    ));
     }
     
     /**

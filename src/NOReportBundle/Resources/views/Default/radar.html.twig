@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+<div style="height:40%;width:40%;margin-left:10%;">
+<canvas id="myChart" width="40" height="40"></canvas>
+</div>
+<script>
+var ctx = document.getElementById("myChart");
+var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+    data:  {
+    labels: ['Running', 'Swimming', 'Eating', 'Cycling','toto'],
+    datasets: [
+    {
+    	label: "famille 1",
+    	borderColor: 'red',
+    	fill: true,
+        data: [60, 40, 30, 60,80]
+    },
+    {
+    	label: "famille 2",
+    	borderColor: 'green',
+    	fill: true,
+    	data: [60,50,50,70,70]
+    }
+    ]
+    },
+
+
+   options:{
+    scale:{
+    ticks: {
+        min: 0,
+        max:100
+    }
+    }}
+
+});
+</script>
+
+
+
+
+
+
+
+
+
+{% endblock %}

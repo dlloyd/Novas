@@ -1,3 +1,7 @@
+no_report:
+    resource: "@NOReportBundle/Resources/config/routing.yml"
+    prefix:   /
+
 no_threat:
     resource: "@NOThreatBundle/Resources/config/routing.yml"
     prefix:   /

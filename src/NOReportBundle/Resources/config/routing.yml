@@ -1,0 +1,13 @@
+no_report_homepage:
+    path:     /report
+    defaults: { _controller: NOReportBundle:Default:index }
+
+no_report_sub_fam_radar:
+    path:     /report/radar/
+    defaults: { _controller: NOReportBundle:Default:radarChartFamily }
+
+no_report_sub_fam_bar:
+    path:     /report/bar/
+    defaults: { _controller: NOReportBundle:Default:barChartFamily }
+
+

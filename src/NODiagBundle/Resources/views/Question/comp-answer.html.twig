@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<h2> {{ response.question.question }} </h2>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_company_question_answer',{'questionId': response.question.id }) }) }}
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+
+
+{% endblock %}

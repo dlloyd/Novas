@@ -37,3 +37,7 @@ no_add_question_answers:
 no_question_sub_family_questions:
     path:     /comp/sub/quests/{subFamId}
     defaults: { _controller:NODiagBundle:Question:questionsSubFamilies }
+
+no_company_question_answer:
+    path:     /comp/quest/resp/{questionId}
+    defaults:  { _controller:NODiagBundle:Question:respondeToQuestion }

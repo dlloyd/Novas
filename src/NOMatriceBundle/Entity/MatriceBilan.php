@@ -55,36 +55,7 @@ class MatriceBilan
     private $threat;
 
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resume_force", type="string", length=1000)
-     */
-    private $forceResume; 
-
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resume_weakness", type="string", length=1000)
-     */
-    private $weaknessResume;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resume_opportunity", type="string", length=1000)
-     */ 
-    private $opportunityResume; 
-    
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="resume_threat", type="string", length=1000)
-     */
-    private $threatResume;
-
+   
 
     /**
      * Get id
@@ -194,99 +165,5 @@ class MatriceBilan
         return $this->threat;
     }
 
-    /**
-     * Set forceResume
-     *
-     * @param string $forceResume
-     *
-     * @return MatriceBilan
-     */
-    public function setForceResume($forceResume)
-    {
-        $this->forceResume = $forceResume;
-
-        return $this;
-    }
-
-    /**
-     * Get forceResume
-     *
-     * @return string
-     */
-    public function getForceResume()
-    {
-        return $this->forceResume;
-    }
-
-    /**
-     * Set weaknessResume
-     *
-     * @param string $weaknessResume
-     *
-     * @return MatriceBilan
-     */
-    public function setWeaknessResume($weaknessResume)
-    {
-        $this->weaknessResume = $weaknessResume;
-
-        return $this;
-    }
-
-    /**
-     * Get weaknessResume
-     *
-     * @return string
-     */
-    public function getWeaknessResume()
-    {
-        return $this->weaknessResume;
-    }
-
-    /**
-     * Set opportunityResume
-     *
-     * @param string $opportunityResume
-     *
-     * @return MatriceBilan
-     */
-    public function setOpportunityResume($opportunityResume)
-    {
-        $this->opportunityResume = $opportunityResume;
-
-        return $this;
-    }
-
-    /**
-     * Get opportunityResume
-     *
-     * @return string
-     */
-    public function getOpportunityResume()
-    {
-        return $this->opportunityResume;
-    }
-
-    /**
-     * Set threatResume
-     *
-     * @param string $threatResume
-     *
-     * @return MatriceBilan
-     */
-    public function setThreatResume($threatResume)
-    {
-        $this->threatResume = $threatResume;
-
-        return $this;
-    }
-
-    /**
-     * Get threatResume
-     *
-     * @return string
-     */
-    public function getThreatResume()
-    {
-        return $this->threatResume;
-    }
+   
 }

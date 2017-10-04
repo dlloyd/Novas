@@ -16,11 +16,7 @@ class MatriceBilanType extends AbstractType
         $builder->add('force','textarea')
         ->add('weakness','textarea')
         ->add('opportunity','textarea')
-        ->add('threat','textarea')
-        ->add('forceResume','textarea')
-        ->add('weaknessResume','textarea')
-        ->add('opportunityResume','textarea')
-        ->add('threatResume','textarea');
+        ->add('threat','textarea');
     }
     
     /**

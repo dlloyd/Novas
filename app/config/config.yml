@@ -7,6 +7,7 @@ imports:
     - { resource: "@CompanyBundle/Resources/config/services.yml" }
     - { resource: "@NOMatriceBundle/Resources/config/services.yml" }
     - { resource: "@NOThreatBundle/Resources/config/services.yml" }
+    - { resource: "@NOReportBundle/Resources/config/services.yml" }
     
 
 

@@ -3,8 +3,12 @@
 {% block body %}
 
 <br/><br/><br/>
+{% if is_granted('ROLE_ADMIN') %}
+{{ form_start(form, {'method': 'post', 'action': path('no_admin_company_report' ,{'companyId': company.id} ) }) }}
+{% else %}
 
 {{ form_start(form, {'method': 'post', 'action': path('no_report_homepage') }) }}
+{% endif %}
 			<h3> Axes/Listes </h3>
 			<div style="border : solid 2px #000000; padding : 4px; width : 500px; height : 100px; overflow : auto;"> 
 			{% for name, choices in form.subFams.vars.choices %}

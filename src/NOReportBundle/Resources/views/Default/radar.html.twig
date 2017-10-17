@@ -13,7 +13,7 @@ var myRadarChart = new Chart(ctx, {
     labels: [{% for key,value in average  %} '{{ key }}', {% endfor %}],
     datasets: [
     {
-    	label: "Famille",
+    	label: "Données",
     	borderColor: 'green',
     	fill: true,
         data: [{% for key,value in average %} {{ value }}, {% endfor %}]

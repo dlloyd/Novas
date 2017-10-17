@@ -55,9 +55,9 @@ class ResponseQuestionCompany
    /**
      * @var int
      *
-     * @ORM\Column(name="answer_id", type="array",nullable=true)
+     * @ORM\Column(name="answers", type="array",nullable=true)
      */
-   private $answersId;
+   private $answers;
 
 
 
@@ -223,27 +223,27 @@ class ResponseQuestionCompany
     }
 
     /**
-     * Set answersId
+     * Set answers
      *
-     * @param array $answersId
+     * @param array $answers
      *
      * @return ResponseQuestionCompany
      */
-    public function setAnswersId($answersId)
+    public function setAnswers($answers)
     {
-        $this->answersId = $answersId;
+        $this->answers = $answers;
 
         return $this;
     }
 
     /**
-     * Get answersId
+     * Get answers
      *
      * @return array
      */
-    public function getAnswersId()
+    public function getAnswers()
     {
-        return $this->answersId;
+        return $this->answers;
     }
 
     /**
@@ -254,7 +254,7 @@ class ResponseQuestionCompany
     public function getScoring()
     {
         $scoring = 0;
-        foreach ($this->getAnswersId() as $answ) {
+        foreach ($this->getAnswers() as $answ) {
                 $scoring += $answ->getScoring();
             }
         return $scoring;

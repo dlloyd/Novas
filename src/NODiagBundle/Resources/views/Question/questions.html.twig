@@ -8,7 +8,7 @@
   {% if resp.isAnswered == true  %} répondu <span class="glyphicon glyphicon-ok"></span> {% else %} à répondre <span class="glyphicon glyphicon-remove"></span> {% endif %}  <br/>
 
    Réponses:
-  {% for answer in resp.answersId %}
+  {% for answer in resp.answers %}
    
   	{{ answer.answer }}, &nbsp  
   {% endfor %}

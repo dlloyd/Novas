@@ -25,6 +25,14 @@ class Question
      */
     private $id;
 
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="inner_id", type="string")
+     */
+    private $innerId;
+
+
 
     /**
     * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionSubFamily",inversedBy="questions")
@@ -208,10 +216,34 @@ class Question
             $scoring += $answer->getScoring(); 
         }
 
-        if( $scoring > 100 ){
+        if( $scoring > 100 && $this->getAnswerTypeIsMultiple() ){
             $context->buildViolation('scoring total supérieur à 100')
                 ->atPath('answers')
                 ->addViolation();
         }
+    }
+
+    /**
+     * Set answerTypeIsMultiple
+     *
+     * @param boolean $answerTypeIsMultiple
+     *
+     * @return Question
+     */
+    public function setAnswerTypeIsMultiple($answerTypeIsMultiple)
+    {
+        $this->answerTypeIsMultiple = $answerTypeIsMultiple;
+
+        return $this;
+    }
+
+    /**
+     * Get answerTypeIsMultiple
+     *
+     * @return boolean
+     */
+    public function getAnswerTypeIsMultiple()
+    {
+        return $this->answerTypeIsMultiple;
     }
 }

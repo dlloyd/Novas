@@ -25,6 +25,14 @@ class Question
      */
     private $id;
 
+     /**
+     * @var string
+     *
+     * @ORM\Column(name="inner_id", type="string")
+     */
+    private $innerId;
+
+
 
     /**
     * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionSubFamily",inversedBy="questions")
@@ -237,5 +245,29 @@ class Question
     public function getAnswerTypeIsMultiple()
     {
         return $this->answerTypeIsMultiple;
+    }
+
+    /**
+     * Set innerId
+     *
+     * @param string $innerId
+     *
+     * @return Question
+     */
+    public function setInnerId($innerId)
+    {
+        $this->innerId = $innerId;
+
+        return $this;
+    }
+
+    /**
+     * Get innerId
+     *
+     * @return string
+     */
+    public function getInnerId()
+    {
+        return $this->innerId;
     }
 }

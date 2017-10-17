@@ -1,14 +1,38 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<h2> Familles </h2>
-<ul>
-{% for key,value in families %}
-<li> {{ value }} <a href=" {{ path('no_report_sub_fam_bar',{'famId':key}) }} "> bar rapport  </a>  &nbsp
- <a href=" {{ path('no_report_sub_fam_radar',{'famId':key} ) }} "> radar rapport</a>   </li>
-{% endfor %}
-</ul>
+
+<br/><br/><br/>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_report_homepage') }) }}
+			<h3> Axes/Listes </h3>
+			<div style="border : solid 2px #000000; padding : 4px; width : 500px; height : 100px; overflow : auto;"> 
+			{% for name, choices in form.subFams.vars.choices %}
+             
+                <div class="family checkall">
+                     {{ name }}
+                </div>
+                <ul>
+                {% for key,choice in choices.choices %}
+                    <li>
+                        {{ form_widget(form.subFams[key]) }}
+                        {{ form_label(form.subFams[key]) }}
+                    </li>
+                {% endfor %}
+            </ul>
+        {% endfor %}
+        </div>
+                
+            {{ form_rest(form) }}
+            <button class="btn btn-default" type="submit" > Envoyer </button>
+{{ form_end(form) }}
 
 
 
 {% endblock %}
+
+
+
+
+
+

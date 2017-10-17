@@ -141,7 +141,7 @@ class QuestionController extends Controller
             }
             
             
-            $response->setAnswersId($answers);
+            $response->setAnswers($answers);
             $response->setIsAnswered(true);
             $response->setLastModification( new\DateTime());
             $response->setUsername($user->getUsername());

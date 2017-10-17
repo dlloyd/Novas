@@ -33,6 +33,26 @@ class Matrice
     */
     private $economicalMatrice;
 
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EcologicalMatrice")
+    */
+    private $ecologicalMatrice;
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\TechnologicalMatrice")
+    */
+    private $technologicalMatrice;
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\SocioCulturalMatrice")
+    */
+    private $socioCulturalMatrice;
+
+    /**
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\LegalMatrice")
+    */
+    private $legalMatrice;
+
 
     /**
      * Get id
@@ -90,5 +110,101 @@ class Matrice
     public function getEconomicalMatrice()
     {
         return $this->economicalMatrice;
+    }
+
+    /**
+     * Set ecologicalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\EcologicalMatrice $ecologicalMatrice
+     *
+     * @return Matrice
+     */
+    public function setEcologicalMatrice(\NOMatriceBundle\Entity\EcologicalMatrice $ecologicalMatrice = null)
+    {
+        $this->ecologicalMatrice = $ecologicalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get ecologicalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\EcologicalMatrice
+     */
+    public function getEcologicalMatrice()
+    {
+        return $this->ecologicalMatrice;
+    }
+
+    /**
+     * Set technologicalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\TechnologicalMatrice $technologicalMatrice
+     *
+     * @return Matrice
+     */
+    public function setTechnologicalMatrice(\NOMatriceBundle\Entity\TechnologicalMatrice $technologicalMatrice = null)
+    {
+        $this->technologicalMatrice = $technologicalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get technologicalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\TechnologicalMatrice
+     */
+    public function getTechnologicalMatrice()
+    {
+        return $this->technologicalMatrice;
+    }
+
+    /**
+     * Set socioCulturalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\SocioCulturalMatrice $socioCulturalMatrice
+     *
+     * @return Matrice
+     */
+    public function setSocioCulturalMatrice(\NOMatriceBundle\Entity\SocioCulturalMatrice $socioCulturalMatrice = null)
+    {
+        $this->socioCulturalMatrice = $socioCulturalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get socioCulturalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\SocioCulturalMatrice
+     */
+    public function getSocioCulturalMatrice()
+    {
+        return $this->socioCulturalMatrice;
+    }
+
+    /**
+     * Set legalMatrice
+     *
+     * @param \NOMatriceBundle\Entity\LegalMatrice $legalMatrice
+     *
+     * @return Matrice
+     */
+    public function setLegalMatrice(\NOMatriceBundle\Entity\LegalMatrice $legalMatrice = null)
+    {
+        $this->legalMatrice = $legalMatrice;
+
+        return $this;
+    }
+
+    /**
+     * Get legalMatrice
+     *
+     * @return \NOMatriceBundle\Entity\LegalMatrice
+     */
+    public function getLegalMatrice()
+    {
+        return $this->legalMatrice;
     }
 }

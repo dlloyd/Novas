@@ -15,6 +15,7 @@ use CompanyBundle\Form\CompanyType;
 use NODiagBundle\Entity\ModeratorAccessRight;
 use NODiagBundle\Entity\CompanyQuestionSubFamilyAccess;
 use NODiagBundle\Entity\ResponseQuestionCompany;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CompanyController extends Controller
 {
@@ -43,6 +44,35 @@ class CompanyController extends Controller
 		return $this->render('CompanyBundle:Company:create.html.twig', array('form' => $form->createView()));
 
     }
+
+
+     public function updateCompanyInfosAction(Request $request,$id){
+        $em = $this->getDoctrine('CompanyBundle:Company')->getManager();
+        $company = $em->getRepository()->find($id);
+        $user = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+
+        // just for administrator and company's owner
+        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || 
+            ( $user->hasrole('ROLE_COMPANY_OWNER') && $user->getCompany()->getId() == $company->getId() )){
+        $form = $this->createForm(new CompanyType(),$company);
+
+        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
+            $em = $this->getDoctrine()->getManager();
+
+            $em->persist($company);
+            $em->flush();
+
+            return $this->redirectToRoute('no_create_company');
+        }
+
+        return $this->render('CompanyBundle:Company:update.html.twig', array('form' => $form->createView()));
+       }
+       else{
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+       }
+
+    }
+
 
 
     public function getCompanyModeratorsAction($companyId){
@@ -233,14 +263,19 @@ class CompanyController extends Controller
     	$otherSubFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findOthersAccessModerator($moderatorId,$companyId);
     	
         $form = $this->createFormBuilder($data)
-    			->add('subFams','entity',array(
+    			->add('subFams',EntityType::class,array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
                     'choices'  =>  $otherSubFams,
-                    'property' => 'name',
+                    'choice_label' => function ($subFamily) {
+                            return $subFamily->getName();
+                        },
+                    'group_by' => function($subFamily) {
+                                        return $subFamily->getFamily()->getName();
+                                    },
                     'required' => false, 
                     'expanded' => true,
                     'multiple' => true ,))
-    			->getForm();
+                ->getForm();
 
     	$form->handleRequest($request);
 
@@ -279,10 +314,15 @@ class CompanyController extends Controller
         $otherSubFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findOthersAccessCompany($companyId);
 
         $form = $this->createFormBuilder($data)
-                ->add('subFams','entity',array(
+                ->add('subFams',EntityType::class,array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
                     'choices'  =>  $otherSubFams,
-                    'property' => 'name',
+                    'choice_label' => function ($subFamily) {
+                            return $subFamily->getName();
+                        },
+                    'group_by' => function($subFamily) {
+                                        return $subFamily->getFamily()->getName();
+                                    },
                     'required' => false, 
                     'expanded' => true,
                     'multiple' => true ,))
@@ -329,13 +369,5 @@ class CompanyController extends Controller
     }
 
 
-
-    public function changeModeratorPasswordAction($moderatorId){
-
-    }
-
-    public function updateCompanyInfosAction(){
-
-    }
 
 }

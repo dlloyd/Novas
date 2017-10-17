@@ -1,11 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-
+<h2> Familles </h2>
 <ul>
-<li> <a href=" {{ path('no_report_sub_fam_bar') }} "> bar rapport  </a>     </li>
-<li> <a href=" {{ path('no_report_sub_fam_radar') }} "> radar rapport</a>   </li>
-
+{% for key,value in families %}
+<li> {{ value }} <a href=" {{ path('no_report_sub_fam_bar',{'famId':key}) }} "> bar rapport  </a>  &nbsp
+ <a href=" {{ path('no_report_sub_fam_radar',{'famId':key} ) }} "> radar rapport</a>   </li>
+{% endfor %}
 </ul>
 
 

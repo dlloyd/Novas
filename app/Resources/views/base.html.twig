@@ -27,6 +27,9 @@
             <li class="nav-item">
             <a class="nav-link" href="{{ path('fos_user_security_logout') }}">se déconnecter</a>
             </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('fos_user_change_password') }}">changer de mot de passe </a>
+            </li>
 
 
          {% if is_granted('ROLE_ADMIN') %}
@@ -36,7 +39,6 @@
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
           <a class="dropdown-item" href="{{ path('no_create_company') }}"> Créer une entreprise </a>
-          <a class="dropdown-item" href="{{ path('no_all_companies') }}">Créer une utilisateur</a>
           <a class="dropdown-item" href="{{ path('no_all_companies') }}">Gestion des entreprises et comptes</a>
           <a class="dropdown-item" href="{{ path('no_create_code_naf') }}">Créer un code NAF</a>
           <a class="dropdown-item" href="{{ path('no_create_legal_status') }}">Créer un statut légal</a>

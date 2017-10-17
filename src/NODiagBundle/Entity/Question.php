@@ -208,7 +208,7 @@ class Question
             $scoring += $answer->getScoring(); 
         }
 
-        if( $scoring > 100 ){
+        if( $scoring > 100 && $this->getAnswerTypeIsMultiple() ){
             $context->buildViolation('scoring total supérieur à 100')
                 ->atPath('answers')
                 ->addViolation();

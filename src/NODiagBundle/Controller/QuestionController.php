@@ -8,6 +8,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 use NODiagBundle\Entity\Question;
 use NODiagBundle\Form\QuestionType;
+use NODiagBundle\Form\AnswerType;
 use NODiagBundle\Entity\ResponseQuestionCompany;
 
 class QuestionController extends Controller
@@ -63,8 +64,14 @@ class QuestionController extends Controller
     public function addQuestionAnswersAction(Request $request,$id){
         $em = $this->getDoctrine()->getManager();
         $question = $em->getRepository('NODiagBundle:Question')->find($id);
-        $form = $this->createForm(new QuestionType(),$question);
+        $form = $this->createFormBuilder($question)
+        ->add('answers', 'collection' ,array(
+                    'type' => new AnswerType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,))
+        ->getForm();
 
+        
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
             $em = $this->getDoctrine()->getManager();
             foreach ($question->getAnswers() as $answer) {

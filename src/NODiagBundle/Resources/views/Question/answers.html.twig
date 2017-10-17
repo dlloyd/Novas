@@ -20,28 +20,35 @@
 <script type="text/javascript">
   $(document).ready(function() {
     // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
-    var $container = $('div#nodiagbundle_question_answers');
+    var $container = $('div#form_answers');
 
-    // On ajoute un lien pour ajouter une nouvelle réponse
+    
+    {%  if multiple is defined and multiple == false  %}
     var $addLink =  $('<a href="#" class="add_answer" class="btn btn-default"> réponse fermée ( oui, non ) </a> <br/>');
-    var $addLink2 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 3 </a> <br/>');
-    var $addLink3 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 4 </a>  <br/>');
-    var $addLink4 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 5 </a> <br/>');
-    var $addLink5 = $('<a href="#" class="add_answer" class="btn btn-default"> réponse multiple 6 </a> <br/>');
     $container.append($addLink);
+
+    $addLink.click(function(e) {
+      addAnswer($container,2);
+      $('.add_answer').hide();
+  
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+    {% endif %}
+
+    var $addLink2 = $('<a href="#" class="add_answer" class="btn btn-default"> 3 choix </a> <br/>');
+    var $addLink3 = $('<a href="#" class="add_answer" class="btn btn-default"> 4 choix </a>  <br/>');
+    var $addLink4 = $('<a href="#" class="add_answer" class="btn btn-default"> 5 choix </a> <br/>');
+    var $addLink5 = $('<a href="#" class="add_answer" class="btn btn-default"> 6 choix </a> <br/>');
+    
     $container.append($addLink2);
     $container.append($addLink3);
     $container.append($addLink4);
     $container.append($addLink5);
 
     
-    $addLink.click(function(e) {
-   	  addAnswer($container,2);
-   	  $('.add_answer').hide();
-	
-      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
-      return false;
-    });
+    
 
     $addLink2.click(function(e) {
    	  addAnswer($container,3);
@@ -90,8 +97,8 @@
 	      
 	      // On ajoute le prototype modifié à la fin de la balise <div>
 	      $container.append($prototype);
-	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
-	      var answer = '#nodiagbundle_question_answers_'+i+'_answer' ;
+	      var scoring = '#form_answers_'+i+'_scoring' ;
+	      var answer = '#form_answers_'+i+'_answer' ;
 	      if(i == 0){
 	  	  $(scoring).val('100');
 	  	  $(answer).val('OUI').prop('readonly',true);
@@ -111,7 +118,7 @@
 	      
 	      // On ajoute le prototype modifié à la fin de la balise <div>
 	      $container.append($prototype);
-	      var scoring = '#nodiagbundle_question_answers_'+i+'_scoring' ;
+	      var scoring = '#form_answers_'+i+'_scoring' ;
 	      
 	      if(i==number-1){
 	  	  $(scoring).val(scorLast);

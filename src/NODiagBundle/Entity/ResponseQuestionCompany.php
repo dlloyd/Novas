@@ -245,4 +245,18 @@ class ResponseQuestionCompany
     {
         return $this->answersId;
     }
+
+    /**
+     * 
+     *
+     * @return int
+     */
+    public function getScoring()
+    {
+        $scoring = 0;
+        foreach ($this->getAnswersId() as $answ) {
+                $scoring += $answ->getScoring();
+            }
+        return $scoring;
+    }
 }

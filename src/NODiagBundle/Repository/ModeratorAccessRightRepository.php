@@ -22,5 +22,19 @@ class ModeratorAccessRightRepository extends \Doctrine\ORM\EntityRepository
 
 	}
 
+	public function findAccessFamilies($moderatorId){
+		$qb  = $this->_em->createQueryBuilder();
+		
+		return $qb->select('f')
+          ->from('NODiagBundle:ModeratorAccessRight', 'mar')
+          ->innerJoin('(mar.questionSubFamily)','sub')
+          ->innerJoin('sub.family','f')
+          ->where($qb->expr()->eq('(mar.moderator)',$moderatorId))
+          ->getQuery()
+          ->getResult();
+
+
+	}
+
 	
 }

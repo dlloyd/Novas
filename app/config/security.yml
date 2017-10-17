@@ -5,7 +5,7 @@ security:
         NOUserBundle\Entity\User: sha512
 
     role_hierarchy:
-        ROLE_ADMIN:       [ROLE_USER, ROLE_COMPANY_OWNER]
+        ROLE_ADMIN:       [ROLE_USER, ROLE_COMPANY_OWNER, ROLE_ADMIN_PARTNER]
         ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_USER, ROLE_COMPANY_OWNER, ROLE_ALLOWED_TO_SWITCH]
 
     # http://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded

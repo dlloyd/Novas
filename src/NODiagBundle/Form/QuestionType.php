@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use NODiagBundle\Form\AnswerType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class QuestionType extends AbstractType
 {
@@ -16,14 +17,15 @@ class QuestionType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('question', 'textarea' )
-                ->add('subFamily','entity', array(
+                ->add('subFamily',EntityType::class, array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
-                    'property' => 'name',
+                    'choice_label' => function ($subFamily) {
+                            return $subFamily->getName();
+                        },
+                    'group_by' => function($subFamily) {
+                                        return $subFamily->getFamily()->getName();
+                                    },
                     'multiple' => false ,))
-                ->add('answers', 'collection' ,array(
-                    'type' => new AnswerType(),
-                    'allow_add' => true,
-                    'allow_delete' => true,))
                 ->add('answerTypeIsMultiple',CheckboxType::class, array(
                         'label'    => 'Question à choix multiple?',
                         'required' => false,

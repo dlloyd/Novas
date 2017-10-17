@@ -3,20 +3,21 @@
 {% block body %}
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
 <div style="height:40%;width:40%;margin-left:10%;">
-<canvas id="myChart" width="40" height="40"></canvas>
+<canvas id="myChart" width="undefined" height="undefined"></canvas>
 </div>
 <script>
 var ctx = document.getElementById("myChart");
 var myRadarChart = new Chart(ctx, {
-    type: 'bar',
+    type: 'horizontalBar',
     data:  {
-    labels: ['Running', 'Swimming', 'Eating', 'Cycling','toto'],
+    labels: [{% for key,value in average  %} '{{ key }}', {% endfor %}],
     datasets: [
     {
-    	label: "famille 1",
-    	borderColor: 'red',
+    	label: "Famille",
+    	borderColor: 'green',
+        backgroundColor:"rgba(0, 102, 0, 0.2)",
     	fill: true,
-        data: [60, 40, 30, 60,80]
+        data: [{% for key,value in average %} {{ value }}, {% endfor %}]
     }
     ]
     },
@@ -24,10 +25,12 @@ var myRadarChart = new Chart(ctx, {
 
     options:{
     scales:{
-     yAxes:[{
+     xAxes:[{ 
      ticks:
-     {beginAtZero:true,min:0,max:100 }}]
-     }
+        {beginAtZero:true, min:0,  max:100 }
+        }],
+     
+      }
      }
 
 

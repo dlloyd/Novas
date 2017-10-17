@@ -10,19 +10,13 @@ var ctx = document.getElementById("myChart");
 var myRadarChart = new Chart(ctx, {
     type: 'radar',
     data:  {
-    labels: ['Running', 'Swimming', 'Eating', 'Cycling','toto'],
+    labels: [{% for key,value in average  %} '{{ key }}', {% endfor %}],
     datasets: [
     {
-    	label: "famille 1",
-    	borderColor: 'red',
-    	fill: true,
-        data: [60, 40, 30, 60,80]
-    },
-    {
-    	label: "famille 2",
+    	label: "Famille",
     	borderColor: 'green',
     	fill: true,
-    	data: [60,50,50,70,70]
+        data: [{% for key,value in average %} {{ value }}, {% endfor %}]
     }
     ]
     },

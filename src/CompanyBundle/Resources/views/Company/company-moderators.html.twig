@@ -14,8 +14,7 @@
  	{% endif %}
     &nbsp &nbsp
  	<a href="{{ path('no_delete_moderator', {'moderatorId': mod.id }) }}"> supprimer </a>   &nbsp &nbsp 
-	<a href="#" >  réinitialiser mot de passe </a>
- 	&nbsp &nbsp 
+	
 	<a href="{{ path('no_add_moderator_access_right', {'moderatorId': mod.id }) }}" >  Ajouter des droits d'accès </a>  &nbsp &nbsp
 	(
 		{% for access in mod.moderatorAccessRight %}

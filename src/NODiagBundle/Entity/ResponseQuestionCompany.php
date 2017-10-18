@@ -254,9 +254,11 @@ class ResponseQuestionCompany
     public function getScoring()
     {
         $scoring = 0;
+        if($this->getAnswers()!= null){
         foreach ($this->getAnswers() as $answ) {
                 $scoring += $answ->getScoring();
             }
+        }
         return $scoring;
     }
 }

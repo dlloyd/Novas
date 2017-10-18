@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+
+ {%  for name,contents in responses %}
+    <h3> {{name}} </h3>
+    <ul>
+    {% for resp in contents %}
+    {%  if resp.isAnswered == true %}
+       <li> {{ resp.question.question }}  &nbsp  {{ resp.getScoring }} %  <br/>
+             réponse(s):  
+             {% for answer in resp.answers %}  {{ answer.answer }},   {% endfor %}  </li>
+    {% endif %}
+
+    {% endfor %}
+    </ul>
+ {% endfor %}
+
+
+{% endblock %}

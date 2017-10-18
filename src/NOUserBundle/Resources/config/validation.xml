@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<constraint-mapping xmlns="http://symfony.com/schema/dic/constraint-mapping"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://symfony.com/schema/dic/constraint-mapping
+        http://symfony.com/schema/dic/constraint-mapping/constraint-mapping-1.0.xsd">
+
+    <class name="FOS\UserBundle\Model\User">
+
+        <property name="plainPassword">
+            <constraint name="Regex">
+                <option name="pattern">/(?=^.{8,}$)(?=.*\d)(?=.*[!@#$%^&amp;*]+)(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/</option>
+                <option name="message">  Mot de passe doit contenir au moins 8 caractères, majuscule,miniscule,valeur numérique et caractère spécial </option>
+                <option name="groups">
+                    <value>Registration</value>
+                    <value>ResetPassword</value>
+                    <value>ChangePassword</value>
+                </option>
+            </constraint>
+            
+        </property>
+    </class>
+
+    
+
+</constraint-mapping>

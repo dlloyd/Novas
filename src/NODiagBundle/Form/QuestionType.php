@@ -16,7 +16,11 @@ class QuestionType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('question', 'textarea' )
+        $builder->add('innerId','text')
+                ->add('question', 'textarea' )
+                ->add('pdfName','file',array('required' => false,))
+                ->add('imageName','file',array('required' => false,))
+                ->add('videoYoutubeLink','text')
                 ->add('subFamily',EntityType::class, array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
                     'choice_label' => function ($subFamily) {

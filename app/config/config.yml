@@ -77,9 +77,18 @@ vich_uploader:
     db_driver: orm
 
     mappings:
-        file_upload:
-            uri_prefix:         /upload
-            upload_destination: %kernel.root_dir%/../web/upload
+        pdf_question:
+            uri_prefix:         /pdfquest
+            upload_destination: %kernel.root_dir%/../web/pdfquest
+            namer:              vich_uploader.namer_uniqid
+
+            inject_on_load:   false
+            delete_on_update: true
+            delete_on_remove: true
+
+        image_question:
+            uri_prefix:         /imgquest
+            upload_destination: %kernel.root_dir%/../web/imgquest
             namer:              vich_uploader.namer_uniqid
 
             inject_on_load:   false

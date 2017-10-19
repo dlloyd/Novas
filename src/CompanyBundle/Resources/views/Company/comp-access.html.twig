@@ -2,7 +2,6 @@
 
 {% block body %}
 
-{{dump(form.subFams.vars.choices)}}
 
 {{ form_start(form, {'method': 'post', 'action': path('no_add_company_access_right',{'companyId':companyId}) }) }}
 

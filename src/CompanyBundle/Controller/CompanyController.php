@@ -147,8 +147,6 @@ class CompanyController extends Controller
     	$form = $this->createFormBuilder($userData)
     		->add('name',TextType::class)
     		->add('email',EmailType::class)
-    		->add('password',PasswordType::class)
-    		->add('confirmation_password',PasswordType::class)
     		->add('function',TextType::class)
     		->add('status',ChoiceType::class, array('choices' => array( 1 =>'ADMINISTRATOR',
     																	2 =>'EMPLOYEE'),))
@@ -157,12 +155,14 @@ class CompanyController extends Controller
     	$form->handleRequest($request);
 
     	if($form->isSubmitted() && $form->isValid()){
+            $pass = $this->generatePassword();
+
     		$userManager = $this->container->get('fos_user.user_manager');
     		$data= $form->getData();
             $user = $userManager->createUser();
             $user->setUsername($data['name']);
             $user->setEmail($data['email']);
-            $user->setPlainPassword($data['password']);
+            $user->setPlainPassword($pass);
             $user->setCompanyFunction($data['function']);
             if($data['status'] == 1){
             	$user->addRole('ROLE_COMPANY_OWNER');
@@ -176,6 +176,11 @@ class CompanyController extends Controller
 
             $userManager->updateUser($user);
 
+            //envoie par email le mot de passe utilisateur? pour le moment affiche en flash
+            $message = "l'utilisateur ".$user->getUsername(). " de la company ".$company->getDenomination()." à pour mot de passe ".$pass;
+            $request->getSession()
+            ->getFlashBag()
+            ->add('success', $message);
             return $this->redirectToRoute('no_all_companies');
         }
 
@@ -366,6 +371,15 @@ class CompanyController extends Controller
 
         return $this->render('CompanyBundle:Company:comp-access.html.twig',array('form' => $form->createView(),
                 'companyId'=>$companyId,));
+    }
+
+
+
+    public function generatePassword(){
+        $string = bin2hex(openssl_random_pseudo_bytes(4)); // 8 chars long
+        $special = array('!','@','#','$','%','&');
+        $random = rand(0,5);
+        return 'NO1'.$string.$special[$random];
     }
 
 

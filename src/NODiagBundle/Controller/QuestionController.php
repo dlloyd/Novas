@@ -84,7 +84,8 @@ class QuestionController extends Controller
             return $this->redirectToRoute('no_create_question');
         }
 
-        return $this->render('NODiagBundle:Question:answers.html.twig', array('form' => $form->createView(),'id'=>$id,));
+        return $this->render('NODiagBundle:Question:answers.html.twig', array('form' => $form->createView(),'id'=>$id,
+                                                                                'multiple' => $question->getAnswerTypeIsMultiple()));
     }
 
     public function questionsSubFamiliesAction($subFamId, Request $request){

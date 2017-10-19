@@ -18,8 +18,8 @@ class QuestionType extends AbstractType
     {
         $builder->add('innerId','text')
                 ->add('question', 'textarea' )
-                ->add('pdfName','file',array('required' => false,))
-                ->add('imageName','file',array('required' => false,))
+                ->add('pdfFile','file',array('required' => false,))
+                ->add('imageFile','file',array('required' => false,))
                 ->add('videoYoutubeLink','text')
                 ->add('subFamily',EntityType::class, array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',

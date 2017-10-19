@@ -5,11 +5,11 @@
 <h2> {{ response.question.question }} </h2>
 
 {% if response.question.pdfName is not null %}
-<a href="{{ asset('/pdfquest/') ~ response.question.pdfName }}" > Lien Document pdf  </a> <br/>
+<a href="{{ asset('/pdfquest/') ~ response.question.pdfName }}" target="_blank" > Lien Document pdf  </a> <br/>
 {%  endif %}
 
 {% if response.question.imageName is not null %}
-<img src="{{ asset('/imgquest/') ~ response.question.imageName }}" height="100px" width="100px"> <br/>
+<img src="{{ asset('/imgquest/') ~ response.question.imageName }}" height="560" width="315"> <br/>
 {%  endif %}
 
 {% if response.question.videoYoutubeLink is not null %}

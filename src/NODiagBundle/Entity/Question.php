@@ -42,7 +42,6 @@ class Question
      * @var \Date
      *
      * @ORM\Column(name="date", type="datetime")
-     * @Assert\Date()
      */
     private $date;
 
@@ -147,6 +146,7 @@ class Question
     {
         $this->answers = new \Doctrine\Common\Collections\ArrayCollection();
         $this->responseQuestionsCompany = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new\DateTime();
     }
 
     /**

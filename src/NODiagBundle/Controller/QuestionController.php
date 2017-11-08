@@ -10,6 +10,7 @@ use NODiagBundle\Entity\Question;
 use NODiagBundle\Form\QuestionType;
 use NODiagBundle\Form\AnswerType;
 use NODiagBundle\Entity\ResponseQuestionCompany;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 
 class QuestionController extends Controller
 {
@@ -58,6 +59,13 @@ class QuestionController extends Controller
 
         return $this->render('NODiagBundle:Question:update.html.twig', array('form' => $form->createView(),'id'=>$id,));
 
+    }
+
+    public function allQuestionsAction(){
+        $em = $this->getDoctrine()->getManager();
+        $questions = $em->getRepository('NODiagBundle:Question')->findAll();
+
+        return $this->render('NODiagBundle:Question:all.html.twig',array('questions'=>$questions,));
     }
 
 
@@ -124,7 +132,12 @@ class QuestionController extends Controller
                     'required' => true, 
                     'expanded' => true,
                     'multiple' => $question->getAnswerTypeIsMultiple() ,))
-                ->getForm();
+            ->add('inappropriated' ,CheckboxType::class, array(
+                        'label'    => 'N/A',
+                        'required' => false,
+                    ))
+            ->add('comment','textarea',array('required'=>false,))
+            ->getForm();
 
         $form->handleRequest($request);
 
@@ -141,8 +154,15 @@ class QuestionController extends Controller
                 array_push($answers, $data['answers']);
             }
             
-            
+            if ($data['comment'] != null) {
+                $response->setComment($data['comment']);
+            }
+            if($data['inappropriated']){
+                $response->setIsInappropriated(true);
+            }
+            else{
             $response->setAnswers($answers);
+            }
             $response->setIsAnswered(true);
             $response->setLastModification( new\DateTime());
             $response->setUsername($user->getUsername());

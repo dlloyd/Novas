@@ -32,6 +32,14 @@ class Company
 
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="administrator_id", type="integer")
+     */
+    private $administratorId;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="denomination", type="string", length=100, unique=false)
@@ -444,5 +452,39 @@ class Company
     public function getResponseQuestionsCompany()
     {
         return $this->responseQuestionsCompany;
+    }
+
+    /**
+     * Add companyQuestionSubFamAccess
+     *
+     * @param \NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess
+     *
+     * @return Company
+     */
+    public function addCompanyQuestionSubFamAccess(\NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess)
+    {
+        $this->companyQuestionSubFamAccess[] = $companyQuestionSubFamAccess;
+
+        return $this;
+    }
+
+    /**
+     * Remove companyQuestionSubFamAccess
+     *
+     * @param \NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess
+     */
+    public function removeCompanyQuestionSubFamAccess(\NODiagBundle\Entity\CompanyQuestionSubFamilyAccess $companyQuestionSubFamAccess)
+    {
+        $this->companyQuestionSubFamAccess->removeElement($companyQuestionSubFamAccess);
+    }
+
+    /**
+     * Get companyQuestionSubFamAccess
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getCompanyQuestionSubFamAccess()
+    {
+        return $this->companyQuestionSubFamAccess;
     }
 }

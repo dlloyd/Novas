@@ -15,6 +15,7 @@ use CompanyBundle\Form\CompanyType;
 use NODiagBundle\Entity\ModeratorAccessRight;
 use NODiagBundle\Entity\CompanyQuestionSubFamilyAccess;
 use NODiagBundle\Entity\ResponseQuestionCompany;
+use NOMatriceBundle\Entity\Matrice;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class CompanyController extends Controller
@@ -35,6 +36,10 @@ class CompanyController extends Controller
 		if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
 			$em = $this->getDoctrine()->getManager();
 
+            if(!$this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+                $company->setAdministratorId($this->getUser()->getId());
+            }
+            $Company->setMatrice(new Matrice());
 			$em->persist($company);
 			$em->flush();
 
@@ -46,14 +51,12 @@ class CompanyController extends Controller
     }
 
 
-     public function updateCompanyInfosAction(Request $request,$id){
-        $em = $this->getDoctrine('CompanyBundle:Company')->getManager();
-        $company = $em->getRepository()->find($id);
+     public function updateCompanyInfosAction(Request $request){
+        $em = $this->getDoctrine()->getManager();
         $user = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
+        $company = $user->getCompany();
 
-        // just for administrator and company's owner
-        if($this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || 
-            ( $user->hasrole('ROLE_COMPANY_OWNER') && $user->getCompany()->getId() == $company->getId() )){
+
         $form = $this->createForm(new CompanyType(),$company);
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
@@ -66,10 +69,6 @@ class CompanyController extends Controller
         }
 
         return $this->render('CompanyBundle:Company:update.html.twig', array('form' => $form->createView()));
-       }
-       else{
-            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
-       }
 
     }
 
@@ -79,12 +78,20 @@ class CompanyController extends Controller
     	$em = $this->getDoctrine()->getManager();
     	$company = $em->getRepository('CompanyBundle:Company')->find($companyId);
 
+        if(!$this->IsCompanyAdministrator($company,$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
+
     	return $this->render('CompanyBundle:Company:company-moderators.html.twig',array('company' => $company,));
     }
 
     public function disableCompanyAndAccountsAction($companyId){
     	$em = $this->getDoctrine()->getManager();
     	$company = $em->getRepository('CompanyBundle:Company')->find($companyId);
+
+        if(!$company || !$this->IsCompanyAdministrator($company,$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
 
     	if($company){
     		foreach ($company->getModerators() as $mod) {
@@ -101,6 +108,10 @@ class CompanyController extends Controller
     public function enableCompanyAndAccountsAction($companyId){
     	$em = $this->getDoctrine()->getManager();
     	$company = $em->getRepository('CompanyBundle:Company')->find($companyId);
+
+        if(!$company || !$this->hasCompanyAccess($company,$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
 
     	if($company){
     		foreach ($company->getModerators() as $mod ) {
@@ -119,6 +130,10 @@ class CompanyController extends Controller
     	// just for company's admin user
     	$em = $this->getDoctrine()->getManager();
     	$mod = $em->getRepository('NOUserBundle:User')->find($moderatorId); 
+
+        if(!$mod || !$this->hasCompanyAccess($mod->getCompany(),$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
 
     	if($mod){
     		$em->remove($mod);
@@ -142,14 +157,19 @@ class CompanyController extends Controller
     }
 
     public function addModeratorAction($companyId, Request $request){
+        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+            $roles = array( 1 =>'ADMINISTRATOR', 2 =>'EMPLOYEE',3 => 'PARTNER');
+        }
+        else{
+            $roles = array( 1 =>'ADMINISTRATOR', 2 =>'EMPLOYEE');
+        }
     	$userData = array();
     	$company = $this->getDoctrine()->getManager()->getRepository('CompanyBundle:Company')->find($companyId);
     	$form = $this->createFormBuilder($userData)
     		->add('name',TextType::class)
     		->add('email',EmailType::class)
     		->add('function',TextType::class)
-    		->add('status',ChoiceType::class, array('choices' => array( 1 =>'ADMINISTRATOR',
-    																	2 =>'EMPLOYEE'),))
+    		->add('status',ChoiceType::class, array('choices' => $roles,))
     		->getForm();
 
     	$form->handleRequest($request);
@@ -167,8 +187,11 @@ class CompanyController extends Controller
             if($data['status'] == 1){
             	$user->addRole('ROLE_COMPANY_OWNER');
             }
-            if($data['status'] == 2 ){
+            elseif($data['status'] == 2 ){
             	$user->addRole('ROLE_USER');
+            }
+            elseif ($data['status'] == 3 && $this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')) {
+                $user->addRole('ROLE_ADMIN');
             }
             
             $user->setCompany($company);
@@ -204,6 +227,7 @@ class CompanyController extends Controller
     	$admin = $em->getRepository('NOUserBundle:User')->find($this->getUser()->getId());
     	$mod =   $em->getRepository('NOUserBundle:User')->find($id); 
 
+
     	if($mod->getCompany()== $admin->getCompany()){
     		$mod->setEnabled(false);
     		$em->merge($mod);
@@ -234,6 +258,10 @@ class CompanyController extends Controller
         $em = $this->getDoctrine()->getManager();
         $mod = $em->getRepository('NOUserBundle:User')->find($id); 
 
+        if(!$mod || !$this->IsCompanyAdministrator($company,$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
+
         if($mod){
             $mod->setEnabled(false);
             $em->merge($mod);
@@ -248,6 +276,11 @@ class CompanyController extends Controller
     public function adminEnableModeratorAction($id){
         $em = $this->getDoctrine()->getManager();
         $mod = $em->getRepository('NOUserBundle:User')->find($id); 
+
+
+        if(!$mod || !$this->IsCompanyAdministrator($company,$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
 
         if($mod){
             $mod->setEnabled(true);
@@ -264,6 +297,10 @@ class CompanyController extends Controller
     	$em = $this->getDoctrine()->getManager() ;
         $user = $em->getRepository('NOUserBundle:User')->find($moderatorId);
         $companyId = $user->getCompany()->getId(); 
+
+        if(!$this->IsCompanyAdministrator($user->getCompany(),$this->getUser())){
+            throw $this->createAccessDeniedException('YOU ARE NOT ALLOWED TO BE HERE!');
+        }
         $data = array();
     	$otherSubFams = $em->getRepository('NODiagBundle:QuestionSubFamily')->findOthersAccessModerator($moderatorId,$companyId);
     	
@@ -380,6 +417,30 @@ class CompanyController extends Controller
         $special = array('!','@','#','$','%','&');
         $random = rand(0,5);
         return 'NO1'.$string.$special[$random];
+    }
+
+
+    public function hasCompanyAccess($company,$user){
+        if($this->IsCompanyAdministrator($company,$user) || 
+            $company == $user->getCompany() && $user->hasrole('ROLE_COMPANY_OWNER')){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+
+    public function IsCompanyAdministrator($company,$user){
+        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || 
+            $company->getAdministratorId()== $user->getId()){
+            return true;
+        }
+        else{
+            return false;
+        }
+
     }
 
 

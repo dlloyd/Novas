@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+
+{% block body %}
+
+<div class="container">
+  <h2>Listes des questions </h2>
+
+
+  <input id="myInput"  placeholder="Recherche.." > <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id interne </th>
+        <th>Intitulé</th>
+        <th> Sous-famille </th>
+        <th> Mettre à jour </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for quest in questions %}
+      <tr>
+        <td> {{ quest.innerId }} </td>
+        <td> {{ quest.question }} </td>
+        <td> {{ quest.subFamily.name }}</td>
+        <td> <a href="{{ path('no_update_question',{'id': quest.id }) }}"> lien </a> </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
+
+<script>
+$(document).ready(function(){
+	$("#myInput").on("keyup", function(){
+	var value = $(this).val().toLowerCase();
+
+	$("#myTable tr").each(function(){
+	 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+	});
+	});
+});
+
+</script>
+
+{% endblock %}

@@ -1,1 +1,16 @@
-Hello World!
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+<br/><br/><br/>
+
+{{ form_start(form, {'method': 'post', 'action': path(route) }) }}
+ 
+{{ form_rest(form) }}
+<button class="btn btn-default" type="submit" > Envoyer </button>
+{{ form_end(form) }}
+
+
+
+{% endblock %}
+

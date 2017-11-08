@@ -18,7 +18,7 @@ class CompanyType extends AbstractType
         $builder->add('innerId','text')
         ->add('denomination', 'text')
         ->add('employeesNumber','number')
-        ->add('activityBeginDate','date')
+        ->add('activityBeginDate','text')
         ->add('socialCapital','text')
         ->add('activityBranch','entity',array(
                     'class'    => 'CompanyBundle:activityBranch',
@@ -32,8 +32,7 @@ class CompanyType extends AbstractType
         ->add('codeNAF','entity',array(
                     'class'    => 'CompanyBundle:CodeNAF',
                     'property' => 'name',
-                    'multiple' => false ,))
-        ->add('matrice', new MatriceType());
+                    'multiple' => false ,));
     }
     
     /**

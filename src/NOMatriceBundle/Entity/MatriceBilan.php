@@ -26,7 +26,7 @@ class MatriceBilan
     /**
      * @var string
      *
-     * @ORM\Column(name="force", type="text")
+     * @ORM\Column(name="force_mat", type="text",nullable=true)
      */
     private $force;
 
@@ -34,7 +34,7 @@ class MatriceBilan
     /**
      * @var string
      *
-     * @ORM\Column(name="weakness", type="text")
+     * @ORM\Column(name="weakness", type="text",nullable=true)
      */
     private $weakness;
 
@@ -42,7 +42,7 @@ class MatriceBilan
     /**
      * @var string
      *
-     * @ORM\Column(name="opportunity", type="text")
+     * @ORM\Column(name="opportunity", type="text",nullable=true)
      */
     private $opportunity;
 
@@ -50,7 +50,7 @@ class MatriceBilan
     /**
      * @var string
      *
-     * @ORM\Column(name="threat", type="text")
+     * @ORM\Column(name="threat", type="text",nullable=true)
      */
     private $threat;
 

@@ -38,12 +38,21 @@ class ResponseQuestionCompany
    private $isAnswered;
 
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="n_a", type="boolean")
+     */
+   private $isInappropriated;   // question non approprié
+
+
+
    /**
      * @var \Date
      *
      * @ORM\Column(name="last_modification", type="date",nullable=true)
      */
-   private $LastModification;
+   private $lastModification;
 
    /**
      * @var string
@@ -157,7 +166,7 @@ class ResponseQuestionCompany
      */
     public function setLastModification($lastModification)
     {
-        $this->LastModification = $lastModification;
+        $this->lastModification = $lastModification;
 
         return $this;
     }
@@ -169,7 +178,10 @@ class ResponseQuestionCompany
      */
     public function getLastModification()
     {
-        return $this->LastModification;
+        if($this->lastModification !=null)
+            return $this->lastModification->format('d/m/Y');
+        else
+            return $this->lastModification;
     }
 
     /**
@@ -260,5 +272,53 @@ class ResponseQuestionCompany
             }
         }
         return $scoring;
+    }
+
+    /**
+     * Set isInappropriated
+     *
+     * @param boolean $isInappropriated
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setIsInappropriated($isInappropriated)
+    {
+        $this->isInappropriated = $isInappropriated;
+
+        return $this;
+    }
+
+    /**
+     * Get isInappropriated
+     *
+     * @return boolean
+     */
+    public function getIsInappropriated()
+    {
+        return $this->isInappropriated;
+    }
+
+    /**
+     * Set reportComment
+     *
+     * @param string $reportComment
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setReportComment($reportComment)
+    {
+        $this->reportComment = $reportComment;
+
+        return $this;
+    }
+
+    /**
+     * Get reportComment
+     *
+     * @return string
+     */
+    public function getReportComment()
+    {
+        return $this->reportComment;
     }
 }

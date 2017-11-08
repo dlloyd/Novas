@@ -23,33 +23,33 @@ class Matrice
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\PoliticalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\PoliticalMatrice", cascade={"persist"})
     */
     private $politicalMatrice;
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EconomicalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EconomicalMatrice", cascade={"persist"})
     */
     private $economicalMatrice;
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EcologicalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\EcologicalMatrice", cascade={"persist"})
     */
     private $ecologicalMatrice;
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\TechnologicalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\TechnologicalMatrice", cascade={"persist"})
     */
     private $technologicalMatrice;
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\SocioCulturalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\SocioCulturalMatrice", cascade={"persist"})
     */
     private $socioCulturalMatrice;
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\LegalMatrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\LegalMatrice", cascade={"persist"})
     */
     private $legalMatrice;
 

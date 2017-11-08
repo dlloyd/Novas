@@ -1,0 +1,28 @@
+no_company_matrice:
+    path:     /company/matrice 
+    defaults: { _controller: NOMatriceBundle:Default:index }
+
+
+no_company_matrice_economical:
+    path:     /company/matrice/econo
+    defaults: { _controller: NOMatriceBundle:Default:economical }
+
+no_company_matrice_political:
+    path:     /company/matrice/poli
+    defaults: { _controller: NOMatriceBundle:Default:political }
+
+no_company_matrice_sociocultural:
+    path:     /company/matrice/socio
+    defaults: { _controller: NOMatriceBundle:Default:socioCultural }
+
+no_company_matrice_ecological:
+    path:     /company/matrice/ecolo
+    defaults: { _controller: NOMatriceBundle:Default:ecological }
+
+no_company_matrice_legal:
+    path:     /company/matrice/leg
+    defaults: { _controller: NOMatriceBundle:Default:legal }
+
+no_company_matrice_technological:
+    path:     /company/matrice/tech
+    defaults: { _controller: NOMatriceBundle:Default:technological }

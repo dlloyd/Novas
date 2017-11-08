@@ -26,6 +26,10 @@ no_update_question:
     path:     /admin/u/quest/{id}
     defaults: { _controller: NODiagBundle:Question:updateQuestion }
 
+no_all_questions:
+    path:     /admin/quest/all
+    defaults: { _controller: NODiagBundle:Question:allQuestions }
+
 no_delete_question:
     path:    /admin/d/quest/{id}
     defaults: { _controller: NODiagBundle:Question:deleteQuestion }

@@ -3,6 +3,7 @@
 namespace NODiagBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 
 /**
@@ -35,6 +36,12 @@ class Answer
     * @var float
     *
     * @ORM\Column(name="scoring" , type="float", scale=2 )
+    * @Assert\Range(
+     *      min = 0,
+     *      max = 100,
+     *      minMessage = "Scoring inférieur à 0",
+     *      maxMessage = "Scoring supérieur à 100"
+     * )
     */
     private $scoring;
 

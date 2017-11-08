@@ -23,7 +23,7 @@ class EcologicalMatrice
 
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\MatriceBilan")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\MatriceBilan", cascade={"persist"})
     */
     private $matriceBilan;
 

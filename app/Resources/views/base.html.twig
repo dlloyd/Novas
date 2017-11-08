@@ -7,7 +7,7 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
 
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
@@ -55,6 +55,7 @@
           <a class="dropdown-item" href="{{ path('no_create_question_family') }}"> Créer une famille de  questions </a>
           <a class="dropdown-item" href="{{ path('no_create_question_sub_family') }}">Créer une sous-famille de questions</a>
           <a class="dropdown-item" href="{{ path('no_create_question') }}"> Créer une question</a>
+          <a class="dropdown-item" href="{{ path('no_all_questions') }}"> Liste des questions </a>
           
         </div>
       </li>
@@ -83,7 +84,28 @@
          <li class="nav-item">
             <a class="nav-link" href="{{ path('no_company_show_moderators') }}">Comptes moderateurs</a>
         </li>
-        
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_update_company_infos') }}">Informations entreprise </a> 
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_company_matrice') }}"> </a> 
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Matrice PESTEL 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ path('no_company_matrice_economical') }}"> économique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_political') }}"> politique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_legal') }}"> légale</a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_technological') }}"> technologique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_sociocultural') }}"> socio-culturelle </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_ecological') }}"> écologique </a>
+          
+        </div>
+        </li>
+
         <li class="nav-item">
             <a class="nav-link" href="{{ path('no_report_homepage') }}"> Rapport </a>
         </li>

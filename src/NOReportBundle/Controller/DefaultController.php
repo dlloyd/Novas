@@ -6,6 +6,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
+
 
 class DefaultController extends Controller
 {
@@ -36,6 +39,10 @@ class DefaultController extends Controller
          elseif($data['chart'] == 'bar'){
             $average = $this->getAverageSubFamilyQuestions($data,$company); 
             return $this->render('NOReportBundle:Default:bar.html.twig',array('average'=>$average,));
+         }
+         elseif($data['chart'] == 'liste'){
+             $responses = $this->getListReport($data,$company) ;
+             return $this->render('NOReportBundle:Default:list.html.twig',array('responses'=>$responses,));
          }
          
          
@@ -83,11 +90,6 @@ class DefaultController extends Controller
    }
 
 
-
-
-   public function pdfReportAction(){
-
-   }
 
 
    public function getAverageSubFamilyQuestions($data,$company){
@@ -151,6 +153,29 @@ class DefaultController extends Controller
          return $responses;
        
    }
+
+
+    public function updateResponseReportCommentAction(Request $request){
+
+        if($request->isXmlHttpRequest() ){
+            $em = $this->getDoctrine()->getManager();
+            $companyId = $request->request->get('companyId');
+            $questionId = $request->request->get('questionId');
+            $reportComment = $request->request->get('reportComment');
+            $response = $em->getRepository('NODiagBundle:ResponseQuestionCompany')->findResponse($companyId,$questionId);
+            $response->setReportComment($reportComment);
+           
+            $em->merge($response);
+            $em->flush();
+            return new JsonResponse(array('data'=>'Note interne ajoutée! pour voir les modifications appuyez sur la touche F5'));
+        }
+                         
+        else{
+            return new Response('not ajax query',400); 
+        }  
+
+    }
+        
 
 
 

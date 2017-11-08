@@ -38,6 +38,15 @@ class ResponseQuestionCompany
    private $isAnswered;
 
 
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="n_a", type="boolean")
+     */
+   private $isInappropriated;   // question non approprié
+
+
+
    /**
      * @var \Date
      *
@@ -55,9 +64,9 @@ class ResponseQuestionCompany
    /**
      * @var int
      *
-     * @ORM\Column(name="answer_id", type="array",nullable=true)
+     * @ORM\Column(name="answers", type="array",nullable=true)
      */
-   private $answersId;
+   private $answers;
 
 
 
@@ -67,6 +76,14 @@ class ResponseQuestionCompany
      * @ORM\Column(name="comment", type="text",nullable=true)
      */
    private $comment;
+
+
+   /**
+     * @var string
+     *
+     * @ORM\Column(name="report_comment", type="text",nullable=true)
+     */
+   private $reportComment;
 
     /**
      * Set company
@@ -212,5 +229,45 @@ class ResponseQuestionCompany
     public function getComment()
     {
         return $this->comment;
+    }
+
+    /**
+     * Set answers
+     *
+     * @param array $answers
+     *
+     * @return ResponseQuestionCompany
+     */
+    public function setAnswers($answers)
+    {
+        $this->answers = $answers;
+
+        return $this;
+    }
+
+    /**
+     * Get answers
+     *
+     * @return array
+     */
+    public function getAnswers()
+    {
+        return $this->answers;
+    }
+
+    /**
+     * 
+     *
+     * @return int
+     */
+    public function getScoring()
+    {
+        $scoring = 0;
+        if($this->getAnswers()!= null){
+        foreach ($this->getAnswers() as $answ) {
+                $scoring += $answ->getScoring();
+            }
+        }
+        return $scoring;
     }
 }

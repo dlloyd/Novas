@@ -8,5 +8,10 @@ no_admin_company_report:
     defaults: { _controller: NOReportBundle:Default:adminCompanyReport }
 
 
+no_admin_add_response_report_comment:
+    path:     /admin/resp/repcom/
+    defaults: { _controller: NOReportBundle:Default:updateResponseReportComment }
+
+
 
 

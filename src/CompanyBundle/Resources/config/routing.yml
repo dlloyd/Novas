@@ -10,6 +10,10 @@ no_create_company:
     path:     /admin/create/company
     defaults: { _controller: CompanyBundle:Company:createCompany }
 
+no_update_company_infos:
+    path:     /company/update/infos
+    defaults: { _controller: CompanyBundle:Company:updateCompanyInfos }
+
 no_show_company_accounts:
     path:     /admin/show/company/{companyId}
     defaults: { _controller: CompanyBundle:Company:getCompanyModerators }

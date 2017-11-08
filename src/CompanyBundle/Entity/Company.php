@@ -32,6 +32,14 @@ class Company
 
 
     /**
+     * @var int
+     *
+     * @ORM\Column(name="administrator_id", type="integer")
+     */
+    private $administratorId;
+
+
+    /**
      * @var string
      *
      * @ORM\Column(name="denomination", type="string", length=100, unique=false)
@@ -91,7 +99,7 @@ class Company
     private $codeNAF;
 
     /**
-    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\Matrice")
+    * @ORM\OneToOne(targetEntity="NOMatriceBundle\Entity\Matrice",cascade={"persist"})
     */
     private $matrice;
 
@@ -478,5 +486,29 @@ class Company
     public function getCompanyQuestionSubFamAccess()
     {
         return $this->companyQuestionSubFamAccess;
+    }
+
+    /**
+     * Set administratorId
+     *
+     * @param integer $administratorId
+     *
+     * @return Company
+     */
+    public function setAdministratorId($administratorId)
+    {
+        $this->administratorId = $administratorId;
+
+        return $this;
+    }
+
+    /**
+     * Get administratorId
+     *
+     * @return integer
+     */
+    public function getAdministratorId()
+    {
+        return $this->administratorId;
     }
 }

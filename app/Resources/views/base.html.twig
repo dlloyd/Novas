@@ -120,21 +120,7 @@ html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
             $("#user-infos").hide();
         });
 
-        $( '#form_allFams ' ).click( function () {
-          $( '#box input[type="checkbox"]' ).prop('checked', this.checked)
-        });
-
-        $('#box input[type="checkbox"]').click(function(event) {
-          if(this.checked==false) {
-            $( '#form_allFams' ).prop('checked', this.checked);
-            $(this).parent().parent().parent().prev().find('input[type="checkbox"]').prop('checked', this.checked);
-          }
-        });
-
-        $('.family-checkall input[type="checkbox"]').click(function(event) {
-            $(this).parent().next().find('input[type="checkbox"]').prop('checked', this.checked); 
-        });
-
+        
       });
 
 

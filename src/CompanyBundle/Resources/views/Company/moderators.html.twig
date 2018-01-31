@@ -23,9 +23,9 @@
         
         {% if not moderator.role("ROLE_COMPANY_OWNER") %}
 		 {% if moderator.enabled %}
-		  <a href="#" class="btn btn-danger" >désactiver </a>
+		  <a href="{{ path('no_disable_company_moderator',{'id':moderator.id}) }}" class="btn btn-danger" >désactiver </a>
 		 {% else %}
-		  <a href="#" class="btn btn-success"> activer </a>
+		  <a href="{{ path('no_enable_company_moderator',{'id':moderator.id}) }}" class="btn btn-success"> activer </a>
 		 {% endif %}
 		 
 		{% endif %}

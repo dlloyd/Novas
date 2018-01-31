@@ -4,48 +4,90 @@
 
 <div class="container">
 
-{% if is_granted('ROLE_ADMIN') %}
+    {% if is_granted('ROLE_ADMIN') %}
 
-{{ form_start(form, {'method': 'post', 'action': path('no_admin_company_report' ,{'companyId': company.id} ) }) }}
-{% else %}
+    {{ form_start(form, {'method': 'post', 'action': path('no_admin_company_report' ,{'companyId': company.id} ) }) }}
+    {% else %}
 
-{{ form_start(form, {'method': 'post', 'action': path('no_report_homepage') }) }}
-{% endif %}
-			<h3> Axes/Listes </h3>
-			<div id="box" style="border : solid 2px #000000; padding : 4px; width : 80%; height : 300px; overflow : auto;"> 
-            {{ form_widget(form.allFams) }}
-            {{ form_label(form.allFams) }} <br/>
-        
-			{% for name, choices in form.subFams.vars.choices %}
-                <div class="family-checkall" >
-                    <input type="checkbox"  />
-                     {{ name }}
-                </div>
-                    <div class="list">
-                    <ul>
-                    {% for key,choice in choices.choices %}
-                        <li>
-                            {{ form_widget(form.subFams[key]) }}
-                            {{ form_label(form.subFams[key]) }}
-                        </li>
-                    {% endfor %}
-                    </ul>
-                    </div>
-                
-            {% endfor %}
+    {{ form_start(form, {'method': 'post', 'action': path('no_report_homepage') }) }}
+    {% endif %}
+
+    <h3> Axes/Listes </h3>
+	<div id="box" style="border : solid 2px #000000; padding : 4px; width : 80%; height : 300px; overflow : auto;"> 
+        {{ form_widget(form.allFams) }}
+        {{ form_label(form.allFams) }} <br/>
+    
+        <div id="box-list">
+		{% for name, choices in form.subFams.vars.choices %}
+            <div class="family-checkall" >
+                <input type="checkbox"  />
+                 {{ name }}
             </div>
+                <div class="list">
+                <ul>
+                {% for key,choice in choices.choices %}
+                    <li>
+                        {{ form_widget(form.subFams[key]) }}
+                        {{ form_label(form.subFams[key]) }}
+                    </li>
+                {% endfor %}
+                </ul>
+                </div>
             
-            {{ form_rest(form) }}
-
-            <button class="btn btn-default" type="submit" > Envoyer </button>
+        {% endfor %}
+        </div>
+    </div>
+    
+    {{ form_rest(form) }}
+    <br/>
+    <button class="btn btn-primary" type="submit" > Envoyer </button>
             
 {{ form_end(form) }}
 
 </div>
 
+    
+
 {% endblock %}
 
+{% block javascripts %}
+{{ parent() }}
+ <script type="text/javascript">
+    
+      $(document).ready(function(){
 
+        $( '#form_allFams ' ).click( function () {
+          $( '#box input[type="checkbox"]' ).prop('checked', this.checked)
+        });
+
+        $('#box input[type="checkbox"]').click(function(event) {
+          if(this.checked==false) {
+            $( '#form_allFams' ).prop('checked', this.checked);
+            $(this).parent().parent().parent().prev().find('input[type="checkbox"]').prop('checked', this.checked);
+          }
+        });
+
+        $('.family-checkall input[type="checkbox"]').click(function(event) {
+            $(this).parent().next().find('input[type="checkbox"]').prop('checked', this.checked); 
+        });
+
+        $("#box-list").change(function(){
+          if ($('#box-list').find('input[type="checkbox"]:checked').length == $('#box-list').find('input[type="checkbox"]').length) {
+             $( '#form_allFams' ).prop('checked', true);
+          }
+        });
+
+        $(".list").change(function(){
+          if ($(this).find('input[type="checkbox"]:checked').length == $(this).find('input[type="checkbox"]').length) {
+             $(this).prev().find('input[type="checkbox"]').prop('checked', true);
+        }});
+
+      });
+
+
+    </script>
+
+ {% endblock %}
 
 
 

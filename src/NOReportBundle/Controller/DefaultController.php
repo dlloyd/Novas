@@ -106,16 +106,31 @@ class DefaultController extends Controller
 
          foreach ($data['type'] as $dt) {
           if($dt == 'threat'){
-           $averagesArray['averageThreat'] = $this->getAverageSubFamilyQuestions($data,$company,"MEN") ;
-           $averagesArray['averagePreventiveAction'] = $this->getAverageSubFamilyQuestions($data,$company,"APR") ;
+
+            if($data['allFams']){  //Si toutes les familles est sélectionné
+              $averagesArray['averageThreat'] = $this->getAverageFamilyQuestions($data,$company,"MEN") ;
+              $averagesArray['averagePreventiveAction'] = $this->getAverageFamilyQuestions($data,$company,"APR") ;
+            }
+            else{
+              $averagesArray['averageThreat'] = $this->getAverageSubFamilyQuestions($data,$company,"MEN") ;
+              $averagesArray['averagePreventiveAction'] = $this->getAverageSubFamilyQuestions($data,$company,"APR") ;
+            }
+           
            }
 
            if( $dt == 'opportunity'){
-           $averagesArray['averageOpportunity'] = $this->getAverageSubFamilyQuestions($data,$company,"OPP") ;
-           $averagesArray['averageOpportunityAction'] = $this->getAverageSubFamilyQuestions($data,$company,"ADO") ;
+            if($data['allFams']){
+              $averagesArray['averageOpportunity'] = $this->getAverageFamilyQuestions($data,$company,"OPP") ;
+              $averagesArray['averageOpportunityAction'] = $this->getAverageFamilyQuestions($data,$company,"ADO") ;
+            }
+            else{
+              $averagesArray['averageOpportunity'] = $this->getAverageSubFamilyQuestions($data,$company,"OPP") ;
+              $averagesArray['averageOpportunityAction'] = $this->getAverageSubFamilyQuestions($data,$company,"ADO") ;
+            }
+           
            }
           
-          }
+         }
 
             
             if($data['chart'] == 'radar'){

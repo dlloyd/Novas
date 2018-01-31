@@ -65,6 +65,45 @@ class ResponseQuestionCompanyRepository extends \Doctrine\ORM\EntityRepository
         return $res;
       }
 
+      public function findTotalFamilyAnsweredCount($companyId,$famId,$typeCode){
+            $qb  = $this->_em->createQueryBuilder();
+            $res = $qb->select('COUNT(r.question)')
+             ->from('NODiagBundle:ResponseQuestionCompany', 'r')
+             ->innerJoin('r.question','q')
+             ->innerJoin('q.subFamily','s')
+             ->innerJoin('q.type','t')
+             ->where('r.company = :comp')
+             ->andWhere('s.family = :fam')
+             ->andWhere('t.code = :code')
+             ->andWhere('r.isAnswered = true')
+             ->setParameter('comp',$companyId)
+             ->setParameter('fam',$famId)
+             ->setParameter('code',$typeCode)
+             ->getQuery()
+             ->getSingleResult();
+        return $res;
+      }
+
+      public function findTotalFamilyAnsweredResponses($companyId,$famId,$typeCode){
+            $qb  = $this->_em->createQueryBuilder();
+            $res = $qb->select('r')
+             ->from('NODiagBundle:ResponseQuestionCompany', 'r')
+             ->innerJoin('r.question','q')
+             ->innerJoin('q.subFamily','s')
+             ->innerJoin('q.type','t')
+             ->where('r.company = :comp')
+             ->andWhere('s.family = :fam')
+             ->andWhere('t.code = :code')
+             ->andWhere('r.isAnswered = true')
+             ->setParameter('comp',$companyId)
+             ->setParameter('fam',$famId)
+             ->setParameter('code',$typeCode)
+             ->getQuery()
+             ->getResult();
+        return $res;
+      }
+
+
 
       public function findResponse($compId,$questionId){
             $qb = $this->createQueryBuilder('r');

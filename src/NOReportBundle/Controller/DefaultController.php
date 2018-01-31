@@ -53,10 +53,10 @@ class DefaultController extends Controller
            if( $dt == 'opportunity'){
             if($data['allFams']){
               $averagesArray['averageOpportunity'] = $this->getAverageFamilyQuestions($data,$company,"OPP") ;
-              $averagesArray['averageOpportunityAction'] = $this->getAverageSubFamilyQuestions($data,$company,"ADO") ;
+              $averagesArray['averageOpportunityAction'] = $this->getAverageFamilyQuestions($data,$company,"ADO") ;
             }
             else{
-              $averagesArray['averageOpportunity'] = $this->getAverageFamilyQuestions($data,$company,"OPP") ;
+              $averagesArray['averageOpportunity'] = $this->getAverageSubFamilyQuestions($data,$company,"OPP") ;
               $averagesArray['averageOpportunityAction'] = $this->getAverageSubFamilyQuestions($data,$company,"ADO") ;
             }
            

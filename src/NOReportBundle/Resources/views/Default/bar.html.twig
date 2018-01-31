@@ -1,24 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+<div class="container">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+
+{% if averageThreat is defined %}
 <div style="height:40%;width:40%;margin-left:10%;">
-<canvas id="myChart" width="undefined" height="undefined"></canvas>
+<canvas id="myChart" width="40" height="40"></canvas>
 </div>
 <script>
 var ctx = document.getElementById("myChart");
 var myRadarChart = new Chart(ctx, {
     type: 'horizontalBar',
     data:  {
-    labels: [{% for key,value in average  %} '{{ key }}', {% endfor %}],
+    labels: [{% for key,value in averageThreat  %} '{{ key }}', {% endfor %} ],
     datasets: [
     {
-    	label: "Données",
-    	borderColor: 'green',
-        backgroundColor:"rgba(0, 102, 0, 0.2)",
-    	fill: true,
-        data: [{% for key,value in average %} {{ value }}, {% endfor %}]
+        label: "Menace",
+        borderColor: 'red',
+        backgroundColor:"rgba(255, 0, 0, 1)",
+        fill: true,
+        data: [{% for key,value in averageThreat %} {{ value }}, {% endfor %}]
+    },
+    {
+        label: "Action préventive",
+        borderColor: 'green',
+        backgroundColor:"rgba(0, 102, 0, 1)",
+        fill: true,
+        data: [{% for key,value in averagePreventiveAction %} {{ value }}, {% endfor %}]
     }
     ]
     },
@@ -34,6 +45,51 @@ var myRadarChart = new Chart(ctx, {
       }
      }
 
+});
+</script>
+
+
+<br/><br/>
+{% endif %}
+
+{% if averageOpportunity is defined %}
+<div style="height:40%;width:40%;margin-left:10%;">
+<canvas id="myChart2" width="40" height="40"></canvas>
+</div>
+<script>
+var ctx = document.getElementById("myChart2");
+var myRadarChart = new Chart(ctx, {
+    type: 'horizontalBar',
+    data:  {
+    labels: [{% for key,value in averageOpportunity  %} '{{ key }}', {% endfor %} ],
+    datasets: [
+    {
+        label: "Opportunité",
+        borderColor: 'green',
+        backgroundColor:"rgba(0, 102, 0, 1)",
+        fill: true,
+        data: [{% for key,value in averageOpportunity %} {{ value }}, {% endfor %}]
+    },
+    {
+        label: "Action d'opportunité",
+        borderColor: 'orange',
+        backgroundColor:"rgba(255, 128, 0, 1)",
+        fill: true,
+        data: [{% for key,value in averageOpportunityAction %} {{ value }}, {% endfor %}]
+    }
+    ]
+    },
+
+
+    options:{
+    scales:{
+     xAxes:[{ 
+     ticks:
+        {beginAtZero:true, min:0,  max:100 }
+        }],
+     
+      }
+     }
 
 });
 </script>
@@ -41,4 +97,10 @@ var myRadarChart = new Chart(ctx, {
 
 </div>
 
+{% endif %}
+
 {% endblock %}
+
+
+
+

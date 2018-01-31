@@ -1,7 +1,12 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
+<div class="container">
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+
+{% if averageThreat is defined %}
 <div style="height:40%;width:40%;margin-left:10%;">
 <canvas id="myChart" width="40" height="40"></canvas>
 </div>
@@ -10,13 +15,19 @@ var ctx = document.getElementById("myChart");
 var myRadarChart = new Chart(ctx, {
     type: 'radar',
     data:  {
-    labels: [{% for key,value in average  %} '{{ key }}', {% endfor %}],
+    labels: [{% for key,value in averageThreat  %} '{{ key }}', {% endfor %} ],
     datasets: [
     {
-    	label: "Données",
-    	borderColor: 'green',
+    	label: "Menace",
+    	borderColor: 'red',
     	fill: true,
-        data: [{% for key,value in average %} {{ value }}, {% endfor %}]
+        data: [{% for key,value in averageThreat %} {{ value }}, {% endfor %}]
+    },
+    {
+        label: "Action préventive",
+        borderColor: 'green',
+        fill: true,
+        data: [{% for key,value in averagePreventiveAction %} {{ value }}, {% endfor %}]
     }
     ]
     },
@@ -34,11 +45,53 @@ var myRadarChart = new Chart(ctx, {
 </script>
 
 
+</div>
+
+<br/><br/>
+{% endif %}
+
+{% if averageOpportunity is defined %}
+<div style="height:40%;width:40%;margin-left:10%;">
+<canvas id="myChart2" width="40" height="40"></canvas>
+</div>
+<script>
+var ctx = document.getElementById("myChart2");
+var myRadarChart = new Chart(ctx, {
+    type: 'radar',
+    data:  {
+    labels: [{% for key,value in averageOpportunity  %} '{{ key }}', {% endfor %} ],
+    datasets: [
+    {
+        label: "Opportunité",
+        borderColor: 'green',
+        fill: true,
+        data: [{% for key,value in averageOpportunity %} {{ value }}, {% endfor %}]
+    },
+    {
+        label: "Action d'opportunité",
+        borderColor: 'orange',
+        fill: true,
+        data: [{% for key,value in averageOpportunityAction %} {{ value }}, {% endfor %}]
+    }
+    ]
+    },
 
 
+   options:{
+    scale:{
+    ticks: {
+        min: 0,
+        max:100
+    }
+    }}
+
+});
+</script>
 
 
+</div>
 
+{% endif %}
 
 
 {% endblock %}

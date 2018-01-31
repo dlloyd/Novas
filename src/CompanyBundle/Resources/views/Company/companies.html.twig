@@ -2,29 +2,56 @@
 
 
 {% block body %}
-<h2>  Choisir une entreprise: </h2>
-
 {% if app.session.flashBag.has('success') %}
         <div class="alert alert-success">
             {% for msg in app.session.flashBag.get('success') %}
                 {{ msg }}
             {% endfor %}
         </div>
-    {% endif %}
+{% endif %}
 
+<div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
 
-{% for company in companies %}
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href="{{ path('no_create_company') }}"> CREER ENTREPRISE</a></h4>
+      </div>
+   </div>
+</div>
+   <br/><br/><br/>
+   <table class="table table-striped">
+    <thead>
+      <tr>
+        <th> Entreprise </th>
+        <th> Ajouter utilisateur</th>
+        <th> Désactiver les comptes</th>
+        <th> Réactiver les comptes</th>
+        <th> Voir les comptes  </th>
+        <th> Ajouter droits d'accès </th>
+        <th>Rapport page</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+        {% for company in companies %}
+          <tr>
+          <td> {{ company.denomination }} </td>
+          <td> <a href="{{ path('no_add_company_moderator',{'companyId': company.id }) }}"> add </a> </td>
+          <td> <a href="{{ path('no_disable_company',{'companyId': company.id }) }}"> link </a></td>
+          <td><a href="{{ path('no_enable_company',{'companyId': company.id }) }}"> link </a></td>
+          <td><a href="{{ path('no_show_company_accounts',{'companyId': company.id }) }}"> voir </a></td>
+          <td><a href=" {{ path('no_add_company_access_right',{'companyId': company.id }) }} "> Add</a></td>
+          <td><a href=" {{ path('no_admin_company_report',{'companyId': company.id }) }} "> Rapport </a></td>
+          
+          </tr>
 
-{{ company.denomination }} <br/>
-<a href="{{ path('no_add_company_moderator',{'companyId': company.id }) }}"> ajouter utilisateur </a> <br/>
-<a href="{{ path('no_disable_company',{'companyId': company.id }) }}"> désactiver les comptes </a> <br/>
-<a href="{{ path('no_enable_company',{'companyId': company.id }) }}"> réactiver les comptes </a> <br/>
-<a href="{{ path('no_show_company_accounts',{'companyId': company.id }) }}"> voir les comptes </a> <br/>
-<a href=" {{ path('no_add_company_access_right',{'companyId': company.id }) }} "> Ajouter des droits d'accès</a> <br/>
-<a href=" {{ path('no_admin_company_report',{'companyId': company.id }) }} "> Rapport </a> <br/> <br/><br/>
+        {% endfor %}
+      
+    </tbody>
+  </table>
 
-
-
-{% endfor %}
 
 {% endblock %}

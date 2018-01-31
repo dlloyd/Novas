@@ -1,18 +1,32 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
- <h1> Questions </h1>
-
- {% for resp in responses %}
- <a href="{{ path('no_company_question_answer',{'questionId': resp.question.id }) }}"> {{ resp.question.question }} </a> 
-  {% if resp.isAnswered == true  %} répondu <span class="glyphicon glyphicon-ok"></span> {% else %} à répondre <span class="glyphicon glyphicon-remove"></span> {% endif %}  <br/>
-
-   Réponses:
-  {% for answer in resp.answers %}
-   
-  	{{ answer.answer }}, &nbsp  
-  {% endfor %}
-  <br/><br/>
- {% endfor %}
+<div class="container">
+<h1> Questions </h1>
+ <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Id interne </th>
+        <th> Question </th>
+        <th> Répondre </th>
+        <th> Répondue </th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for resp in responses %}
+      <tr>
+        <td> {{ resp.question.id }} </td>
+        <td> {{ resp.question.question }} </td>
+        <td> <a href="{{ path('no_company_question_answer',{'questionId': resp.question.id }) }}" class="btn btn-primary"> lien </a></td>
+        <td> {% if resp.isAnswered == true  %} <i class="fa fa-check w3-xxxlarge" style="color:green" ></i>
+         {% else %}
+         <i class="fa fa-close w3-xxxlarge" style="color:red" ></i>
+          {% endif %} </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

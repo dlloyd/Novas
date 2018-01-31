@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
 <div style="height:40%;width:40%;margin-left:10%;">
 <canvas id="myChart" width="undefined" height="undefined"></canvas>
@@ -38,11 +39,6 @@ var myRadarChart = new Chart(ctx, {
 </script>
 
 
-
-
-
-
-
-
+</div>
 
 {% endblock %}

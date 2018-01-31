@@ -1,0 +1,48 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="container">
+{{ form_errors(form) }}
+<h2>  Mise à jour question: </h2>
+<h3> {{ question.question }} </h3>
+
+{{ form_start(form, {'method': 'post', 'action': path('no_update_question_answers',{'id':question.id}) }) }}
+                
+            {{ form_rest(form) }}
+            <br/><br/>
+            <button class="btn btn-primary" type="submit" >Enregistrer</button>
+{{ form_end(form) }}
+
+
+
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+{# Voici le script en question : #}
+<script type="text/javascript">
+  $(document).ready(function() {
+    // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+    var $container = $('div#form_answers');
+
+    
+    var $addLink =  $('<a href="#" class="add_answer btn btn-warning" > Ajouter une réponse </a> <br/>');
+    $container.append($addLink);
+
+    
+    $addLink.click(function(e) {
+      var $prototype = $($container.attr('data-prototype').replace(/__name__label__/g, 'Réponse '));
+      
+      // On ajoute le prototype modifié à la fin de la balise <div>
+      $container.append($prototype);
+  
+      e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+      return false;
+    });
+
+
+    
+  });
+</script>
+
+</div>
+{% endblock %}

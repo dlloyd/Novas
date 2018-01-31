@@ -2,14 +2,43 @@
 
 {% block body %}
 
-
-<h2>  Mettre à jour famille de question </h2>
+<div class="container" >
+<h2>  Mettre à jour question </h2>
 
 {{ form_start(form, {'method': 'post', 'action': path('no_update_question',{'id':id}) }) }}
-                
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.innerId,"Code Interne") }}
+	{{ form_widget(form.innerId,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.subFamily,"Sous-famille") }}
+	{{ form_widget(form.subFamily,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.question,"Question") }}
+	{{ form_widget(form.question,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.videoYoutubeLink,"Lien vidéo youtube") }}
+	{{ form_widget(form.videoYoutubeLink,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.pdfFile,"Fichier PDF") }}
+	{{ form_widget(form.pdfFile,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.imageFile,"Image") }}
+	{{ form_widget(form.imageFile,{'attr':{'class':'field-long'}}) }}
+	</li>
+    <li>       
+    {{ form_rest(form) }}
+    </li>
+    <li>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </li>
+    </ul>
 {{ form_end(form) }}
-
+</div>
 
 {% endblock %}

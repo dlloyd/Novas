@@ -1,127 +1,161 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+<head>
+<title>NovaS</title>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
-    </head>
-    <body>
+<meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
 
-        {% block menu %}
-        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="{{ path('no_homepage') }}">Novas</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" type="text/css" href="{{ asset('css/form.css') }}">
+
+
+html,body,h1,h2,h3,h4,h5 {font-family: "Raleway", sans-serif}
+
+</head>
+<body class="w3-light-grey">
+
+<div id="triangle"></div>
+<div id="user-infos" >
+  <div id="closeInfos" > <a href="#"><i class="fa fa-times-circle-o fa-2x" aria-hidden="true"></i></a></div><br/>
+  &nbsp Informations personnelles :  
+   <hr/>
+  &nbsp Nom: &nbsp {{ app.user.username }} <br/>
+  &nbsp Email: &nbsp {{ app.user.email }} <br/><br/><br/>
+  &nbsp <a class="btn btn-primary" href="{{ path('fos_user_change_password') }}">changer de mot de passe </a> <br/><br/><hr/>
+</div>
+<!-- Top container -->
+<div class="w3-bar w3-top w3-black w3-large" style="z-index:4">
+  <button class="w3-bar-item w3-button w3-hide-large w3-hover-none w3-hover-text-light-grey" onclick="w3_open_or_close();"><i class="fa fa-bars"></i>  Menu</button>
+  <span class="w3-bar-item w3-right">Logo</span>
+</div>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-collapse w3-white w3-animate-left" style="z-index:3;width:300px;" id="mySidebar"><br>
+  <div class="w3-container w3-row">
+    
+    <div class="w3-col s4">
+      <img src="/w3images/avatar2.png" class="w3-circle w3-margin-right" style="width:46px">
+    </div>
+    <div class="w3-col s8 w3-bar">
+      <span>Bonjour, <strong>{{ app.user.username }}</strong></span><br/>
+
+      <a href="{{ path('no_home') }}" class="w3-bar-item w3-button"><i class="fa fa-home"></i></a>
+      <a href="#" id="showUserInfos" class="w3-bar-item w3-button"><i class="fa fa-user"></i></a>
+      <a href="{{ path('fos_user_security_logout') }}" class="w3-bar-item w3-button"><i class="fa fa-sign-out"></i> </a>
+
+
+
+    </div>
+
+  </div>
+  <hr>
+  <div class="w3-container">
+    <h5>Tableau de bord</h5>
+  </div>
+  <div class="w3-bar-block">
+    
+    
+    {% if is_granted('ROLE_ADMIN') %}
+    <a href="{{ path('no_context') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-users fa-fw"></i>  Contexte </a>
+    <a href="{{ path('no_all_companies') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Entreprises</a>
+
+    {% endif %}
+
+    {% if is_granted('ROLE_USER') or is_granted('ROLE_COMPANY_OWNER') %}
+            
+
+    {% endif %}
+    
+   
+    {% if is_granted('ROLE_COMPANY_OWNER') and not is_granted('ROLE_SUPER_ADMIN') %}
+      <a href="{{ path('no_matrice_pestel') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-bullseye fa-fw"></i> Matrice PESTEL</a>
+
+      <a href="{{ path('no_company_show_moderators') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-diamond fa-fw"></i>  Modérateurs </a>
+      <a href="{{ path('no_update_company_infos') }}" class="w3-bar-item w3-button w3-padding"><i class="fa fa-cog fa-fw"></i>  Informations entreprise </a><br><br>
+    {% endif %}
+  </div>
+</nav>
+
+
+
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:300px;margin-top:43px;">
+
+{% block body %}
+
+
+
+{% endblock %}
+</div>
+
+  {% block javascripts %}
+    <script type="text/javascript">
+    
+      $(document).ready(function(){
+
+        $('html').click(function(){
+          if($("#triangle").is(":visible")){
+            $("#triangle").hide();
+            $("#user-infos").hide();
+          }
+        });
+
+        $("#showUserInfos").click(function(event){
+            $("#triangle").show(100);
+            $("#user-infos").show(100);
+            event.stopPropagation();
+        });
+
+        $("#closeInfos").click(function(){
+            $("#triangle").hide();
+            $("#user-infos").hide();
+        });
+
+        $( '#form_allFams ' ).click( function () {
+          $( '#box input[type="checkbox"]' ).prop('checked', this.checked)
+        });
+
+        $('#box input[type="checkbox"]').click(function(event) {
+          if(this.checked==false) {
+            $( '#form_allFams' ).prop('checked', this.checked);
+            $(this).parent().parent().parent().prev().find('input[type="checkbox"]').prop('checked', this.checked);
+          }
+        });
+
+        $('.family-checkall input[type="checkbox"]').click(function(event) {
+            $(this).parent().next().find('input[type="checkbox"]').prop('checked', this.checked); 
+        });
+
+      });
+
+
+    </script>
+
+    <script type="text/javascript">
+      function w3_open_or_close() {
+        if(document.getElementById("mySidebar").style.display == "block"){
+          document.getElementById("mySidebar").style.display = "none";
+
+        }
+        else{
+          document.getElementById("mySidebar").style.display = "block";
+
+        }    
+      }
+
       
-        {% if is_granted("IS_AUTHENTICATED_REMEMBERED")  %}
-            <li class="nav-item">
-            <a class="nav-link" href="{{ path('fos_user_security_logout') }}">se déconnecter</a>
-            </li>
-            <li class="nav-item">
-            <a class="nav-link" href="{{ path('fos_user_change_password') }}">changer de mot de passe </a>
-            </li>
+    </script>
 
+  {% endblock %}
 
-         {% if is_granted('ROLE_ADMIN') %}
-            <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Entreprise
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ path('no_create_company') }}"> Créer une entreprise </a>
-          <a class="dropdown-item" href="{{ path('no_all_companies') }}">Gestion des entreprises et comptes</a>
-          <a class="dropdown-item" href="{{ path('no_create_code_naf') }}">Créer un code NAF</a>
-          <a class="dropdown-item" href="{{ path('no_create_legal_status') }}">Créer un statut légal</a>
-          <a class="dropdown-item" href="{{ path('no_create_activity_branch') }}">Créer une branche d'activité</a>
-        </div>
-      </li>
-
-
-            <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Questions
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ path('no_create_question_family') }}"> Créer une famille de  questions </a>
-          <a class="dropdown-item" href="{{ path('no_create_question_sub_family') }}">Créer une sous-famille de questions</a>
-          <a class="dropdown-item" href="{{ path('no_create_question') }}"> Créer une question</a>
-          <a class="dropdown-item" href="{{ path('no_all_questions') }}"> Liste des questions </a>
-          
-        </div>
-      </li>
-
-            <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Risques 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ path('no_create_threat_family') }}"> Créer une famille de risques </a>
-          <a class="dropdown-item" href="{{ path('no_create_threat_sub_family') }}">Créer une sous-famille de risques</a>
-          <a class="dropdown-item" href="{{ path('no_create_event_threat') }}"> Créer un évènement</a>
-          
-        </div>
-      </li>
-
-            
-        {% endif %}
-
-        {% if is_granted('ROLE_USER') or is_granted('ROLE_COMPANY_OWNER') %}
-            
-
-        {% endif %}
-
-        {% if is_granted('ROLE_COMPANY_OWNER') and not is_granted('ROLE_SUPER_ADMIN') %}
-         <li class="nav-item">
-            <a class="nav-link" href="{{ path('no_company_show_moderators') }}">Comptes moderateurs</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('no_update_company_infos') }}">Informations entreprise </a> 
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('no_company_matrice') }}"> </a> 
-        </li>
-        <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Matrice PESTEL 
-        </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="{{ path('no_company_matrice_economical') }}"> économique </a>
-          <a class="dropdown-item" href="{{ path('no_company_matrice_political') }}"> politique </a>
-          <a class="dropdown-item" href="{{ path('no_company_matrice_legal') }}"> légale</a>
-          <a class="dropdown-item" href="{{ path('no_company_matrice_technological') }}"> technologique </a>
-          <a class="dropdown-item" href="{{ path('no_company_matrice_sociocultural') }}"> socio-culturelle </a>
-          <a class="dropdown-item" href="{{ path('no_company_matrice_ecological') }}"> écologique </a>
-          
-        </div>
-        </li>
-
-        <li class="nav-item">
-            <a class="nav-link" href="{{ path('no_report_homepage') }}"> Rapport </a>
-        </li>
-        
-
-        {% endif %}
-        {% endif %}
-
-        </ul>
-        </div>
-        </nav>
-
-        {% endblock %}
-
-
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
-</html>
+  </body>
+  </html>

@@ -2,6 +2,8 @@
 
 {% block body %}
 
+<div class="container" >
+
 {{ form_start(form, {'method': 'post', 'action': path('no_add_moderator_access_right',{'moderatorId':moderatorId}) }) }}
 		{% for name, choices in form.subFams.vars.choices %}
         
@@ -21,6 +23,6 @@
     {{ form_rest(form) }}
     <button class="btn btn-default" type="submit" >Enregistrer</button>
 {{ form_end(form) }}
-
+</div>
 
 {% endblock %}

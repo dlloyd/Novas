@@ -3,31 +3,38 @@
 {% block body %}
 <h2> {{ company.denomination }}  </h2>
 
-<ul>
-{% for mod in company.moderators %}
 
-<li> {{ mod.username }}
-	{% if mod.enabled %}
-  	<a href="{{ path('no_admin_disable_company_moderator', {'id': mod.id }) }}" >désactiver </a>
- 	{% else %}
-  	<a href="{{ path('no_admin_enable_company_moderator', {'id': mod.id }) }}"> activer </a>
- 	{% endif %}
-    &nbsp &nbsp
- 	<a href="{{ path('no_delete_moderator', {'moderatorId': mod.id }) }}"> supprimer </a>   &nbsp &nbsp 
-	
-	<a href="{{ path('no_add_moderator_access_right', {'moderatorId': mod.id }) }}" >  Ajouter des droits d'accès </a>  &nbsp &nbsp
-	(
-		{% for access in mod.moderatorAccessRight %}
+ <br/><br/>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+      	<th> Modérateur </th>
+        <th> Activer/Désactiver </th>
+        <th> Ajouter droits d'accès </th>
+       
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for mod in company.moderators %}
+      <tr>
+        <td> {{ mod.username }} </td>
+        <td>
+        {% if mod.enabled %}
+	  	<a href="{{ path('no_admin_disable_company_moderator', {'id': mod.id }) }}" class="btn btn-danger">désactiver </a>
+	 	{% else %}
+	  	<a href="{{ path('no_admin_enable_company_moderator', {'id': mod.id }) }}" class="btn btn-success"> activer </a>
+	 	{% endif %}
+        </td>
+        <td> <a href="{{ path('no_add_moderator_access_right', {'moderatorId': mod.id }) }}" class="btn btn-primary" > Lien </a> 
+        </td>
+        
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
 
- 		{{  access.questionSubFamily.name }} ,
-
-		{% endfor %}
-	)
-
-
-</li>
-
-{% endfor %}
-</ul>
 
 {% endblock %}

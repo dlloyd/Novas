@@ -52,5 +52,27 @@ class DefaultController extends Controller
         $fams = $em->getRepository('NODiagBundle:QuestionFamily')->findAll();
         return $this->render('default/home.html.twig',array('fams'=> $fams,));
     }
+
+
+
+
+    /**
+     * @Route("/cont", name="no_context")
+     */
+    public function contextAction(Request $request)
+    {
+    
+        return $this->render('default/context.html.twig');
+    }
+
+
+    /**
+     * @Route("/mat", name="no_matrice_pestel")
+     */
+    public function matriceAction(Request $request)
+    {
+    
+        return $this->render('default/pestel.html.twig');
+    }
     
 }

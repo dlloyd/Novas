@@ -1,23 +1,103 @@
 {% extends 'base.html.twig' %}
 
+
 {% block body %}
-	<br/><br/><br/>
+
 	{% if is_granted('ROLE_ADMIN') or is_granted('SUPER_ADMIN') %}
+
+	<div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href=" {{ path('no_create_question_family') }} ">CREER FAMILLE DE QUESTIONS</a></h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-blue w3-padding-16">
+        <div class="w3-left"><i class="fa fa-eye w3-xxxlarge"></i></div>
+        <div class="w3-right">
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href="{{ path('no_create_question_sub_family') }}">  CREER SOUS-FAMILLE DE QUESTIONS</a></h4>
+      </div>
+    </div>
+    <div class="w3-quarter">
+      <div class="w3-container w3-teal w3-padding-16">
+        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
+        <div class="w3-right">
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href=" {{ path('no_create_question') }} ">CREER QUESTION</a></h4>
+      </div>
+    </div> 
+
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-comment w3-xxxlarge"></i></div>
+        <div class="w3-right">
+
+        </div>
+        <div class="w3-clear"></div>
+        <h4><a href="{{ path('no_create_company') }}"> CREER ENTREPRISE</a></h4>
+      </div>
+   </div>
+</div>
 	
 
 	{% else %}
+	
 
-	{% for fam in fams %}
-		<strong>{{ fam.name }}</strong><hr/> <br/> <br/>
-		{% for sub in fam.subFamilies %}
-			<a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}} </a> &nbsp
-			( {% if responsesSubFam[sub.id] is defined  and totalSubFamQuestions[sub.id] is defined %}
-			{{ responsesSubFam[sub.id] }} / {{ totalSubFamQuestions[sub.id] }}
-			{% else %} 0 /0  {% endif %} )
-			 <br/>
+	  <div class="w3-row-padding w3-margin-bottom">
+
+	    <div class="w3-quarter">
+	      <div class="w3-container w3-orange w3-text-white w3-padding-16">
+	        <div class="w3-left"><i class="fa fa-users w3-xxxlarge"></i></div>
+	        <div class="w3-right">
+	          <h3>0</h3>
+	        </div>
+	        <div class="w3-clear"></div>
+	        <h4><a href="{{ path('no_report_homepage') }}"> Rapport</a></h4>
+	      </div>
+	    </div>
+	</div>
+
+
+
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.js"></script>
+	    <style type="text/css">
+			div.inline { float:left; width: 45%;margin-left: 5%; }
+			.clearBoth { clear:both; }
+		</style>
+		<br/><br/>
+	    {% for fam in fams %}
+	    <div class="w3-container" >
+	    <strong>{{ fam.name }}</strong><hr/> <br/> <br/>
+	    {% for sub in fam.subFamilies %}
+	    {% if responsesSubFam[sub.id] is defined  and totalSubFamQuestions[sub.id] is defined %}
+	    <div class="inline" >
+	    <a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}}  ({{ responsesSubFam[sub.id] }} / {{ totalSubFamQuestions[sub.id] }}) </a>
+	    
+	    	<canvas id="chartjs-{{sub.id}}" class="chartjs" width="undefined" height="undefined"></canvas>
+	    	<script>
+	    	var notResponded = {{ totalSubFamQuestions[sub.id] }} - {{ responsesSubFam[sub.id] }};
+	    	new Chart(document.getElementById("chartjs-{{sub.id}}"),
+	    	{"type":"doughnut","data":{"labels":["Répondue","Pas de réponse"],"datasets":[{"label":" Dataset","data":[{{ responsesSubFam[sub.id] }} , notResponded ],"backgroundColor":["rgb(0, 255,0)","rgb(255,0,0)"]}]}});
+	    	</script>
+	    </div>
+		
+		{% endif %}
 		{% endfor %}
+	</div>
 		<br/>
-	{% endfor %}
+		{% endfor %}
+
+	</div>
+
+	
+
 	{% endif %}
 
 

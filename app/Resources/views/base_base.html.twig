@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+    </head>
+    <body>
+
+        {% block menu %}
+        <nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <a class="navbar-brand" href="{{ path('no_homepage') }}">Novas</a>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED")  %}
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('fos_user_security_logout') }}">se déconnecter</a>
+            </li>
+            <li class="nav-item">
+            <a class="nav-link" href="{{ path('fos_user_change_password') }}">changer de mot de passe </a>
+            </li>
+
+
+         {% if is_granted('ROLE_ADMIN') %}
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Entreprise
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ path('no_create_company') }}"> Créer une entreprise </a>
+          <a class="dropdown-item" href="{{ path('no_all_companies') }}">Gestion des entreprises et comptes</a>
+          <a class="dropdown-item" href="{{ path('no_create_code_naf') }}">Créer un code NAF</a>
+          <a class="dropdown-item" href="{{ path('no_create_legal_status') }}">Créer un statut légal</a>
+          <a class="dropdown-item" href="{{ path('no_create_activity_branch') }}">Créer une branche d'activité</a>
+        </div>
+      </li>
+
+
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Questions
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ path('no_create_question_family') }}"> Créer une famille de  questions </a>
+          <a class="dropdown-item" href="{{ path('no_create_question_sub_family') }}">Créer une sous-famille de questions</a>
+          <a class="dropdown-item" href="{{ path('no_create_question') }}"> Créer une question</a>
+          <a class="dropdown-item" href="{{ path('no_all_questions') }}"> Liste des questions </a>
+          
+        </div>
+      </li>
+
+            <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Risques 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ path('no_create_threat_family') }}"> Créer une famille de risques </a>
+          <a class="dropdown-item" href="{{ path('no_create_threat_sub_family') }}">Créer une sous-famille de risques</a>
+          <a class="dropdown-item" href="{{ path('no_create_event_threat') }}"> Créer un évènement</a>
+          
+        </div>
+      </li>
+
+            
+        {% endif %}
+
+        {% if is_granted('ROLE_USER') or is_granted('ROLE_COMPANY_OWNER') %}
+            
+
+        {% endif %}
+
+        {% if is_granted('ROLE_COMPANY_OWNER') and not is_granted('ROLE_SUPER_ADMIN') %}
+         <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_company_show_moderators') }}">Comptes moderateurs</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_update_company_infos') }}">Informations entreprise </a> 
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_company_matrice') }}"> </a> 
+        </li>
+        <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Matrice SWAT/PESTEL 
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="{{ path('no_company_matrice_economical') }}"> économique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_political') }}"> politique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_legal') }}"> légale</a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_technological') }}"> technologique </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_sociocultural') }}"> socio-culturelle </a>
+          <a class="dropdown-item" href="{{ path('no_company_matrice_ecological') }}"> écologique </a>
+          
+        </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link" href="{{ path('no_report_homepage') }}"> Rapport </a>
+        </li>
+        
+
+        {% endif %}
+        {% endif %}
+
+        </ul>
+        </div>
+        </nav>
+
+        {% endblock %}
+
+
+        {% block body %}{% endblock %}
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

@@ -2,10 +2,21 @@
 
 
 {% block body %}
+<div class="container" >
+<div class="w3-row-padding w3-margin-bottom">
+    <div class="w3-quarter">
+      <div class="w3-container w3-red w3-padding-16">
+        <div class="w3-left"><i class="fa fa-diamond w3-xxxlarge"></i></div>
+        <div class="w3-right">
+          <h3></h3>
+        </div>
+        <div class="w3-clear"></div>
+        <h4> <a href="{{ path('no_create_question') }}">  Ajouter une question  </a> </h4>
+      </div>
+  </div>
+</div>
 
-<div class="container">
-  <h2>Listes des questions </h2>
-
+  <br/><br/>
 
   <input id="myInput"  placeholder="Recherche.." > <br/><br/>
            
@@ -15,6 +26,7 @@
       	<th> Id interne </th>
         <th>Intitulé</th>
         <th> Sous-famille </th>
+        <th> Type </th>
         <th> Mettre à jour </th>
       </tr>
     </thead>
@@ -24,7 +36,8 @@
         <td> {{ quest.innerId }} </td>
         <td> {{ quest.question }} </td>
         <td> {{ quest.subFamily.name }}</td>
-        <td> <a href="{{ path('no_update_question',{'id': quest.id }) }}"> lien </a> </td>
+        <td>  {% if quest.type!=null %} {{ quest.type.name }} {% endif %} </td>
+        <td> <a href="{{ path('no_update_question',{'id': quest.id }) }}" class="btn btn-default btn-primary" > lien </a> </td>
       </tr>
     {% endfor %}
       

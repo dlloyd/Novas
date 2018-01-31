@@ -10,6 +10,11 @@ use NODiagBundle\Form\QuestionFamilyType;
 
 class QuestionFamilyController extends Controller
 {
+    public function indexAction(){
+        $em = $this->getDoctrine()->getManager();
+        $families = $em->getRepository('NODiagBundle:QuestionFamily')->findAll();
+        return $this->render('NODiagBundle:QuestionFamily:index.html.twig',array('families'=>$families,));
+    }
 
 	public function createQuestionFamilyAction(Request $request){
 		$em = $this->getDoctrine()->getManager();

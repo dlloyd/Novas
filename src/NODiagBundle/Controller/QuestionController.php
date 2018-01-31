@@ -28,6 +28,7 @@ class QuestionController extends Controller
                 $questComp = new ResponseQuestionCompany();
                     $questComp->setCompany($company);
                     $questComp->setQuestion($question);
+                    $questComp->setIsInappropriated(false);
                     $questComp->setIsAnswered(false);
                     $em->persist($questComp);
             }
@@ -49,12 +50,11 @@ class QuestionController extends Controller
         $form = $this->createForm(new QuestionType(),$question);
 
         if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
-            $em = $this->getDoctrine()->getManager();
 
             $em->merge($question);
             $em->flush();
 
-            return $this->redirectToRoute('no_create_question');
+            return $this->redirectToRoute('no_update_question_answers',array('id'=> $question->getId(),));
         }
 
         return $this->render('NODiagBundle:Question:update.html.twig', array('form' => $form->createView(),'id'=>$id,));
@@ -89,11 +89,39 @@ class QuestionController extends Controller
             $em->merge($question);
             $em->flush();
 
+
             return $this->redirectToRoute('no_create_question');
         }
 
-        return $this->render('NODiagBundle:Question:answers.html.twig', array('form' => $form->createView(),'id'=>$id,
+        return $this->render('NODiagBundle:Question:answers.html.twig', array('form' => $form->createView(),'question'=>$question,
                                                                                 'multiple' => $question->getAnswerTypeIsMultiple()));
+    }
+
+    public function updateQuestionAnswersAction(Request $request,$id){
+        $em = $this->getDoctrine()->getManager();
+        $question = $em->getRepository('NODiagBundle:Question')->find($id);
+        $form = $this->createFormBuilder($question)
+        ->add('answers', 'collection' ,array(
+                    'type' => new AnswerType(),
+                    'allow_add' => true,
+                    'allow_delete' => true,))
+        ->getForm();
+
+        
+        if($request->getMethod() == 'POST' && $form->HandleRequest($request)->isValid()){
+
+            foreach ($question->getAnswers() as $answer) {
+                $answer->setQuestion($question);
+            }
+
+            $em->merge($question);
+            $em->flush();
+
+            return $this->redirectToRoute('no_all_questions');
+        }
+
+        return $this->render('NODiagBundle:Question:answers-update.html.twig', array('form' => $form->createView(),
+                                                                                     'question'=>$question,));
     }
 
     public function questionsSubFamiliesAction($subFamId, Request $request){
@@ -137,6 +165,7 @@ class QuestionController extends Controller
                         'required' => false,
                     ))
             ->add('comment','textarea',array('required'=>false,))
+            ->add('reportComment','textarea',array('required'=>false,))
             ->getForm();
 
         $form->handleRequest($request);
@@ -156,6 +185,9 @@ class QuestionController extends Controller
             
             if ($data['comment'] != null) {
                 $response->setComment($data['comment']);
+            }
+             if ($data['reportComment'] != null) {
+                $response->setReportComment($data['reportComment']);
             }
             if($data['inappropriated']){
                 $response->setIsInappropriated(true);

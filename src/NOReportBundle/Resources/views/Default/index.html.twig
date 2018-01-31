@@ -2,36 +2,46 @@
 
 {% block body %}
 
-<br/><br/><br/>
+<div class="container">
+
 {% if is_granted('ROLE_ADMIN') %}
+
 {{ form_start(form, {'method': 'post', 'action': path('no_admin_company_report' ,{'companyId': company.id} ) }) }}
 {% else %}
 
 {{ form_start(form, {'method': 'post', 'action': path('no_report_homepage') }) }}
 {% endif %}
 			<h3> Axes/Listes </h3>
-			<div style="border : solid 2px #000000; padding : 4px; width : 500px; height : 100px; overflow : auto;"> 
+			<div id="box" style="border : solid 2px #000000; padding : 4px; width : 80%; height : 300px; overflow : auto;"> 
+            {{ form_widget(form.allFams) }}
+            {{ form_label(form.allFams) }} <br/>
+        
 			{% for name, choices in form.subFams.vars.choices %}
-             
-                <div class="family checkall">
+                <div class="family-checkall" >
+                    <input type="checkbox"  />
                      {{ name }}
                 </div>
-                <ul>
-                {% for key,choice in choices.choices %}
-                    <li>
-                        {{ form_widget(form.subFams[key]) }}
-                        {{ form_label(form.subFams[key]) }}
-                    </li>
-                {% endfor %}
-            </ul>
-        {% endfor %}
-        </div>
+                    <div class="list">
+                    <ul>
+                    {% for key,choice in choices.choices %}
+                        <li>
+                            {{ form_widget(form.subFams[key]) }}
+                            {{ form_label(form.subFams[key]) }}
+                        </li>
+                    {% endfor %}
+                    </ul>
+                    </div>
                 
+            {% endfor %}
+            </div>
+            
             {{ form_rest(form) }}
+
             <button class="btn btn-default" type="submit" > Envoyer </button>
+            
 {{ form_end(form) }}
 
-
+</div>
 
 {% endblock %}
 

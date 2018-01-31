@@ -37,6 +37,12 @@ class Question
      */
     private $innerId;
 
+    /**
+    * @ORM\ManyToOne(targetEntity="NODiagBundle\Entity\QuestionType")
+    * @ORM\JoinColumn(nullable=true)
+    */
+    private $type; //(question menace,opportunité,action préventive, action d'opportunité)
+
 
     /**
      * @var \Date
@@ -479,5 +485,29 @@ class Question
     public function getVideoYoutubeLink()
     {
         return $this->videoYoutubeLink;
+    }
+
+    /**
+     * Set type
+     *
+     * @param \NODiagBundle\Entity\QuestionType $type
+     *
+     * @return Question
+     */
+    public function setType(\NODiagBundle\Entity\QuestionType $type = null)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * Get type
+     *
+     * @return \NODiagBundle\Entity\QuestionType
+     */
+    public function getType()
+    {
+        return $this->type;
     }
 }

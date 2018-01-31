@@ -2,14 +2,67 @@
 
 
 {% block body %}
-
+<div class="container">
 <h2>  Créer entreprise </h2>
 
 {{ form_start(form, {'method': 'post', 'action': path('no_create_company') }) }}
-                
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+<ul class="form-style-1">
+	<li>
+	{{ form_label(form.innerId,"Code interne") }}
+	{{ form_widget(form.innerId,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.denomination,"Dénomination") }}
+	{{ form_widget(form.denomination,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.employeesNumber,"Nombre d'employés") }}
+	{{ form_widget(form.employeesNumber,{'attr':{'class':'field-divided'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.socialCapital,"Capital social") }}
+	{{ form_widget(form.socialCapital,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.activityBranch,"Branche d'activité") }}
+	{{ form_widget(form.activityBranch,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.legalStatus,"Statut légal") }}
+	{{ form_widget(form.legalStatus,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.codeNAF,"Code NAF") }}
+	{{ form_widget(form.codeNAF,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.address.address,"Adresse") }}
+	{{ form_widget(form.address.address,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.address.postalCode,"Code postal") }}
+	{{ form_widget(form.address.postalCode,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.address.city,"Ville") }}
+	{{ form_widget(form.address.city,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.activityBeginDate,"Date de début d'activité ") }}
+	{{ form_widget(form.activityBeginDate,{'attr':{'class':'field-divided'}}) }}
+	</li>
+
+
+    <li>            
+    {{ form_rest(form) }}
+    </li>
+    <li>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </li>
+    </ul>
 {{ form_end(form) }}
+
+</div>
 
 
 {% endblock %}

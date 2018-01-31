@@ -2,22 +2,40 @@
 
 {% block body %}
 
-<ul>
-{% for moderator in moderators %}
 
-<li> {{ moderator.username }} 
-{% if not moderator.role("ROLE_COMPANY_OWNER") %}
- {% if moderator.enabled %}
-  <a href="#" >désactiver </a>
- {% else %}
-  <a href="#"> activer </a>
- {% endif %}
- 
-{% endif %}
+<div class="container">
 
-  </li>
+           
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th> Nom </th>
+        <th> Activer/Désactiver </th>
+        
+      </tr>
+    </thead>
+    <tbody id="myTable">
+    {% for moderator in moderators %}
+      <tr>
+        <td> {{ moderator.username }}  </td>
+        
+        <td> 
+        
+        {% if not moderator.role("ROLE_COMPANY_OWNER") %}
+		 {% if moderator.enabled %}
+		  <a href="#" class="btn btn-danger" >désactiver </a>
+		 {% else %}
+		  <a href="#" class="btn btn-success"> activer </a>
+		 {% endif %}
+		 
+		{% endif %}
 
-{% endfor %}
-</ul>
+        </td>
+      </tr>
+    {% endfor %}
+      
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}

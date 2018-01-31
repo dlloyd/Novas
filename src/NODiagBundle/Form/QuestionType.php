@@ -20,7 +20,7 @@ class QuestionType extends AbstractType
                 ->add('question', 'textarea' )
                 ->add('pdfFile','file',array('required' => false,))
                 ->add('imageFile','file',array('required' => false,))
-                ->add('videoYoutubeLink','text')
+                ->add('videoYoutubeLink','text',array('required'=>false,))
                 ->add('subFamily',EntityType::class, array(
                     'class'    => 'NODiagBundle:QuestionSubFamily',
                     'choice_label' => function ($subFamily) {
@@ -29,6 +29,12 @@ class QuestionType extends AbstractType
                     'group_by' => function($subFamily) {
                                         return $subFamily->getFamily()->getName();
                                     },
+                    'multiple' => false ,))
+                ->add('type',EntityType::class, array(
+                    'class'    => 'NODiagBundle:QuestionType',
+                    'choice_label' => function ($type) {
+                            return $type->getName();
+                        },
                     'multiple' => false ,))
                 ->add('answerTypeIsMultiple',CheckboxType::class, array(
                         'label'    => 'Question à choix multiple?',

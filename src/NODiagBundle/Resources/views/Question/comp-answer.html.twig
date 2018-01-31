@@ -2,14 +2,15 @@
 
 {% block body %}
 
+<div class="container">
 <h2> {{ response.question.question }} </h2>
 
 {% if response.question.pdfName is not null %}
-<a href="{{ asset('/pdfquest/') ~ response.question.pdfName }}" target="_blank" > Lien Document pdf  </a> <br/>
+<a href="{{ asset('/pdfquest/') ~ response.question.pdfName }}" target="_blank" > Lien Document pdf  </a> <br/> <br/><br/>
 {%  endif %}
 
 {% if response.question.imageName is not null %}
-<img src="{{ asset('/imgquest/') ~ response.question.imageName }}" height="560" width="315"> <br/>
+<img src="{{ asset('/imgquest/') ~ response.question.imageName }}" height="315" width="560"> <br/><br/> <br/>
 {%  endif %}
 
 {% if response.question.videoYoutubeLink is not null %}
@@ -17,12 +18,36 @@
 {%  endif %}
 
 {{ form_start(form, {'method': 'post', 'action': path('no_company_question_answer',{'questionId': response.question.id }) }) }}
-                
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.answers,"Réponse(s)") }}
+	{{ form_widget(form.answers) }}
+	</li>
+	
+	<li>
+	{{ form_label(form.inappropriated,"N/A") }}
+	{{ form_widget(form.inappropriated) }}
+	</li>
+
+	<li>
+	{{ form_label(form.reportComment,"Commentaire") }}
+	{{ form_widget(form.reportComment,{'attr':{'class':'field-long'}}) }}
+	</li>
+
+	<li>
+	{{ form_label(form.comment,"Note interne") }}
+	{{ form_widget(form.comment,{'attr':{'class':'field-long'}}) }}
+	</li>
+
+    <li>            
+    {{ form_rest(form) }}
+    </li>
+
+    <li><button class="btn btn-primary" type="submit" >Enregistrer</button></li>
+    </ul>
 {{ form_end(form) }}
 
-
+</div>
 
 
 {% endblock %}

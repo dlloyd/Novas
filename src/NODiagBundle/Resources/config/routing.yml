@@ -30,6 +30,15 @@ no_all_questions:
     path:     /admin/quest/all
     defaults: { _controller: NODiagBundle:Question:allQuestions }
 
+no_all_fam_questions:
+    path:     /admin/famquest/all
+    defaults: { _controller: NODiagBundle:QuestionFamily:index }
+
+no_all_sub_fam_questions:
+    path:     /admin/subfamquest/all
+    defaults: { _controller: NODiagBundle:QuestionSubFamily:index }
+
+
 no_delete_question:
     path:    /admin/d/quest/{id}
     defaults: { _controller: NODiagBundle:Question:deleteQuestion }
@@ -37,6 +46,10 @@ no_delete_question:
 no_add_question_answers:
     path:    /admin/a/quest/answ/{id}
     defaults: { _controller:NODiagBundle:Question:addQuestionAnswers }
+
+no_update_question_answers:
+    path:    /admin/u/quest/answ/{id}
+    defaults: { _controller:NODiagBundle:Question:updateQuestionAnswers }
 
 no_question_sub_family_questions:
     path:     /comp/sub/quests/{subFamId}

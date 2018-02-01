@@ -10,6 +10,8 @@
     <thead>
       <tr>
         <th> Nom </th>
+        <th> Droits d'accès </th>
+        <th> Ajouter droits d'accès </th>
         <th> Activer/Désactiver </th>
         
       </tr>
@@ -18,17 +20,56 @@
     {% for moderator in moderators %}
       <tr>
         <td> {{ moderator.username }}  </td>
+
+        <td>
+         <a href="#" data-toggle="modal" data-target="#myModalRights{{moderator.id}}" class="btn btn-primary" > Voir </a> 
+         <!--  MODAL DROITS D ACCES   -->
+           <div class="modal fade" id="myModalRights{{moderator.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+            
+            <h4 class="modal-title"> Liste :  </h4>
+          </div>
+
+          <div class="modal-body" style="font-size:16px">
+                
+          <div class="form-group">
+            {% for right in moderator.moderatorAccessRight %}
+                {{ right.questionSubFamily.family.name }} :  {{ right.questionSubFamily.name }}  <br/><hr/>
+            {% endfor %}
+        
+            
+          </div>
+          </div>
+
+        
+
+          <div class="modal-footer" >
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          </div>
+
+          </div>
+          </div>
+          </div>
+        <!-- FIN MODAL -->
+        </td>
+
+        <td>
+         <a href="{{ path('no_add_moderator_access_right', {'moderatorId': moderator.id }) }}" class="btn btn-primary" > Lien </a> 
+        </td>
+
         
         <td> 
-        
+
         {% if not moderator.role("ROLE_COMPANY_OWNER") %}
-		 {% if moderator.enabled %}
-		  <a href="{{ path('no_disable_company_moderator',{'id':moderator.id}) }}" class="btn btn-danger" >désactiver </a>
-		 {% else %}
-		  <a href="{{ path('no_enable_company_moderator',{'id':moderator.id}) }}" class="btn btn-success"> activer </a>
-		 {% endif %}
+    		 {% if moderator.enabled %}
+    		  <a href="{{ path('no_disable_company_moderator',{'id':moderator.id}) }}" class="btn btn-danger" >désactiver </a>
+    		 {% else %}
+    		  <a href="{{ path('no_enable_company_moderator',{'id':moderator.id}) }}" class="btn btn-success"> activer </a>
+    		 {% endif %}
 		 
-		{% endif %}
+		    {% endif %}
 
         </td>
       </tr>
@@ -36,6 +77,9 @@
       
     </tbody>
   </table>
+
+
+
 </div>
 
 {% endblock %}

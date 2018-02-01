@@ -62,7 +62,7 @@
 	        <h4><a href="#"> Rapport</a></h4>
 	      </div>
 	    </div>
-
+	    {% if is_granted('ROLE_COMPANY_OWNER') %}
 	    <div class="w3-quarter">
 	      <div class="w3-container w3-teal w3-padding-16">
 	        <div class="w3-left"><i class="fa fa-share-alt w3-xxxlarge"></i></div>
@@ -72,6 +72,7 @@
 	        <h4><a href=" {{ path('no_report_homepage') }} ">Diagnostique visuel </a></h4>
 	      </div>
 	    </div> 
+	    {% endif %}
 	</div>
 
 
@@ -85,7 +86,12 @@
 	    {% for fam in fams %}
 	    <div class="w3-container" >
 	    <strong>{{ fam.name }}</strong><hr/> <br/> <br/>
-	    {% for sub in fam.subFamilies %}
+	    {% for access in accessRights %}
+	    {% set sub = access.questionSubFamily %}
+
+	    {% if sub.family.id == fam.id %}
+
+	    
 	    {% if responsesSubFam[sub.id] is defined  and totalSubFamQuestions[sub.id] is defined %}
 	    <div class="inline" >
 	    <a href=" {{ path('no_question_sub_family_questions',{'subFamId': sub.id }) }} ">  {{sub.name}}  ({{ responsesSubFam[sub.id] }} / {{ totalSubFamQuestions[sub.id] }}) </a>
@@ -98,6 +104,8 @@
 	    	</script>
 	    </div>
 		
+		{% endif %}
+
 		{% endif %}
 		{% endfor %}
 	</div>

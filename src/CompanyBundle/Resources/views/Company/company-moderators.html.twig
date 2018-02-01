@@ -10,6 +10,7 @@
     <thead>
       <tr>
       	<th> Modérateur </th>
+        <th> Droits d'accès </th>
         <th> Activer/Désactiver </th>
         <th> Ajouter droits d'accès </th>
        
@@ -19,12 +20,48 @@
     {% for mod in company.moderators %}
       <tr>
         <td> {{ mod.username }} </td>
+
+        <td>
+         <a href="#" data-toggle="modal" data-target="#myModalRights{{mod.id}}" class="btn btn-primary" > Voir </a> 
+         <!--  MODAL DROITS D ACCES   -->
+           <div class="modal fade" id="myModalRights{{mod.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+             <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+            
+            <h4 class="modal-title"> Liste :  </h4>
+          </div>
+
+          <div class="modal-body" style="font-size:16px">
+                
+          <div class="form-group">
+            {% for right in mod.moderatorAccessRight %}
+                {{ right.questionSubFamily.family.name }} :  {{ right.questionSubFamily.name }}  <br/><hr/>
+            {% endfor %}
+        
+            
+          </div>
+          </div>
+
+        
+
+          <div class="modal-footer" >
+          <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+          </div>
+
+          </div>
+          </div>
+          </div>
+        <!-- FIN MODAL -->
+        </td>
+
+
         <td>
         {% if mod.enabled %}
-	  	<a href="{{ path('no_admin_disable_company_moderator', {'id': mod.id }) }}" class="btn btn-danger">désactiver </a>
-	 	{% else %}
-	  	<a href="{{ path('no_admin_enable_company_moderator', {'id': mod.id }) }}" class="btn btn-success"> activer </a>
-	 	{% endif %}
+    	  	<a href="{{ path('no_admin_disable_company_moderator', {'id': mod.id }) }}" class="btn btn-danger">désactiver </a>
+    	 	{% else %}
+    	  	<a href="{{ path('no_admin_enable_company_moderator', {'id': mod.id }) }}" class="btn btn-success"> activer </a>
+    	 	{% endif %}
         </td>
         <td> <a href="{{ path('no_add_moderator_access_right', {'moderatorId': mod.id }) }}" class="btn btn-primary" > Lien </a> 
         </td>

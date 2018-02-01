@@ -27,7 +27,7 @@ no_add_company_moderator:
     defaults: { _controller: CompanyBundle:Company:addModerator }
 
 no_add_moderator_access_right:
-    path:     /admin/a/mod/ar/{moderatorId}
+    path:     /comp/a/mod/ar/{moderatorId}
     defaults: { _controller: CompanyBundle:Company:setModeratorAccessRight }
 
 no_disable_company:

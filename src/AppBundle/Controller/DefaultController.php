@@ -45,6 +45,7 @@ class DefaultController extends Controller
             }
             
             return $this->render('default/home.html.twig',array('fams'=> $fams,
+                                                                'accessRights' => $user->getModeratorAccessRight(),
                                                                 'responsesSubFam'=>$responsesSubFam,
                                                                 'totalSubFamQuestions'=>$totalSubFamsCount,));
         }

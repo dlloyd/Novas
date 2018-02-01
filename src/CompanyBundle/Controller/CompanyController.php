@@ -433,13 +433,18 @@ class CompanyController extends Controller
 
 
     public function IsCompanyAdministrator($company,$user){
-        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN') || 
-            $company->getAdministratorId()== $user->getId()){
+        if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
             return true;
         }
-        else{
-            return false;
+
+        if($user->hasrole('ROLE_COMPANY_OWNER')){
+            foreach ($company->getModerators() as $mod ) {
+                if($mod->getId() == $user->getId() )
+                    return true;
+            }
         }
+
+        return false;
 
     }
 

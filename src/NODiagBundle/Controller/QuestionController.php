@@ -127,15 +127,16 @@ class QuestionController extends Controller
     public function questionsSubFamiliesAction($subFamId, Request $request){
         $em = $this->getDoctrine()->getManager();
         $userId = $this->getUser()->getId();
+        $subFam = $em->getRepository('NODiagBundle:QuestionSubFamily')->find($subFamId);
         $company = $em->getRepository('NOUserBundle:User')->find($userId)->getCompany();
         $rightAcc = $em->getRepository('NODiagBundle:ModeratorAccessRight')->findMAR($userId,$subFamId);
 
         if($rightAcc){
             $resp = $em->getRepository('NODiagBundle:ResponseQuestionCompany')->findCSFResponses($company->getId(),$subFamId);
-            return $this->render('NODiagBundle:Question:questions.html.twig',array('responses'=>$resp,));
+            return $this->render('NODiagBundle:Question:questions.html.twig',array('responses'=>$resp,'subFamily' => $subFam,));
         } 
 
-        return $this->render('NODiagBundle:Question:questions.html.twig',array('responses'=>null,));
+        return $this->render('NODiagBundle:Question:questions.html.twig',array('responses'=>null, ));
 
     }
 

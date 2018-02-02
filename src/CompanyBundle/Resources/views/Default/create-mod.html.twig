@@ -2,13 +2,34 @@
 
 {% block body %}
 
-<div class="w3-main" style="margin-left:300px;margin-top:43px;">
-<h2>  Créer utilisateur {{ company.denomination }} </h2>
+<div class="container">
+<h3>  Créer utilisateur {{ company.denomination }} </h3>
 
 {{ form_start(form, {'method': 'post', 'action': path('no_add_company_moderator',{'companyId': company.id}) }) }}
+	<ul class="form-style-1">
+	<li>
+	{{ form_label(form.name,"Nom") }}
+	{{ form_widget(form.name,{'attr':{'class':'field-long'}}) }}
+	</li>
+
+	<li>
+	{{ form_label(form.email,"Email") }}
+	{{ form_widget(form.email,{'attr':{'class':'field-long'}}) }}
+	</li>
+
+	<li>
+	{{ form_label(form.function,"Fonction") }}
+	{{ form_widget(form.function,{'attr':{'class':'field-long'}}) }}
+	</li>
+	<li>
+	{{ form_label(form.status,"Statut") }}
+	{{ form_widget(form.status,{'attr':{'class':'field-long'}}) }}
+	</li>
                 
-            {{ form_rest(form) }}
-            <button class="btn btn-default" type="submit" >Enregistrer</button>
+    {{ form_rest(form) }}
+    <li>
+    <button class="btn btn-primary" type="submit" >Enregistrer</button>
+    </li>
 {{ form_end(form) }}
 
 </div>

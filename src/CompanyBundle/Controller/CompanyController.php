@@ -158,11 +158,9 @@ class CompanyController extends Controller
 
     public function addModeratorAction($companyId, Request $request){
         if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
-            $roles = array( 1 =>'ADMINISTRATOR', 2 =>'EMPLOYEE',3 => 'PARTNER');
+            $roles = array( 1 =>'ADMINISTRATEUR', 2 =>'MODERATEUR',3 => 'PARTENAIRE');
         }
-        else{
-            $roles = array( 1 =>'ADMINISTRATOR', 2 =>'EMPLOYEE');
-        }
+        
     	$userData = array();
     	$company = $this->getDoctrine()->getManager()->getRepository('CompanyBundle:Company')->find($companyId);
     	$form = $this->createFormBuilder($userData)
@@ -199,8 +197,9 @@ class CompanyController extends Controller
 
             $userManager->updateUser($user);
 
-            //envoie par email le mot de passe utilisateur? pour le moment affiche en flash
-            $message = "l'utilisateur ".$user->getUsername(). " de la company ".$company->getDenomination()." à pour mot de passe ".$pass;
+            //envoie par email le mot de passe utilisateur
+            //$message = "l'utilisateur ".$user->getUsername(). " de la company ".$company->getDenomination()." à pour mot de passe ".$pass;
+            $message = "Utilisateur ".$user->getUsername(). " créé, un email a été envoyé pour lui fournir identifiants et mots de passe";
             $request->getSession()
             ->getFlashBag()
             ->add('success', $message);
@@ -339,8 +338,13 @@ class CompanyController extends Controller
             	$em->flush();
              }
             }
-
-            return $this->redirectToRoute('no_all_companies');
+            if($this->get('security.authorization_checker')->isGranted('ROLE_SUPER_ADMIN')){
+                return $this->redirectToRoute('no_all_companies');
+            }
+            else{
+                return $this->redirectToRoute('no_company_show_moderators');
+            }
+            
         }
 
         return $this->render('CompanyBundle:Company:mod-access.html.twig',array('form' => $form->createView(),
